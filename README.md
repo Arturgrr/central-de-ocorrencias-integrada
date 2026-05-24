@@ -65,3 +65,57 @@ O sistema conta com um módulo de Autenticação e Controle de Acesso (Login), g
 ## 🛠️ Ferramentas de Engenharia & Gestão
 * **Metodologia Ágil:** Gestão de tarefas, Sprints e Backlog conduzidas através de metodologias ágeis (Scrum/Kanban).
 * **Prototipagem (UI/UX):** Telas e fluxos de navegação desenhados no Figma antes do desenvolvimento.
+
+<br>
+<br>
+
+# 📚 Backlog do Produto — COI
+
+| Ordem | Nome do Épico | Prioridade | Objetivo |
+|---|---|---|---|
+| 1 | Autenticação e Controle de Acesso | Alta | Garantir segurança, autenticação dos usuários e controle de permissões no sistema. |
+| 2 | Gestão de Ocorrências | Alta | Centralizar o fluxo operacional de abertura, acompanhamento e encerramento de ocorrências. |
+| 3 | Geolocalização e Gestão de Viaturas | Alta | Permitir monitoramento em tempo real das equipes e despacho estratégico de viaturas. |
+
+<br>
+<br>
+
+# 🚨 Sprint Backlog — COI
+
+## 🛡️ SPRINT 1 — Autenticação e Controle de Acesso
+
+| User Story | Tipo | Prioridade |
+|---|---|---|
+| Como usuário eu gostaria de me autenticar no sistema para acessar minhas funcionalidades de acordo com meu perfil | Backend | Alta |
+| Como administrador eu gostaria de gerenciar usuários para controlar permissões de acesso | Backend | Alta |
+| Como sistema eu gostaria de proteger rotas para impedir acessos não autorizados | Full Stack | Alta |
+| Como usuário eu gostaria de criar uma conta no sistema para poder acessar a plataforma | Backend | Alta |
+| Como sistema eu gostaria de aplicar controle de roles para separar permissões entre atendente, agente e administrador | Backend | Alta |
+
+<br>
+
+## 🛡️ SPRINT 2 — Gestão de Ocorrências
+
+| User Story | Tipo | Prioridade |
+|---|---|---|
+| Como atendente eu gostaria de registrar uma ocorrência para iniciar um atendimento emergencial | Backend | Alta |
+| Como atendente eu gostaria de visualizar ocorrências para acompanhar chamados ativos | Backend | Alta |
+| Como agente eu gostaria de atualizar o status da ocorrência para informar o andamento do atendimento | Backend | Alta |
+| Como agente eu gostaria de encerrar uma ocorrência para finalizar o atendimento | Backend | Alta |
+| Como sistema eu gostaria de armazenar ocorrências no banco de dados para manter histórico | Backend | Alta |
+| Como atendente eu gostaria de visualizar lista de ocorrências para acompanhamento operacional | Frontend | Alta |
+| Como usuário eu gostaria de acompanhar a atualização de status em tempo real para monitorar o atendimento | Frontend | Alta |
+
+<br>
+
+## 🛡️ SPRINT 3 — Geolocalização e Gestão de Viaturas
+
+| User Story | Tipo | Prioridade |
+|---|---|---|
+| Como atendente eu gostaria de marcar a localização da ocorrência para registrar o ponto exato do incidente | Frontend | Alta |
+| Como administrador eu gostaria de cadastrar viaturas para gerenciar recursos operacionais | Backend | Alta |
+| Como sistema eu gostaria de armazenar dados de viaturas no banco para controle operacional | Backend | Alta |
+| Como atendente eu gostaria de despachar viaturas para ocorrências para iniciar o atendimento | Backend | Alta |
+| Como atendente eu gostaria de visualizar viaturas ativas no mapa para acompanhar operações | Frontend | Média |
+| Como agente eu gostaria de compartilhar minha localização para permitir rastreamento em tempo real | Full Stack | Alta |
+| Como sistema eu gostaria de atualizar localização dos agentes para monitoramento operacional | Full Stack | Alta |
