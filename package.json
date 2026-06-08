@@ -1,0 +1,38 @@
+{
+  "name": "eng-soft1",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:web": "turbo -F web dev",
+    "dev:server": "turbo -F server dev",
+    "db:push": "turbo -F @eng-soft1/db db:push",
+    "db:studio": "turbo -F @eng-soft1/db db:studio",
+    "db:generate": "turbo -F @eng-soft1/db db:generate",
+    "db:migrate": "turbo -F @eng-soft1/db db:migrate",
+    "db:start": "turbo -F @eng-soft1/db db:start",
+    "db:watch": "turbo -F @eng-soft1/db db:watch",
+    "db:stop": "turbo -F @eng-soft1/db db:stop",
+    "db:down": "turbo -F @eng-soft1/db db:down",
+    "check": "biome check --write ."
+  },
+  "dependencies": {
+    "@eng-soft1/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.0",
+    "@eng-soft1/config": "workspace:*",
+    "@types/node": "catalog:",
+    "turbo": "^2.8.12",
+    "typescript": "catalog:"
+  },
+  "packageManager": "pnpm@10.33.2"
+}
