@@ -4,6 +4,9 @@ import ReactDOM from "react-dom/client";
 import Loader from "./components/loader";
 import { routeTree } from "./routeTree.gen";
 
+import App from './app'
+import './index.css';
+
 const router = createRouter({
   routeTree,
   defaultPreload: "intent",

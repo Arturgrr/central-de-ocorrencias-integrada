@@ -1,18 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Shield, ShieldCheck, User, Key, ArrowRight, Lock } from "lucide-react";
+import React, { useState } from 'react';
+import { Shield, ShieldCheck, User, Key, ArrowRight, Lock } from 'lucide-react';
 
-// Aqui dizemos para o TanStack Router que esta é a página inicial ("/")
-export const Route = createFileRoute("/")({
-  component: LoginScreen,
-});
-
-function LoginScreen() {
+export default function Login() {
   const [role, setRole] = useState<'atendente' | 'policial'>('atendente');
 
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4 relative overflow-hidden">
-      {/* Background estilizado */}
+      {/* Background estilizado simulando o mapa (você pode trocar por uma imagem real depois) */}
       <div className="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-700 via-slate-900 to-black pointer-events-none" />
       <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(#334155 1px, transparent 1px)', backgroundSize: '32px 32px', opacity: '0.2' }} />
 
@@ -115,7 +109,7 @@ function LoginScreen() {
 
             {/* Botão Submeter */}
             <button
-              type="button"
+              type="submit"
               className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors mt-2"
             >
               <ArrowRight className="w-5 h-5" />
