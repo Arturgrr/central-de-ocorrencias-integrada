@@ -1,5 +1,7 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, index, pgEnum } from "drizzle-orm/pg-core";
+
+export const roleEnum = pgEnum('role', ['ADMIN', 'POLICIAL', 'CIDADAO']);
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -12,6 +14,10 @@ export const user = pgTable("user", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
+  role: roleEnum("role").default('CIDADAO').notNull(),
+  matriculaFuncional: text("matricula_funcional"), 
+  telefone: text("telefone"),
+  endereco: text("endereco"),
 });
 
 export const session = pgTable(
