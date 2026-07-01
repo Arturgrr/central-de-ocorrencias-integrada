@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { 
   Shield, 
   Map as MapIcon, 
@@ -17,8 +17,10 @@ export const Route = createFileRoute("/dashboard")({
   component: DashboardScreen,
 });
 
-// AQUI ESTÁ O SEGREDO: O export antes da função para o index.tsx conseguir ler!
 export function DashboardScreen() {
+  // Instanciamos o navegador
+  const navigate = useNavigate();
+
   return (
     <div className="flex h-screen w-full bg-slate-950 text-slate-300 font-sans overflow-hidden">
       
@@ -34,10 +36,16 @@ export function DashboardScreen() {
             <Activity className="w-5 h-5 shrink-0" />
             <span className="text-sm font-semibold hidden sm:block">Painel de Controle</span>
           </button>
-          <button className="flex items-center gap-3 px-3 py-3 text-slate-400 rounded-lg hover:bg-slate-800 hover:text-slate-200 transition-colors w-full">
+          
+          {/* AQUI: Adicionamos a navegação para a rota do formulário */}
+          <button 
+            onClick={() => navigate({ to: '/novo-bo' })}
+            className="flex items-center gap-3 px-3 py-3 text-slate-400 rounded-lg hover:bg-slate-800 hover:text-slate-200 transition-colors w-full"
+          >
             <FileText className="w-5 h-5 shrink-0" />
             <span className="text-sm font-semibold hidden sm:block">Boletins (B.O.)</span>
           </button>
+
           <button className="flex items-center gap-3 px-3 py-3 text-slate-400 rounded-lg hover:bg-slate-800 hover:text-slate-200 transition-colors w-full">
             <MapIcon className="w-5 h-5 shrink-0" />
             <span className="text-sm font-semibold hidden sm:block">Mapa Tático</span>
@@ -56,7 +64,7 @@ export function DashboardScreen() {
         </div>
       </aside>
 
-      {/* CONTEÚDO PRINCIPAL */}
+      {/* CONTEÚDO PRINCIPAL (mantido exatamente igual) */}
       <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
         
         {/* HEADER DA PÁGINA */}
