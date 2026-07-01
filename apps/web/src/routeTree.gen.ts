@@ -14,6 +14,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as EquipesRouteImport } from './routes/equipes'
 import { Route as DetalhesBoRouteImport } from './routes/detalhes-bo'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as IndexRouteImport } from './routes/index'
 
 const NovoBoRoute = NovoBoRouteImport.update({
@@ -41,6 +42,11 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CadastroRoute = CadastroRouteImport.update({
+  id: '/cadastro',
+  path: '/cadastro',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,6 +55,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
   '/dashboard': typeof DashboardRoute
   '/detalhes-bo': typeof DetalhesBoRoute
   '/equipes': typeof EquipesRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
   '/dashboard': typeof DashboardRoute
   '/detalhes-bo': typeof DetalhesBoRoute
   '/equipes': typeof EquipesRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
   '/dashboard': typeof DashboardRoute
   '/detalhes-bo': typeof DetalhesBoRoute
   '/equipes': typeof EquipesRoute
@@ -76,16 +85,25 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cadastro'
     | '/dashboard'
     | '/detalhes-bo'
     | '/equipes'
     | '/login'
     | '/novo-bo'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/detalhes-bo' | '/equipes' | '/login' | '/novo-bo'
+  to:
+    | '/'
+    | '/cadastro'
+    | '/dashboard'
+    | '/detalhes-bo'
+    | '/equipes'
+    | '/login'
+    | '/novo-bo'
   id:
     | '__root__'
     | '/'
+    | '/cadastro'
     | '/dashboard'
     | '/detalhes-bo'
     | '/equipes'
@@ -95,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CadastroRoute: typeof CadastroRoute
   DashboardRoute: typeof DashboardRoute
   DetalhesBoRoute: typeof DetalhesBoRoute
   EquipesRoute: typeof EquipesRoute
@@ -139,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cadastro': {
+      id: '/cadastro'
+      path: '/cadastro'
+      fullPath: '/cadastro'
+      preLoaderRoute: typeof CadastroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -151,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CadastroRoute: CadastroRoute,
   DashboardRoute: DashboardRoute,
   DetalhesBoRoute: DetalhesBoRoute,
   EquipesRoute: EquipesRoute,
