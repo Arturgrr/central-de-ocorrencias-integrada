@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as NovoBoRouteImport } from './routes/novo-bo'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as EquipesRouteImport } from './routes/equipes'
 import { Route as DetalhesBoRouteImport } from './routes/detalhes-bo'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ const NovoBoRoute = NovoBoRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipesRoute = EquipesRouteImport.update({
+  id: '/equipes',
+  path: '/equipes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DetalhesBoRoute = DetalhesBoRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/detalhes-bo': typeof DetalhesBoRoute
+  '/equipes': typeof EquipesRoute
   '/login': typeof LoginRoute
   '/novo-bo': typeof NovoBoRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/detalhes-bo': typeof DetalhesBoRoute
+  '/equipes': typeof EquipesRoute
   '/login': typeof LoginRoute
   '/novo-bo': typeof NovoBoRoute
 }
@@ -60,21 +68,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/detalhes-bo': typeof DetalhesBoRoute
+  '/equipes': typeof EquipesRoute
   '/login': typeof LoginRoute
   '/novo-bo': typeof NovoBoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/detalhes-bo' | '/login' | '/novo-bo'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/detalhes-bo'
+    | '/equipes'
+    | '/login'
+    | '/novo-bo'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/detalhes-bo' | '/login' | '/novo-bo'
-  id: '__root__' | '/' | '/dashboard' | '/detalhes-bo' | '/login' | '/novo-bo'
+  to: '/' | '/dashboard' | '/detalhes-bo' | '/equipes' | '/login' | '/novo-bo'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/detalhes-bo'
+    | '/equipes'
+    | '/login'
+    | '/novo-bo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
   DetalhesBoRoute: typeof DetalhesBoRoute
+  EquipesRoute: typeof EquipesRoute
   LoginRoute: typeof LoginRoute
   NovoBoRoute: typeof NovoBoRoute
 }
@@ -93,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipes': {
+      id: '/equipes'
+      path: '/equipes'
+      fullPath: '/equipes'
+      preLoaderRoute: typeof EquipesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/detalhes-bo': {
@@ -123,6 +153,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
   DetalhesBoRoute: DetalhesBoRoute,
+  EquipesRoute: EquipesRoute,
   LoginRoute: LoginRoute,
   NovoBoRoute: NovoBoRoute,
 }

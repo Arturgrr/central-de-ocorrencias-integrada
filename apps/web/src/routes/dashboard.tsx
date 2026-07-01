@@ -37,7 +37,6 @@ export function DashboardScreen() {
             <span className="text-sm font-semibold hidden sm:block">Painel de Controle</span>
           </button>
           
-          {/* AQUI: Adicionamos a navegação para a rota do formulário */}
           <button 
             onClick={() => navigate({ to: '/novo-bo' })}
             className="flex items-center gap-3 px-3 py-3 text-slate-400 rounded-lg hover:bg-slate-800 hover:text-slate-200 transition-colors w-full"
@@ -50,7 +49,12 @@ export function DashboardScreen() {
             <MapIcon className="w-5 h-5 shrink-0" />
             <span className="text-sm font-semibold hidden sm:block">Mapa Tático</span>
           </button>
-          <button className="flex items-center gap-3 px-3 py-3 text-slate-400 rounded-lg hover:bg-slate-800 hover:text-slate-200 transition-colors w-full">
+          
+          {/* AQUI: Adicionamos a navegação para a rota de Viaturas e Agentes */}
+          <button 
+            onClick={() => navigate({ to: '/equipes' })}
+            className="flex items-center gap-3 px-3 py-3 text-slate-400 rounded-lg hover:bg-slate-800 hover:text-slate-200 transition-colors w-full"
+          >
             <Users className="w-5 h-5 shrink-0" />
             <span className="text-sm font-semibold hidden sm:block">Viaturas & Agentes</span>
           </button>
@@ -64,7 +68,7 @@ export function DashboardScreen() {
         </div>
       </aside>
 
-      {/* CONTEÚDO PRINCIPAL (mantido exatamente igual) */}
+      {/* CONTEÚDO PRINCIPAL */}
       <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
         
         {/* HEADER DA PÁGINA */}
@@ -174,21 +178,29 @@ export function DashboardScreen() {
               </div>
               
               <div className="flex-1 overflow-y-auto p-2 space-y-2">
-                <div className="p-3 bg-slate-950 border border-red-500/30 rounded-lg hover:border-red-500/60 transition-colors cursor-pointer group">
+                
+                {/* AQUI: Adicionamos a navegação para os detalhes do B.O. */}
+                <div 
+                  onClick={() => navigate({ to: '/detalhes-bo' })}
+                  className="p-3 bg-slate-950 border border-red-500/30 rounded-lg hover:border-red-500/60 transition-colors cursor-pointer group"
+                >
                   <div className="flex justify-between items-start mb-2">
                     <span className="text-[10px] font-bold bg-red-500/10 text-red-500 px-2 py-0.5 rounded uppercase tracking-wider">Crítico</span>
                     <span className="text-[10px] text-slate-500 flex items-center gap-1"><Clock className="w-3 h-3"/> 2 min atrás</span>
                   </div>
-                  <h4 className="text-sm font-bold text-white mb-1">Deslizamento de Terra</h4>
+                  <h4 className="text-sm font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Deslizamento de Terra</h4>
                   <p className="text-xs text-slate-400 flex items-center gap-1"><MapPin className="w-3 h-3"/> R. das Pedras, 142</p>
                 </div>
 
-                <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg hover:border-slate-700 transition-colors cursor-pointer">
+                <div 
+                  onClick={() => navigate({ to: '/detalhes-bo' })}
+                  className="p-3 bg-slate-950 border border-slate-800 rounded-lg hover:border-slate-700 transition-colors cursor-pointer group"
+                >
                   <div className="flex justify-between items-start mb-2">
                     <span className="text-[10px] font-bold bg-amber-500/10 text-amber-500 px-2 py-0.5 rounded uppercase tracking-wider">Atenção</span>
                     <span className="text-[10px] text-slate-500 flex items-center gap-1"><Clock className="w-3 h-3"/> 15 min atrás</span>
                   </div>
-                  <h4 className="text-sm font-bold text-white mb-1">Acidente de Trânsito</h4>
+                  <h4 className="text-sm font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Acidente de Trânsito</h4>
                   <p className="text-xs text-slate-400 flex items-center gap-1"><MapPin className="w-3 h-3"/> Av. Principal, Km 12</p>
                 </div>
               </div>
