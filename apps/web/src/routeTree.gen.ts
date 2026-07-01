@@ -9,15 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as NovoBoRouteImport } from './routes/novo-bo'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as DetalhesBoRouteImport } from './routes/detalhes-bo'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthNovoBoRouteImport } from './routes/novo-bo'
 
+const NovoBoRoute = NovoBoRouteImport.update({
+  id: '/novo-bo',
+  path: '/novo-bo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DetalhesBoRoute = DetalhesBoRouteImport.update({
+  id: '/detalhes-bo',
+  path: '/detalhes-bo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -25,63 +35,71 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRouteRoute = AuthRouteRouteImport.update({
-  id: '/_auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthNovoBoRoute = AuthNovoBoRouteImport.update({
-  id: '/novo-bo',
-  path: '/novo-bo',
-  getParentRoute: () => AuthRouteRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/detalhes-bo': typeof DetalhesBoRoute
   '/login': typeof LoginRoute
-  '/novo-bo': typeof AuthNovoBoRoute
+  '/novo-bo': typeof NovoBoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/detalhes-bo': typeof DetalhesBoRoute
   '/login': typeof LoginRoute
-  '/novo-bo': typeof AuthNovoBoRoute
+  '/novo-bo': typeof NovoBoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_auth': typeof AuthRouteRouteWithChildren
   '/dashboard': typeof DashboardRoute
+  '/detalhes-bo': typeof DetalhesBoRoute
   '/login': typeof LoginRoute
-  '/_auth/novo-bo': typeof AuthNovoBoRoute
+  '/novo-bo': typeof NovoBoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/login' | '/novo-bo'
+  fullPaths: '/' | '/dashboard' | '/detalhes-bo' | '/login' | '/novo-bo'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/login' | '/novo-bo'
-  id: '__root__' | '/' | '/_auth' | '/dashboard' | '/login' | '/_auth/novo-bo'
+  to: '/' | '/dashboard' | '/detalhes-bo' | '/login' | '/novo-bo'
+  id: '__root__' | '/' | '/dashboard' | '/detalhes-bo' | '/login' | '/novo-bo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthRouteRoute: typeof AuthRouteRouteWithChildren
   DashboardRoute: typeof DashboardRoute
+  DetalhesBoRoute: typeof DetalhesBoRoute
   LoginRoute: typeof LoginRoute
+  NovoBoRoute: typeof NovoBoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/novo-bo': {
+      id: '/novo-bo'
+      path: '/novo-bo'
+      fullPath: '/novo-bo'
+      preLoaderRoute: typeof NovoBoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/detalhes-bo': {
+      id: '/detalhes-bo'
+      path: '/detalhes-bo'
+      fullPath: '/detalhes-bo'
+      preLoaderRoute: typeof DetalhesBoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -91,13 +109,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_auth': {
-      id: '/_auth'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -105,33 +116,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_auth/novo-bo': {
-      id: '/_auth/novo-bo'
-      path: '/novo-bo'
-      fullPath: '/novo-bo'
-      preLoaderRoute: typeof AuthNovoBoRouteImport
-      parentRoute: typeof AuthRouteRoute
-    }
   }
 }
 
-interface AuthRouteRouteChildren {
-  AuthNovoBoRoute: typeof AuthNovoBoRoute
-}
-
-const AuthRouteRouteChildren: AuthRouteRouteChildren = {
-  AuthNovoBoRoute: AuthNovoBoRoute,
-}
-
-const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
-  AuthRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthRouteRoute: AuthRouteRouteWithChildren,
   DashboardRoute: DashboardRoute,
+  DetalhesBoRoute: DetalhesBoRoute,
   LoginRoute: LoginRoute,
+  NovoBoRoute: NovoBoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
