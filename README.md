@@ -171,3 +171,11 @@ Abaixo está o diagrama de casos de uso da **Central de Ocorrência Integrada (C
 
 > **Figura 1:** Diagrama de Casos de Uso da COI
 
+
+---
+
+## 🧩 Diagrama de Classes
+
+Abaixo está o diagrama de classes da **Central de Ocorrência Integrada (COI)**.
+
+<img width="1322" height="682" alt="WhatsApp Image 2026-06-20 at 16 33 50" src="https://github.com/user-attachments/assets/1763f5cc-d950-474b-abc1-bc71b8ce4769" />
