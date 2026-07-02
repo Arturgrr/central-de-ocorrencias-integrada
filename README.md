@@ -1,4 +1,4 @@
-# 📌 Projeto
+﻿# 📌 Projeto
  
 ## 📝 Sobre o Projeto
 
@@ -160,3 +160,14 @@ Abaixo estão listadas as telas desenvolvidas para a validação do escopo do si
 | Como atendente eu gostaria de visualizar viaturas ativas no mapa para acompanhar operações | Frontend | Média |
 | Como agente eu gostaria de compartilhar minha localização para permitir rastreamento em tempo real | Full Stack | Alta |
 | Como sistema eu gostaria de atualizar localização dos agentes para monitoramento operacional | Full Stack | Alta |
+
+---
+
+## 🧩 Diagrama de Casos de Uso
+
+Abaixo está o diagrama de casos de uso da **Central de Ocorrência Integrada (COI)**, representando os principais atores e funcionalidades do sistema.
+
+<img src="https://github.com/user-attachments/assets/0e858c64-ea9e-4b50-942f-bbe932cc73ca" alt="Diagrama de Casos de Uso da Central de Ocorrência Integrada" width="900">
+
+> **Figura 1:** Diagrama de Casos de Uso da COI
+
