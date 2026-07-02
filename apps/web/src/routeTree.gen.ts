@@ -9,14 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PortalCidadaoRouteImport } from './routes/portal-cidadao'
 import { Route as NovoBoRouteImport } from './routes/novo-bo'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as HistoricoBosRouteImport } from './routes/historico-bos'
 import { Route as EquipesRouteImport } from './routes/equipes'
 import { Route as DetalhesBoRouteImport } from './routes/detalhes-bo'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CentralMidiaRouteImport } from './routes/central-midia'
 import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PortalCidadaoRoute = PortalCidadaoRouteImport.update({
+  id: '/portal-cidadao',
+  path: '/portal-cidadao',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NovoBoRoute = NovoBoRouteImport.update({
   id: '/novo-bo',
   path: '/novo-bo',
@@ -25,6 +33,11 @@ const NovoBoRoute = NovoBoRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoricoBosRoute = HistoricoBosRouteImport.update({
+  id: '/historico-bos',
+  path: '/historico-bos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EquipesRoute = EquipesRouteImport.update({
@@ -42,6 +55,11 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CentralMidiaRoute = CentralMidiaRouteImport.update({
+  id: '/central-midia',
+  path: '/central-midia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CadastroRoute = CadastroRouteImport.update({
   id: '/cadastro',
   path: '/cadastro',
@@ -56,73 +74,101 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/central-midia': typeof CentralMidiaRoute
   '/dashboard': typeof DashboardRoute
   '/detalhes-bo': typeof DetalhesBoRoute
   '/equipes': typeof EquipesRoute
+  '/historico-bos': typeof HistoricoBosRoute
   '/login': typeof LoginRoute
   '/novo-bo': typeof NovoBoRoute
+  '/portal-cidadao': typeof PortalCidadaoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/central-midia': typeof CentralMidiaRoute
   '/dashboard': typeof DashboardRoute
   '/detalhes-bo': typeof DetalhesBoRoute
   '/equipes': typeof EquipesRoute
+  '/historico-bos': typeof HistoricoBosRoute
   '/login': typeof LoginRoute
   '/novo-bo': typeof NovoBoRoute
+  '/portal-cidadao': typeof PortalCidadaoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
+  '/central-midia': typeof CentralMidiaRoute
   '/dashboard': typeof DashboardRoute
   '/detalhes-bo': typeof DetalhesBoRoute
   '/equipes': typeof EquipesRoute
+  '/historico-bos': typeof HistoricoBosRoute
   '/login': typeof LoginRoute
   '/novo-bo': typeof NovoBoRoute
+  '/portal-cidadao': typeof PortalCidadaoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/cadastro'
+    | '/central-midia'
     | '/dashboard'
     | '/detalhes-bo'
     | '/equipes'
+    | '/historico-bos'
     | '/login'
     | '/novo-bo'
+    | '/portal-cidadao'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/cadastro'
+    | '/central-midia'
     | '/dashboard'
     | '/detalhes-bo'
     | '/equipes'
+    | '/historico-bos'
     | '/login'
     | '/novo-bo'
+    | '/portal-cidadao'
   id:
     | '__root__'
     | '/'
     | '/cadastro'
+    | '/central-midia'
     | '/dashboard'
     | '/detalhes-bo'
     | '/equipes'
+    | '/historico-bos'
     | '/login'
     | '/novo-bo'
+    | '/portal-cidadao'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastroRoute: typeof CadastroRoute
+  CentralMidiaRoute: typeof CentralMidiaRoute
   DashboardRoute: typeof DashboardRoute
   DetalhesBoRoute: typeof DetalhesBoRoute
   EquipesRoute: typeof EquipesRoute
+  HistoricoBosRoute: typeof HistoricoBosRoute
   LoginRoute: typeof LoginRoute
   NovoBoRoute: typeof NovoBoRoute
+  PortalCidadaoRoute: typeof PortalCidadaoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/portal-cidadao': {
+      id: '/portal-cidadao'
+      path: '/portal-cidadao'
+      fullPath: '/portal-cidadao'
+      preLoaderRoute: typeof PortalCidadaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/novo-bo': {
       id: '/novo-bo'
       path: '/novo-bo'
@@ -135,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/historico-bos': {
+      id: '/historico-bos'
+      path: '/historico-bos'
+      fullPath: '/historico-bos'
+      preLoaderRoute: typeof HistoricoBosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/equipes': {
@@ -158,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/central-midia': {
+      id: '/central-midia'
+      path: '/central-midia'
+      fullPath: '/central-midia'
+      preLoaderRoute: typeof CentralMidiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cadastro': {
       id: '/cadastro'
       path: '/cadastro'
@@ -178,11 +238,14 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastroRoute: CadastroRoute,
+  CentralMidiaRoute: CentralMidiaRoute,
   DashboardRoute: DashboardRoute,
   DetalhesBoRoute: DetalhesBoRoute,
   EquipesRoute: EquipesRoute,
+  HistoricoBosRoute: HistoricoBosRoute,
   LoginRoute: LoginRoute,
   NovoBoRoute: NovoBoRoute,
+  PortalCidadaoRoute: PortalCidadaoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

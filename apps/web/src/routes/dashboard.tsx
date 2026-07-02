@@ -10,7 +10,8 @@ import {
   AlertTriangle, 
   MapPin, 
   Clock,
-  Activity
+  Activity,
+  HardDrive
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
@@ -18,7 +19,6 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 export function DashboardScreen() {
-  // Instanciamos o navegador
   const navigate = useNavigate();
 
   return (
@@ -36,6 +36,23 @@ export function DashboardScreen() {
             <Activity className="w-5 h-5 shrink-0" />
             <span className="text-sm font-semibold hidden sm:block">Painel de Controle</span>
           </button>
+
+          <button 
+            onClick={() => navigate({ to: '/historico-bos' })}
+            className="flex items-center gap-3 px-3 py-3 text-slate-400 rounded-lg hover:bg-slate-800 hover:text-slate-200 transition-colors w-full"
+          >
+            <Search className="w-5 h-5 shrink-0" />
+            <span className="text-sm font-semibold hidden sm:block">Arquivo Geral</span>
+          </button>
+
+          {/* AQUI: Navegação para a Central de Mídia */}
+          <button 
+            onClick={() => navigate({ to: '/central-midia' })}
+            className="flex items-center gap-3 px-3 py-3 text-slate-400 rounded-lg hover:bg-slate-800 hover:text-slate-200 transition-colors w-full"
+          >
+            <HardDrive className="w-5 h-5 shrink-0" />
+            <span className="text-sm font-semibold hidden sm:block">Central de Mídia</span>
+          </button>
           
           <button 
             onClick={() => navigate({ to: '/novo-bo' })}
@@ -50,7 +67,6 @@ export function DashboardScreen() {
             <span className="text-sm font-semibold hidden sm:block">Mapa Tático</span>
           </button>
           
-          {/* AQUI: Adicionamos a navegação para a rota de Viaturas e Agentes */}
           <button 
             onClick={() => navigate({ to: '/equipes' })}
             className="flex items-center gap-3 px-3 py-3 text-slate-400 rounded-lg hover:bg-slate-800 hover:text-slate-200 transition-colors w-full"
@@ -179,7 +195,6 @@ export function DashboardScreen() {
               
               <div className="flex-1 overflow-y-auto p-2 space-y-2">
                 
-                {/* AQUI: Adicionamos a navegação para os detalhes do B.O. */}
                 <div 
                   onClick={() => navigate({ to: '/detalhes-bo' })}
                   className="p-3 bg-slate-950 border border-red-500/30 rounded-lg hover:border-red-500/60 transition-colors cursor-pointer group"
