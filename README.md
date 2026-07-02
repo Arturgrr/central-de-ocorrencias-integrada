@@ -179,3 +179,21 @@ Abaixo está o diagrama de casos de uso da **Central de Ocorrência Integrada (C
 Abaixo está o diagrama de classes da **Central de Ocorrência Integrada (COI)**.
 
 <img width="1322" height="682" alt="WhatsApp Image 2026-06-20 at 16 33 50" src="https://github.com/user-attachments/assets/1763f5cc-d950-474b-abc1-bc71b8ce4769" />
+
+---
+
+## 🧩 Diagrama de Atividades
+
+Abaixo está as prints dos diagramas de atividades da **Central de Ocorrência Integrada (COI)**.
+Os diagramas de atividades em especifico foram criados dentro da ferramenta de criacao de diagramas da plataforma Figma (Ferramenta figjam), onde o arquivo .fig em questao está em docs/diagrama_de_atividades.fig
+
+<img width="383" height="446" alt="Captura de Tela 2026-07-01 às 23 24 48" src="https://github.com/user-attachments/assets/6caf6f54-c458-4c5b-b02e-d468c7d336c0" />
+<img width="414" height="520" alt="Captura de Tela 2026-07-01 às 23 24 41" src="https://github.com/user-attachments/assets/eab4daa0-52e3-4248-abe5-a72242bdadce" />
+<img width="418" height="474" alt="Captura de Tela 2026-07-01 às 23 24 36" src="https://github.com/user-attachments/assets/aa9bcb69-1564-4183-a6e1-920f5b515790" />
+<img width="507" height="499" alt="Captura de Tela 2026-07-01 às 23 24 29" src="https://github.com/user-attachments/assets/a133bf7f-e86b-4919-b359-1f6cf1859ebd" />
+<img width="435" height="629" alt="Captura de Tela 2026-07-01 às 23 24 25" src="https://github.com/user-attachments/assets/3cff6d28-d84a-4569-9c7c-7da8c0f2063f" />
+<img width="613" height="727" alt="Captura de Tela 2026-07-01 às 23 24 18" src="https://github.com/user-attachments/assets/c8eba8c4-cb44-4348-a40a-8b99103b86cf" />
+<img width="446" height="703" alt="Captura de Tela 2026-07-01 às 23 24 13" src="https://github.com/user-attachments/assets/e5836a64-03e0-4cf9-a4d8-4eaf01cc5e24" />
+<img width="707" height="788" alt="Captura de Tela 2026-07-01 às 23 24 03" src="https://github.com/user-attachments/assets/8a6766ce-d309-4eb9-9d15-2f1790a18b63" />
+
+
