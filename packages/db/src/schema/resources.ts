@@ -31,7 +31,7 @@ export const occurrenceType = pgTable(
 		createdAt: timestamp("created_at").defaultNow().notNull(),
 		updatedAt: timestamp("updated_at")
 			.defaultNow()
-			.$onUpdate(() => /* @__PURE__ */ new Date())
+			.$onUpdate(() => new Date())
 			.notNull(),
 	},
 	(table) => [index("occurrence_type_active_idx").on(table.isActive)],
@@ -48,7 +48,7 @@ export const vehicle = pgTable(
 		createdAt: timestamp("created_at").defaultNow().notNull(),
 		updatedAt: timestamp("updated_at")
 			.defaultNow()
-			.$onUpdate(() => /* @__PURE__ */ new Date())
+			.$onUpdate(() => new Date())
 			.notNull(),
 	},
 	(table) => [index("vehicle_status_idx").on(table.status)],
@@ -89,37 +89,37 @@ export const vehicleLocationRelations = relations(
 	}),
 );
 
-export const municipio = pgTable("municipio", {
-    id: uuid("id").defaultRandom().primaryKey(),
-    nome: text("nome").notNull(),
-    estado: text("estado").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
-        .defaultNow()
-        .$onUpdate(() => /* @__PURE__ */ new Date())
-        .notNull(),
+export const city = pgTable("city", {
+	id: uuid("id").defaultRandom().primaryKey(),
+	name: text("name").notNull(),
+	state: text("state").notNull(),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at")
+		.defaultNow()
+		.$onUpdate(() => new Date())
+		.notNull(),
 });
 
-export const bairro = pgTable("bairro", {
-    id: uuid("id").defaultRandom().primaryKey(),
-    municipioId: uuid("municipio_id")
-        .notNull()
-        .references(() => municipio.id, { onDelete: "cascade" }),
-    nome: text("nome").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
-        .defaultNow()
-        .$onUpdate(() => /* @__PURE__ */ new Date())
-        .notNull(),
+export const neighborhood = pgTable("neighborhood", {
+	id: uuid("id").defaultRandom().primaryKey(),
+	cityId: uuid("city_id")
+		.notNull()
+		.references(() => city.id, { onDelete: "cascade" }),
+	name: text("name").notNull(),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at")
+		.defaultNow()
+		.$onUpdate(() => new Date())
+		.notNull(),
 });
 
-export const municipioRelations = relations(municipio, ({ many }) => ({
-    bairros: many(bairro),
+export const cityRelations = relations(city, ({ many }) => ({
+	neighborhoods: many(neighborhood),
 }));
 
-export const bairroRelations = relations(bairro, ({ one }) => ({
-    municipio: one(municipio, {
-        fields: [bairro.municipioId],
-        references: [municipio.id],
-    }),
+export const neighborhoodRelations = relations(neighborhood, ({ one }) => ({
+	city: one(city, {
+		fields: [neighborhood.cityId],
+		references: [city.id],
+	}),
 }));
