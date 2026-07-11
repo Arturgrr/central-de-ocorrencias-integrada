@@ -2,7 +2,7 @@ import { Toaster } from "@eng-soft1/ui/components/sonner";
 import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
-import Header from "@/components/header";
+// Removemos a importação do Header daqui!
 import { ThemeProvider } from "@/components/theme-provider";
 
 import "../index.css";
@@ -14,11 +14,12 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
     meta: [
       {
-        title: "eng-soft1",
+        // Já deixei o título com a cara do projeto real!
+        title: "COI - Defesa Civil", 
       },
       {
         name: "description",
-        content: "eng-soft1 is a web application",
+        content: "Central de Ocorrências Integrada",
       },
     ],
     links: [
@@ -40,10 +41,11 @@ function RootComponent() {
         disableTransitionOnChange
         storageKey="vite-ui-theme"
       >
-        <div className="grid grid-rows-[auto_1fr] h-svh">
-          <Header />
+        {/* Removemos o Grid restritivo e o Header. Agora o Outlet domina 100% do espaço */}
+        <main className="min-h-screen w-full bg-slate-900">
           <Outlet />
-        </div>
+        </main>
+        
         <Toaster richColors />
       </ThemeProvider>
       <TanStackRouterDevtools position="bottom-left" />
