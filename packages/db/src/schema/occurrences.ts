@@ -11,7 +11,7 @@ import {
 
 import { user } from "./auth";
 import { citizen } from "./people";
-import { occurrenceType, vehicle } from "./resources";
+import { occurrenceType, vehicle, municipio, bairro } from "./resources";
 
 export const occurrenceStatus = pgEnum("occurrence_status", [
 	"open",
@@ -67,9 +67,8 @@ export const occurrence = pgTable(
 		title: text("title").notNull(),
 		description: text("description"),
 		addressLine: text("address_line").notNull(),
-		neighborhood: text("neighborhood"),
-		city: text("city"),
-		state: text("state"),
+		municipioId: uuid("municipio_id").references(() => municipio.id),
+        bairroId: uuid("bairro_id").references(() => bairro.id),
 		latitude: numeric("latitude", { precision: 10, scale: 7 }),
 		longitude: numeric("longitude", { precision: 10, scale: 7 }),
 		openedAt: timestamp("opened_at").defaultNow().notNull(),
@@ -158,6 +157,14 @@ export const occurrenceRelations = relations(occurrence, ({ one, many }) => ({
 		fields: [occurrence.typeId],
 		references: [occurrenceType.id],
 	}),
+	municipio: one(municipio, {
+        fields: [occurrence.municipioId],
+        references: [municipio.id],
+    }),
+    bairro: one(bairro, {
+        fields: [occurrence.bairroId],
+        references: [bairro.id],
+    }),
 	openedBy: one(user, {
 		fields: [occurrence.openedByUserId],
 		references: [user.id],

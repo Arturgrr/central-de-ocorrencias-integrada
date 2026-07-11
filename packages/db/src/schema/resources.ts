@@ -88,3 +88,38 @@ export const vehicleLocationRelations = relations(
 		}),
 	}),
 );
+
+export const municipio = pgTable("municipio", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    nome: text("nome").notNull(),
+    estado: text("estado").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+        .defaultNow()
+        .$onUpdate(() => /* @__PURE__ */ new Date())
+        .notNull(),
+});
+
+export const bairro = pgTable("bairro", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    municipioId: uuid("municipio_id")
+        .notNull()
+        .references(() => municipio.id, { onDelete: "cascade" }),
+    nome: text("nome").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+        .defaultNow()
+        .$onUpdate(() => /* @__PURE__ */ new Date())
+        .notNull(),
+});
+
+export const municipioRelations = relations(municipio, ({ many }) => ({
+    bairros: many(bairro),
+}));
+
+export const bairroRelations = relations(bairro, ({ one }) => ({
+    municipio: one(municipio, {
+        fields: [bairro.municipioId],
+        references: [municipio.id],
+    }),
+}));
