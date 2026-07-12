@@ -3,7 +3,11 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { CitizenRepository } from "../../../database/repositories/citizen-repository";
 import { authenticate } from "../../../providers/auth";
-import { paginatedResponse, paginationQuerySchema } from "../../schemas/common";
+import {
+	booleanQueryParam,
+	paginatedResponse,
+	paginationQuerySchema,
+} from "../../schemas/common";
 import { citizenSchema, serializeCitizen } from "./schema";
 
 export async function listCitizens(app: FastifyInstance) {
@@ -18,7 +22,7 @@ export async function listCitizens(app: FastifyInstance) {
 					z.object({
 						q: z.string().optional(),
 						city: z.string().optional(),
-						isActive: z.coerce.boolean().optional(),
+						isActive: booleanQueryParam.optional(),
 					}),
 				),
 				response: {

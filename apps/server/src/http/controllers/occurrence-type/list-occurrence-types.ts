@@ -3,6 +3,7 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { OccurrenceTypeRepository } from "../../../database/repositories/occurrence-type-repository";
 import { authenticate } from "../../../providers/auth";
+import { booleanQueryParam } from "../../schemas/common";
 import { occurrenceTypeSchema, serializeOccurrenceType } from "./schema";
 
 export async function listOccurrenceTypes(app: FastifyInstance) {
@@ -14,7 +15,7 @@ export async function listOccurrenceTypes(app: FastifyInstance) {
 				summary: "List occurrence types",
 				security: [{ cookieAuth: [] }],
 				querystring: z.object({
-					activeOnly: z.coerce.boolean().optional(),
+					activeOnly: booleanQueryParam.optional(),
 				}),
 				response: {
 					200: z.array(occurrenceTypeSchema),
