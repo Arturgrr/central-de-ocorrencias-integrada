@@ -1,4 +1,4 @@
-import { and, count, desc, eq } from "@eng-soft1/db";
+import { and, count, desc, eq, sql } from "@eng-soft1/db";
 import { occurrence } from "@eng-soft1/db/schema";
 import db from "../database-service";
 
@@ -54,9 +54,11 @@ export class OccurrenceRepository {
 		return row;
 	}
 
-	async count() {
-		const [row] = await db.select({ value: count() }).from(occurrence);
-		return row?.value ?? 0;
+	async nextProtocolNumber() {
+		const result = await db.execute<{ nextval: string }>(
+			sql`select nextval('occurrence_protocol_seq') as nextval`,
+		);
+		return Number(result.rows[0]?.nextval ?? 0);
 	}
 
 	async findSummaryById(id: string) {

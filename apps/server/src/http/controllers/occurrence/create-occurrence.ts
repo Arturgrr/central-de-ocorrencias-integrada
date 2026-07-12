@@ -31,10 +31,11 @@ export async function createOccurrence(app: FastifyInstance) {
 			if (!user) throw Unauthorized();
 
 			const repo = new OccurrenceRepository();
-			const total = await repo.count();
-			const protocol = `COI-${new Date().getFullYear()}-${String(
-				total + 1,
-			).padStart(5, "0")}`;
+			const seq = await repo.nextProtocolNumber();
+			const protocol = `COI-${new Date().getFullYear()}-${String(seq).padStart(
+				5,
+				"0",
+			)}`;
 
 			const { latitude, longitude, ...rest } = request.body;
 			const row = await repo.create({

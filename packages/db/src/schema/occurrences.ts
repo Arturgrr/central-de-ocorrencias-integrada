@@ -3,6 +3,7 @@ import {
 	index,
 	numeric,
 	pgEnum,
+	pgSequence,
 	pgTable,
 	text,
 	timestamp,
@@ -12,6 +13,10 @@ import {
 import { user } from "./auth";
 import { citizen } from "./people";
 import { city, neighborhood, occurrenceType, vehicle } from "./resources";
+
+export const occurrenceProtocolSeq = pgSequence("occurrence_protocol_seq", {
+	startWith: 1,
+});
 
 export const occurrenceStatus = pgEnum("occurrence_status", [
 	"open",
