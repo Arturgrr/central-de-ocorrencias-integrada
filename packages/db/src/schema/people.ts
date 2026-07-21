@@ -1,41 +1,11 @@
-import { relations } from "drizzle-orm";
 import {
 	boolean,
 	index,
-	pgEnum,
 	pgTable,
 	text,
 	timestamp,
 	uuid,
 } from "drizzle-orm/pg-core";
-
-import { user } from "./auth";
-
-export const userRole = pgEnum("user_role", ["admin", "attendant", "agent"]);
-
-export const userStatus = pgEnum("user_status", ["active", "inactive"]);
-
-export const userProfile = pgTable(
-	"user_profile",
-	{
-		id: uuid("id").defaultRandom().primaryKey(),
-		userId: text("user_id")
-			.notNull()
-			.unique()
-			.references(() => user.id, { onDelete: "cascade" }),
-		role: userRole("role").notNull(),
-		status: userStatus("status").default("active").notNull(),
-		document: text("document").unique(),
-		phone: text("phone"),
-		registrationNumber: text("registration_number").unique(),
-		createdAt: timestamp("created_at").defaultNow().notNull(),
-		updatedAt: timestamp("updated_at")
-			.defaultNow()
-			.$onUpdate(() => /* @__PURE__ */ new Date())
-			.notNull(),
-	},
-	(table) => [index("user_profile_role_idx").on(table.role)],
-);
 
 export const citizen = pgTable(
 	"citizen",
@@ -53,15 +23,8 @@ export const citizen = pgTable(
 		createdAt: timestamp("created_at").defaultNow().notNull(),
 		updatedAt: timestamp("updated_at")
 			.defaultNow()
-			.$onUpdate(() => /* @__PURE__ */ new Date())
+			.$onUpdate(() => new Date())
 			.notNull(),
 	},
 	(table) => [index("citizen_phone_idx").on(table.phone)],
 );
-
-export const userProfileRelations = relations(userProfile, ({ one }) => ({
-	user: one(user, {
-		fields: [userProfile.userId],
-		references: [user.id],
-	}),
-}));
