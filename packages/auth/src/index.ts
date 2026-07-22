@@ -4,7 +4,7 @@ import { env } from "@eng-soft1/env/server";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
-const isProduction = env.NODE_ENV === "production";
+const useSecureCookies = env.BETTER_AUTH_URL.startsWith("https://");
 
 export function createAuth() {
 	return betterAuth({
@@ -32,7 +32,7 @@ export function createAuth() {
 		secret: env.BETTER_AUTH_SECRET,
 		baseURL: env.BETTER_AUTH_URL,
 		advanced: {
-			defaultCookieAttributes: isProduction
+			defaultCookieAttributes: useSecureCookies
 				? { sameSite: "none", secure: true, httpOnly: true }
 				: { sameSite: "lax", secure: false, httpOnly: true },
 		},
