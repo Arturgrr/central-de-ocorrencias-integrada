@@ -12,6 +12,7 @@ export async function listAssignments(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Assignments"],
+				operationId: "listAssignments",
 				summary: "List assignments for an occurrence",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

@@ -16,6 +16,7 @@ export async function createAttachment(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Attachments"],
+				operationId: "createAttachment",
 				summary: "Create an attachment for an occurrence",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

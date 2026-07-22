@@ -10,6 +10,7 @@ export async function getDashboardMetrics(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Dashboard"],
+				operationId: "getDashboardMetrics",
 				summary: "Get aggregate metrics for the operations panel",
 				security: [{ cookieAuth: [] }],
 				response: {

@@ -12,6 +12,7 @@ export async function listTimeline(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Timeline"],
+				operationId: "listTimeline",
 				summary: "List timeline events for an occurrence",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

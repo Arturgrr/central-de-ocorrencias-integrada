@@ -12,6 +12,7 @@ export async function getCity(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Geo"],
+				operationId: "getCity",
 				summary: "Get a city by id",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

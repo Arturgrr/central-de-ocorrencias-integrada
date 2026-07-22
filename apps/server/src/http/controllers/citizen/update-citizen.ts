@@ -12,6 +12,7 @@ export async function updateCitizen(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Citizens"],
+				operationId: "updateCitizen",
 				summary: "Update a citizen",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

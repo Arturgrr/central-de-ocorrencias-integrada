@@ -12,6 +12,7 @@ export async function getOccurrenceType(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Occurrence Types"],
+				operationId: "getOccurrenceType",
 				summary: "Get an occurrence type by id",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

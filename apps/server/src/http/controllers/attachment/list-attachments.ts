@@ -12,6 +12,7 @@ export async function listAttachments(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Attachments"],
+				operationId: "listAttachments",
 				summary: "List attachments for an occurrence",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

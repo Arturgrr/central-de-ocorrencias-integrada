@@ -16,6 +16,7 @@ export async function updateOccurrence(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Occurrences"],
+				operationId: "updateOccurrence",
 				summary: "Update an occurrence",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

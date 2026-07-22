@@ -4,11 +4,13 @@ import fastifySwagger from "@fastify/swagger";
 import scalarApiReference from "@scalar/fastify-api-reference";
 import Fastify from "fastify";
 import {
-	jsonSchemaTransform,
+	createJsonSchemaTransform,
+	createJsonSchemaTransformObject,
 	serializerCompiler,
 	validatorCompiler,
 	type ZodTypeProvider,
 } from "fastify-type-provider-zod";
+import { z } from "zod";
 import { authRoutes } from "../providers/auth";
 import { errorHandler } from "./error-handler";
 import { appRoutes } from "./routes";
@@ -50,12 +52,16 @@ export async function createApp() {
 				},
 			},
 		},
-		transform: jsonSchemaTransform,
+
+		transform: createJsonSchemaTransform({ schemaRegistry: z.globalRegistry }),
+		transformObject: createJsonSchemaTransformObject({
+			schemaRegistry: z.globalRegistry,
+		}),
 	});
 
 	await app.register(scalarApiReference, { routePrefix: "/docs" });
 
-	app.get("/", async () => "OK");
+	app.get("/", { schema: { hide: true } }, async () => "OK");
 
 	await app.register(authRoutes);
 	await app.register(appRoutes);

@@ -16,6 +16,7 @@ export async function createOccurrence(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Occurrences"],
+				operationId: "createOccurrence",
 				summary: "Create an occurrence",
 				security: [{ cookieAuth: [] }],
 				body: createOccurrenceBody,

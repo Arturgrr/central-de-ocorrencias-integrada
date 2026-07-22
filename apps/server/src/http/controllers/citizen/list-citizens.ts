@@ -16,6 +16,7 @@ export async function listCitizens(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Citizens"],
+				operationId: "listCitizens",
 				summary: "List citizens",
 				security: [{ cookieAuth: [] }],
 				querystring: paginationQuerySchema.merge(

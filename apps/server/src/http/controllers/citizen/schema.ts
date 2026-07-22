@@ -1,33 +1,39 @@
 import { z } from "zod";
 
-export const citizenSchema = z.object({
-	id: z.string().uuid(),
-	name: z.string(),
-	phone: z.string(),
-	document: z.string().nullable(),
-	addressLine: z.string().nullable(),
-	neighborhood: z.string().nullable(),
-	city: z.string().nullable(),
-	state: z.string().nullable(),
-	postalCode: z.string().nullable(),
-	isActive: z.boolean(),
-	createdAt: z.string(),
-	updatedAt: z.string(),
-});
+export const citizenSchema = z
+	.object({
+		id: z.string().uuid(),
+		name: z.string(),
+		phone: z.string(),
+		document: z.string().nullable(),
+		addressLine: z.string().nullable(),
+		neighborhood: z.string().nullable(),
+		city: z.string().nullable(),
+		state: z.string().nullable(),
+		postalCode: z.string().nullable(),
+		isActive: z.boolean(),
+		createdAt: z.string(),
+		updatedAt: z.string(),
+	})
+	.meta({ id: "Citizen" });
 
-export const createCitizenBody = z.object({
-	name: z.string().min(1),
-	phone: z.string().min(1),
-	document: z.string().optional(),
-	addressLine: z.string().optional(),
-	neighborhood: z.string().optional(),
-	city: z.string().optional(),
-	state: z.string().optional(),
-	postalCode: z.string().optional(),
-	isActive: z.boolean().optional(),
-});
+export const createCitizenBody = z
+	.object({
+		name: z.string().min(1),
+		phone: z.string().min(1),
+		document: z.string().optional(),
+		addressLine: z.string().optional(),
+		neighborhood: z.string().optional(),
+		city: z.string().optional(),
+		state: z.string().optional(),
+		postalCode: z.string().optional(),
+		isActive: z.boolean().optional(),
+	})
+	.meta({ id: "CreateCitizen" });
 
-export const updateCitizenBody = createCitizenBody.partial();
+export const updateCitizenBody = createCitizenBody
+	.partial()
+	.meta({ id: "UpdateCitizen" });
 
 type CitizenRow = {
 	id: string;

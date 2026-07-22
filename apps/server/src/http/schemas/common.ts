@@ -1,40 +1,30 @@
 import { z } from "zod";
 
-export const roleSchema = z.enum(["admin", "attendant", "agent", "citizen"]);
-export const occurrenceStatusSchema = z.enum([
-	"open",
-	"dispatched",
-	"in_progress",
-	"resolved",
-	"cancelled",
-]);
-export const occurrencePrioritySchema = z.enum([
-	"low",
-	"medium",
-	"high",
-	"critical",
-]);
-export const assignmentStatusSchema = z.enum([
-	"assigned",
-	"accepted",
-	"arrived",
-	"completed",
-	"cancelled",
-]);
-export const timelineEventTypeSchema = z.enum([
-	"created",
-	"status_changed",
-	"vehicle_dispatched",
-	"agent_update",
-	"photo_uploaded",
-	"closed",
-]);
-export const vehicleStatusSchema = z.enum([
-	"available",
-	"dispatched",
-	"maintenance",
-	"inactive",
-]);
+export const roleSchema = z
+	.enum(["admin", "attendant", "agent", "citizen"])
+	.meta({ id: "Role" });
+export const occurrenceStatusSchema = z
+	.enum(["open", "dispatched", "in_progress", "resolved", "cancelled"])
+	.meta({ id: "OccurrenceStatus" });
+export const occurrencePrioritySchema = z
+	.enum(["low", "medium", "high", "critical"])
+	.meta({ id: "OccurrencePriority" });
+export const assignmentStatusSchema = z
+	.enum(["assigned", "accepted", "arrived", "completed", "cancelled"])
+	.meta({ id: "AssignmentStatus" });
+export const timelineEventTypeSchema = z
+	.enum([
+		"created",
+		"status_changed",
+		"vehicle_dispatched",
+		"agent_update",
+		"photo_uploaded",
+		"closed",
+	])
+	.meta({ id: "TimelineEventType" });
+export const vehicleStatusSchema = z
+	.enum(["available", "dispatched", "maintenance", "inactive"])
+	.meta({ id: "VehicleStatus" });
 
 export const booleanQueryParam = z
 	.enum(["true", "false"])
@@ -56,7 +46,9 @@ export function paginatedResponse<T extends z.ZodTypeAny>(item: T) {
 	});
 }
 
-export const errorResponseSchema = z.object({
-	message: z.string(),
-	code: z.string().optional(),
-});
+export const errorResponseSchema = z
+	.object({
+		message: z.string(),
+		code: z.string().optional(),
+	})
+	.meta({ id: "ErrorResponse" });

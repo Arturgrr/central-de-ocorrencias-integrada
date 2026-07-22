@@ -24,6 +24,8 @@ export async function authRoutes(app: FastifyInstance) {
 	app.route({
 		method: ["GET", "POST"],
 		url: "/api/auth/*",
+
+		schema: { hide: true },
 		handler: async (request, reply) => {
 			const url = new URL(request.url, env.BETTER_AUTH_URL);
 			const hasBody =

@@ -12,6 +12,7 @@ export async function deleteCitizen(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Citizens"],
+				operationId: "deleteCitizen",
 				summary: "Delete a citizen",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

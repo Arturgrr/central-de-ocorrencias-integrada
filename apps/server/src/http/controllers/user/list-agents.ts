@@ -11,6 +11,7 @@ export async function listAgents(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Users"],
+				operationId: "listAgents",
 				summary: "List agents",
 				security: [{ cookieAuth: [] }],
 				response: {

@@ -1,33 +1,41 @@
 import { z } from "zod";
 import { vehicleStatusSchema } from "../../schemas/common";
 
-export const vehicleSchema = z.object({
-	id: z.string().uuid(),
-	code: z.string(),
-	plate: z.string(),
-	model: z.string().nullable(),
-	status: vehicleStatusSchema,
-	createdAt: z.string(),
-	updatedAt: z.string(),
-});
+export const vehicleSchema = z
+	.object({
+		id: z.string().uuid(),
+		code: z.string(),
+		plate: z.string(),
+		model: z.string().nullable(),
+		status: vehicleStatusSchema,
+		createdAt: z.string(),
+		updatedAt: z.string(),
+	})
+	.meta({ id: "Vehicle" });
 
-export const vehicleLocationSchema = z.object({
-	id: z.string().uuid(),
-	vehicleId: z.string().uuid(),
-	latitude: z.string(),
-	longitude: z.string(),
-	reportedByUserId: z.string().nullable(),
-	recordedAt: z.string(),
-});
+export const vehicleLocationSchema = z
+	.object({
+		id: z.string().uuid(),
+		vehicleId: z.string().uuid(),
+		latitude: z.string(),
+		longitude: z.string(),
+		reportedByUserId: z.string().nullable(),
+		recordedAt: z.string(),
+	})
+	.meta({ id: "VehicleLocation" });
 
-export const createVehicleBody = z.object({
-	code: z.string().min(1),
-	plate: z.string().min(1),
-	model: z.string().optional(),
-	status: vehicleStatusSchema.optional(),
-});
+export const createVehicleBody = z
+	.object({
+		code: z.string().min(1),
+		plate: z.string().min(1),
+		model: z.string().optional(),
+		status: vehicleStatusSchema.optional(),
+	})
+	.meta({ id: "CreateVehicle" });
 
-export const updateVehicleBody = createVehicleBody.partial();
+export const updateVehicleBody = createVehicleBody
+	.partial()
+	.meta({ id: "UpdateVehicle" });
 
 export const setVehicleStatusBody = z.object({
 	status: vehicleStatusSchema,

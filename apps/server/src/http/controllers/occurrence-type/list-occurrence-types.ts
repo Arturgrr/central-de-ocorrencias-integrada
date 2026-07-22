@@ -12,6 +12,7 @@ export async function listOccurrenceTypes(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Occurrence Types"],
+				operationId: "listOccurrenceTypes",
 				summary: "List occurrence types",
 				security: [{ cookieAuth: [] }],
 				querystring: z.object({

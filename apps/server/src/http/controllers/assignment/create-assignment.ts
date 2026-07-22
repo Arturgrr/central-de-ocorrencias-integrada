@@ -16,6 +16,7 @@ export async function createAssignment(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Assignments"],
+				operationId: "createAssignment",
 				summary: "Create an assignment for an occurrence",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

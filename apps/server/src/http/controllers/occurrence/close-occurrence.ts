@@ -12,6 +12,7 @@ export async function closeOccurrence(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Occurrences"],
+				operationId: "closeOccurrence",
 				summary: "Close an occurrence",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

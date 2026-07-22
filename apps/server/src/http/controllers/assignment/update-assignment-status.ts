@@ -18,6 +18,7 @@ export async function updateAssignmentStatus(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Assignments"],
+				operationId: "updateAssignmentStatus",
 				summary: "Update the status of an assignment",
 				security: [{ cookieAuth: [] }],
 				params: assignmentIdParamSchema,

@@ -16,6 +16,7 @@ export async function updateOccurrenceType(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Occurrence Types"],
+				operationId: "updateOccurrenceType",
 				summary: "Update an occurrence type",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

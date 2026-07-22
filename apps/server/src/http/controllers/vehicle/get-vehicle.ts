@@ -12,6 +12,7 @@ export async function getVehicle(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Vehicles"],
+				operationId: "getVehicle",
 				summary: "Get a vehicle by id",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

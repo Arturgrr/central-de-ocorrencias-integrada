@@ -7,7 +7,9 @@
     "check-types": "tsc -b",
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/server.ts --outfile server",
     "dev": "tsx watch src/server.ts",
-    "start": "node dist/server.mjs"
+    "start": "node dist/server.mjs",
+    "generate:openapi": "tsx src/openapi.ts",
+    "db:seed": "tsx src/database/seed.ts"
   },
   "dependencies": {
     "@eng-soft1/auth": "workspace:*",

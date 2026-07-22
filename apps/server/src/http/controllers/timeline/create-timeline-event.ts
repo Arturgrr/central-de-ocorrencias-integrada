@@ -16,6 +16,7 @@ export async function createTimelineEvent(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Timeline"],
+				operationId: "createTimelineEvent",
 				summary: "Create a timeline event for an occurrence",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,
