@@ -1,0 +1,10 @@
+{
+	"type": "object",
+	"properties": {
+		"message": { "type": "string" },
+		"code": { "type": "string" }
+	},
+	"required": ["message"],
+	"additionalProperties": false,
+	"x-readme-ref-name": "ErrorResponse"
+}

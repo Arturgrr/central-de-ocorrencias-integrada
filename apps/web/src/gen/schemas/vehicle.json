@@ -1,0 +1,31 @@
+{
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string",
+			"format": "uuid",
+			"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+		},
+		"code": { "type": "string" },
+		"plate": { "type": "string" },
+		"model": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"status": {
+			"type": "string",
+			"enum": ["available", "dispatched", "maintenance", "inactive"],
+			"x-readme-ref-name": "VehicleStatus"
+		},
+		"createdAt": { "type": "string" },
+		"updatedAt": { "type": "string" }
+	},
+	"required": [
+		"id",
+		"code",
+		"plate",
+		"model",
+		"status",
+		"createdAt",
+		"updatedAt"
+	],
+	"additionalProperties": false,
+	"x-readme-ref-name": "Vehicle"
+}

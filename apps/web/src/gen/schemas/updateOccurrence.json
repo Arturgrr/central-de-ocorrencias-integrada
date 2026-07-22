@@ -1,0 +1,57 @@
+{
+	"type": "object",
+	"properties": {
+		"title": { "type": "string", "minLength": 1 },
+		"description": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"priority": {
+			"type": "string",
+			"enum": ["low", "medium", "high", "critical"],
+			"x-readme-ref-name": "OccurrencePriority"
+		},
+		"status": {
+			"type": "string",
+			"enum": ["open", "dispatched", "in_progress", "resolved", "cancelled"],
+			"x-readme-ref-name": "OccurrenceStatus"
+		},
+		"addressLine": { "type": "string", "minLength": 1 },
+		"cityId": {
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				{ "type": "null" }
+			]
+		},
+		"neighborhoodId": {
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				{ "type": "null" }
+			]
+		},
+		"latitude": { "anyOf": [{ "type": "number" }, { "type": "null" }] },
+		"longitude": { "anyOf": [{ "type": "number" }, { "type": "null" }] },
+		"citizenId": {
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				{ "type": "null" }
+			]
+		},
+		"typeId": {
+			"type": "string",
+			"format": "uuid",
+			"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+		}
+	},
+	"additionalProperties": false,
+	"x-readme-ref-name": "UpdateOccurrence"
+}

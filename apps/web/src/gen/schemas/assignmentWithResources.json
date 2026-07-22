@@ -1,0 +1,109 @@
+{
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string",
+			"format": "uuid",
+			"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+		},
+		"occurrenceId": {
+			"type": "string",
+			"format": "uuid",
+			"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+		},
+		"vehicleId": {
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				{ "type": "null" }
+			]
+		},
+		"agentUserId": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"assignedByUserId": { "type": "string" },
+		"status": {
+			"type": "string",
+			"enum": ["assigned", "accepted", "arrived", "completed", "cancelled"],
+			"x-readme-ref-name": "AssignmentStatus"
+		},
+		"assignedAt": { "type": "string" },
+		"acceptedAt": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"arrivedAt": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"completedAt": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"vehicle": {
+			"anyOf": [
+				{
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string",
+							"format": "uuid",
+							"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+						},
+						"code": { "type": "string" },
+						"plate": { "type": "string" },
+						"model": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+						"status": {
+							"type": "string",
+							"enum": ["available", "dispatched", "maintenance", "inactive"],
+							"x-readme-ref-name": "VehicleStatus"
+						},
+						"createdAt": { "type": "string" },
+						"updatedAt": { "type": "string" }
+					},
+					"required": [
+						"id",
+						"code",
+						"plate",
+						"model",
+						"status",
+						"createdAt",
+						"updatedAt"
+					],
+					"additionalProperties": false,
+					"x-readme-ref-name": "Vehicle"
+				},
+				{ "type": "null" }
+			]
+		},
+		"agent": {
+			"anyOf": [
+				{
+					"type": "object",
+					"properties": {
+						"id": { "type": "string" },
+						"name": { "type": "string" },
+						"email": { "type": "string" },
+						"role": {
+							"type": "string",
+							"enum": ["admin", "attendant", "agent", "citizen"],
+							"x-readme-ref-name": "Role"
+						}
+					},
+					"required": ["id", "name", "email", "role"],
+					"additionalProperties": false,
+					"x-readme-ref-name": "UserRef"
+				},
+				{ "type": "null" }
+			]
+		}
+	},
+	"required": [
+		"id",
+		"occurrenceId",
+		"vehicleId",
+		"agentUserId",
+		"assignedByUserId",
+		"status",
+		"assignedAt",
+		"acceptedAt",
+		"arrivedAt",
+		"completedAt",
+		"vehicle",
+		"agent"
+	],
+	"additionalProperties": false,
+	"x-readme-ref-name": "AssignmentWithResources"
+}

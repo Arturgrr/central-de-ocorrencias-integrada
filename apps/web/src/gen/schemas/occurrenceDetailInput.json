@@ -1,0 +1,467 @@
+{
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string",
+			"format": "uuid",
+			"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+		},
+		"protocol": { "type": "string" },
+		"citizenId": {
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				{ "type": "null" }
+			]
+		},
+		"typeId": {
+			"type": "string",
+			"format": "uuid",
+			"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+		},
+		"openedByUserId": { "type": "string" },
+		"closedByUserId": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"status": {
+			"type": "string",
+			"enum": ["open", "dispatched", "in_progress", "resolved", "cancelled"],
+			"x-readme-ref-name": "OccurrenceStatusInput"
+		},
+		"priority": {
+			"type": "string",
+			"enum": ["low", "medium", "high", "critical"],
+			"x-readme-ref-name": "OccurrencePriorityInput"
+		},
+		"title": { "type": "string" },
+		"description": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"addressLine": { "type": "string" },
+		"cityId": {
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				{ "type": "null" }
+			]
+		},
+		"neighborhoodId": {
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				{ "type": "null" }
+			]
+		},
+		"latitude": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"longitude": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"openedAt": { "type": "string" },
+		"closedAt": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"createdAt": { "type": "string" },
+		"updatedAt": { "type": "string" },
+		"citizen": {
+			"anyOf": [
+				{
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string",
+							"format": "uuid",
+							"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+						},
+						"name": { "type": "string" },
+						"phone": { "type": "string" },
+						"document": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+						"addressLine": {
+							"anyOf": [{ "type": "string" }, { "type": "null" }]
+						},
+						"neighborhood": {
+							"anyOf": [{ "type": "string" }, { "type": "null" }]
+						},
+						"city": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+						"state": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+						"postalCode": {
+							"anyOf": [{ "type": "string" }, { "type": "null" }]
+						},
+						"isActive": { "type": "boolean" },
+						"createdAt": { "type": "string" },
+						"updatedAt": { "type": "string" }
+					},
+					"required": [
+						"id",
+						"name",
+						"phone",
+						"document",
+						"addressLine",
+						"neighborhood",
+						"city",
+						"state",
+						"postalCode",
+						"isActive",
+						"createdAt",
+						"updatedAt"
+					],
+					"x-readme-ref-name": "CitizenInput"
+				},
+				{ "type": "null" }
+			]
+		},
+		"type": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				"name": { "type": "string" },
+				"description": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+				"priority": {
+					"type": "integer",
+					"minimum": -9007199254740991,
+					"maximum": 9007199254740991
+				},
+				"isActive": { "type": "boolean" },
+				"createdAt": { "type": "string" },
+				"updatedAt": { "type": "string" }
+			},
+			"required": [
+				"id",
+				"name",
+				"description",
+				"priority",
+				"isActive",
+				"createdAt",
+				"updatedAt"
+			],
+			"x-readme-ref-name": "OccurrenceTypeInput"
+		},
+		"city": {
+			"anyOf": [
+				{
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string",
+							"format": "uuid",
+							"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+						},
+						"name": { "type": "string" },
+						"state": { "type": "string" },
+						"createdAt": { "type": "string" },
+						"updatedAt": { "type": "string" }
+					},
+					"required": ["id", "name", "state", "createdAt", "updatedAt"],
+					"x-readme-ref-name": "CityInput"
+				},
+				{ "type": "null" }
+			]
+		},
+		"neighborhood": {
+			"anyOf": [
+				{
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string",
+							"format": "uuid",
+							"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+						},
+						"cityId": {
+							"type": "string",
+							"format": "uuid",
+							"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+						},
+						"name": { "type": "string" },
+						"createdAt": { "type": "string" },
+						"updatedAt": { "type": "string" }
+					},
+					"required": ["id", "cityId", "name", "createdAt", "updatedAt"],
+					"x-readme-ref-name": "NeighborhoodInput"
+				},
+				{ "type": "null" }
+			]
+		},
+		"openedBy": {
+			"type": "object",
+			"properties": {
+				"id": { "type": "string" },
+				"name": { "type": "string" },
+				"email": { "type": "string" },
+				"role": {
+					"type": "string",
+					"enum": ["admin", "attendant", "agent", "citizen"],
+					"x-readme-ref-name": "RoleInput"
+				}
+			},
+			"required": ["id", "name", "email", "role"],
+			"x-readme-ref-name": "UserRefInput"
+		},
+		"closedBy": {
+			"anyOf": [
+				{
+					"type": "object",
+					"properties": {
+						"id": { "type": "string" },
+						"name": { "type": "string" },
+						"email": { "type": "string" },
+						"role": {
+							"type": "string",
+							"enum": ["admin", "attendant", "agent", "citizen"],
+							"x-readme-ref-name": "RoleInput"
+						}
+					},
+					"required": ["id", "name", "email", "role"],
+					"x-readme-ref-name": "UserRefInput"
+				},
+				{ "type": "null" }
+			]
+		},
+		"assignments": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid",
+						"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+					},
+					"occurrenceId": {
+						"type": "string",
+						"format": "uuid",
+						"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+					},
+					"vehicleId": {
+						"anyOf": [
+							{
+								"type": "string",
+								"format": "uuid",
+								"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+							},
+							{ "type": "null" }
+						]
+					},
+					"agentUserId": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }]
+					},
+					"assignedByUserId": { "type": "string" },
+					"status": {
+						"type": "string",
+						"enum": [
+							"assigned",
+							"accepted",
+							"arrived",
+							"completed",
+							"cancelled"
+						],
+						"x-readme-ref-name": "AssignmentStatusInput"
+					},
+					"assignedAt": { "type": "string" },
+					"acceptedAt": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+					"arrivedAt": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+					"completedAt": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }]
+					},
+					"vehicle": {
+						"anyOf": [
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string",
+										"format": "uuid",
+										"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+									},
+									"code": { "type": "string" },
+									"plate": { "type": "string" },
+									"model": {
+										"anyOf": [{ "type": "string" }, { "type": "null" }]
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"available",
+											"dispatched",
+											"maintenance",
+											"inactive"
+										],
+										"x-readme-ref-name": "VehicleStatusInput"
+									},
+									"createdAt": { "type": "string" },
+									"updatedAt": { "type": "string" }
+								},
+								"required": [
+									"id",
+									"code",
+									"plate",
+									"model",
+									"status",
+									"createdAt",
+									"updatedAt"
+								],
+								"x-readme-ref-name": "VehicleInput"
+							},
+							{ "type": "null" }
+						]
+					},
+					"agent": {
+						"anyOf": [
+							{
+								"type": "object",
+								"properties": {
+									"id": { "type": "string" },
+									"name": { "type": "string" },
+									"email": { "type": "string" },
+									"role": {
+										"type": "string",
+										"enum": ["admin", "attendant", "agent", "citizen"],
+										"x-readme-ref-name": "RoleInput"
+									}
+								},
+								"required": ["id", "name", "email", "role"],
+								"x-readme-ref-name": "UserRefInput"
+							},
+							{ "type": "null" }
+						]
+					}
+				},
+				"required": [
+					"id",
+					"occurrenceId",
+					"vehicleId",
+					"agentUserId",
+					"assignedByUserId",
+					"status",
+					"assignedAt",
+					"acceptedAt",
+					"arrivedAt",
+					"completedAt",
+					"vehicle",
+					"agent"
+				],
+				"x-readme-ref-name": "AssignmentWithResourcesInput"
+			}
+		},
+		"timelineEvents": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid",
+						"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+					},
+					"occurrenceId": {
+						"type": "string",
+						"format": "uuid",
+						"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+					},
+					"createdByUserId": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }]
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"created",
+							"status_changed",
+							"vehicle_dispatched",
+							"agent_update",
+							"photo_uploaded",
+							"closed"
+						],
+						"x-readme-ref-name": "TimelineEventTypeInput"
+					},
+					"description": { "type": "string" },
+					"metadata": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+					"createdAt": { "type": "string" }
+				},
+				"required": [
+					"id",
+					"occurrenceId",
+					"createdByUserId",
+					"type",
+					"description",
+					"metadata",
+					"createdAt"
+				],
+				"x-readme-ref-name": "TimelineEventInput"
+			}
+		},
+		"attachments": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid",
+						"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+					},
+					"occurrenceId": {
+						"type": "string",
+						"format": "uuid",
+						"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+					},
+					"uploadedByUserId": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }]
+					},
+					"fileName": { "type": "string" },
+					"fileUrl": { "type": "string" },
+					"mimeType": { "type": "string" },
+					"description": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }]
+					},
+					"createdAt": { "type": "string" }
+				},
+				"required": [
+					"id",
+					"occurrenceId",
+					"uploadedByUserId",
+					"fileName",
+					"fileUrl",
+					"mimeType",
+					"description",
+					"createdAt"
+				],
+				"x-readme-ref-name": "AttachmentInput"
+			}
+		}
+	},
+	"required": [
+		"id",
+		"protocol",
+		"citizenId",
+		"typeId",
+		"openedByUserId",
+		"closedByUserId",
+		"status",
+		"priority",
+		"title",
+		"description",
+		"addressLine",
+		"cityId",
+		"neighborhoodId",
+		"latitude",
+		"longitude",
+		"openedAt",
+		"closedAt",
+		"createdAt",
+		"updatedAt",
+		"citizen",
+		"type",
+		"city",
+		"neighborhood",
+		"openedBy",
+		"closedBy",
+		"assignments",
+		"timelineEvents",
+		"attachments"
+	],
+	"x-readme-ref-name": "OccurrenceDetailInput"
+}

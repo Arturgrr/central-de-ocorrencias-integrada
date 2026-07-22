@@ -1,0 +1,12 @@
+{
+	"type": "object",
+	"properties": {
+		"status": {
+			"type": "string",
+			"enum": ["assigned", "accepted", "arrived", "completed", "cancelled"],
+			"x-readme-ref-name": "AssignmentStatusInput"
+		}
+	},
+	"required": ["status"],
+	"x-readme-ref-name": "UpdateAssignmentStatusInput"
+}

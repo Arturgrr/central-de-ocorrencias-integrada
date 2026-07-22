@@ -1,0 +1,90 @@
+{
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string",
+			"format": "uuid",
+			"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+		},
+		"protocol": { "type": "string" },
+		"citizenId": {
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				{ "type": "null" }
+			]
+		},
+		"typeId": {
+			"type": "string",
+			"format": "uuid",
+			"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+		},
+		"openedByUserId": { "type": "string" },
+		"closedByUserId": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"status": {
+			"type": "string",
+			"enum": ["open", "dispatched", "in_progress", "resolved", "cancelled"],
+			"x-readme-ref-name": "OccurrenceStatus"
+		},
+		"priority": {
+			"type": "string",
+			"enum": ["low", "medium", "high", "critical"],
+			"x-readme-ref-name": "OccurrencePriority"
+		},
+		"title": { "type": "string" },
+		"description": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"addressLine": { "type": "string" },
+		"cityId": {
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				{ "type": "null" }
+			]
+		},
+		"neighborhoodId": {
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uuid",
+					"pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+				},
+				{ "type": "null" }
+			]
+		},
+		"latitude": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"longitude": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"openedAt": { "type": "string" },
+		"closedAt": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"createdAt": { "type": "string" },
+		"updatedAt": { "type": "string" }
+	},
+	"required": [
+		"id",
+		"protocol",
+		"citizenId",
+		"typeId",
+		"openedByUserId",
+		"closedByUserId",
+		"status",
+		"priority",
+		"title",
+		"description",
+		"addressLine",
+		"cityId",
+		"neighborhoodId",
+		"latitude",
+		"longitude",
+		"openedAt",
+		"closedAt",
+		"createdAt",
+		"updatedAt"
+	],
+	"additionalProperties": false,
+	"x-readme-ref-name": "OccurrenceSummary"
+}

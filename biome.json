@@ -33,9 +33,16 @@
     "enabled": true,
     "indentStyle": "tab"
   },
-  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "assist": {
+    "includes": ["**", "!**/src/gen/**"],
+    "actions": { "source": { "organizeImports": "on" } }
+  },
   "linter": {
     "enabled": true,
+    "includes": [
+      "**",
+      "!**/src/gen/**"
+    ],
     "rules": {
       "recommended": true,
       "correctness": {

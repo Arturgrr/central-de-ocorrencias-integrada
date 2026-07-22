@@ -1,0 +1,17 @@
+{
+	"type": "object",
+	"properties": {
+		"name": { "type": "string", "minLength": 1 },
+		"phone": { "type": "string", "minLength": 1 },
+		"document": { "type": "string" },
+		"addressLine": { "type": "string" },
+		"neighborhood": { "type": "string" },
+		"city": { "type": "string" },
+		"state": { "type": "string" },
+		"postalCode": { "type": "string" },
+		"isActive": { "type": "boolean" }
+	},
+	"required": ["name", "phone"],
+	"additionalProperties": false,
+	"x-readme-ref-name": "CreateCitizen"
+}

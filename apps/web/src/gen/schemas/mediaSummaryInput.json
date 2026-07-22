@@ -1,0 +1,27 @@
+{
+	"type": "object",
+	"properties": {
+		"total": {
+			"type": "integer",
+			"minimum": -9007199254740991,
+			"maximum": 9007199254740991
+		},
+		"images": {
+			"type": "integer",
+			"minimum": -9007199254740991,
+			"maximum": 9007199254740991
+		},
+		"videos": {
+			"type": "integer",
+			"minimum": -9007199254740991,
+			"maximum": 9007199254740991
+		},
+		"documents": {
+			"type": "integer",
+			"minimum": -9007199254740991,
+			"maximum": 9007199254740991
+		}
+	},
+	"required": ["total", "images", "videos", "documents"],
+	"x-readme-ref-name": "MediaSummaryInput"
+}

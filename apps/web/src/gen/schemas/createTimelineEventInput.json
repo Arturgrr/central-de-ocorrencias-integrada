@@ -1,0 +1,21 @@
+{
+	"type": "object",
+	"properties": {
+		"type": {
+			"type": "string",
+			"enum": [
+				"created",
+				"status_changed",
+				"vehicle_dispatched",
+				"agent_update",
+				"photo_uploaded",
+				"closed"
+			],
+			"x-readme-ref-name": "TimelineEventTypeInput"
+		},
+		"description": { "type": "string", "minLength": 1 },
+		"metadata": { "type": "string" }
+	},
+	"required": ["type", "description"],
+	"x-readme-ref-name": "CreateTimelineEventInput"
+}
