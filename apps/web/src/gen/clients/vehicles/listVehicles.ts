@@ -16,13 +16,13 @@ import type {
 import { listVehiclesQueryResponseSchema } from "../../schemas/vehicles/listVehiclesSchema";
 
 function getListVehiclesUrl() {
-	const res = { method: "GET", url: `/vehicles` as const };
+	const res = { method: "GET", url: `/api/vehicles` as const };
 	return res;
 }
 
 /**
  * @summary List vehicles
- * {@link /vehicles}
+ * {@link /api/vehicles}
  */
 export async function listVehicles(
 	{ params }: { params?: ListVehiclesQueryParams } = {},

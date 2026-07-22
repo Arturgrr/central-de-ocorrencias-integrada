@@ -20,13 +20,13 @@ import {
 } from "../../schemas/vehicles/createVehicleSchema";
 
 function getCreateVehicleUrl() {
-	const res = { method: "POST", url: `/vehicles` as const };
+	const res = { method: "POST", url: `/api/vehicles` as const };
 	return res;
 }
 
 /**
  * @summary Create a vehicle
- * {@link /vehicles}
+ * {@link /api/vehicles}
  */
 export async function createVehicle(
 	{ data }: { data: CreateVehicleMutationRequest },

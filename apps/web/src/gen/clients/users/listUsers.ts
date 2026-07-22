@@ -16,13 +16,13 @@ import type {
 import { listUsersQueryResponseSchema } from "../../schemas/users/listUsersSchema";
 
 function getListUsersUrl() {
-	const res = { method: "GET", url: `/users` as const };
+	const res = { method: "GET", url: `/api/users` as const };
 	return res;
 }
 
 /**
  * @summary List users
- * {@link /users}
+ * {@link /api/users}
  */
 export async function listUsers(
 	{ params }: { params?: ListUsersQueryParams } = {},

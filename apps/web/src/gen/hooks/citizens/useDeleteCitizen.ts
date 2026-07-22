@@ -22,7 +22,7 @@ import { deleteCitizen } from "../../clients/citizens/deleteCitizen";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const deleteCitizenMutationKey = () =>
-	[{ url: "/citizens/:id" }] as const;
+	[{ url: "/api/citizens/:id" }] as const;
 
 export type DeleteCitizenMutationKey = ReturnType<
 	typeof deleteCitizenMutationKey
@@ -47,7 +47,7 @@ export function deleteCitizenMutationOptions<TContext = unknown>(
 
 /**
  * @summary Delete a citizen
- * {@link /citizens/:id}
+ * {@link /api/citizens/:id}
  */
 export function useDeleteCitizen<TContext>(
 	options: {

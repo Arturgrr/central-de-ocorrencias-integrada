@@ -21,13 +21,13 @@ function getDeleteOccurrenceUrl({
 }: {
 	id: DeleteOccurrencePathParams["id"];
 }) {
-	const res = { method: "DELETE", url: `/occurrences/${id}` as const };
+	const res = { method: "DELETE", url: `/api/occurrences/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Delete an occurrence
- * {@link /occurrences/:id}
+ * {@link /api/occurrences/:id}
  */
 export async function deleteOccurrence(
 	{ id }: { id: DeleteOccurrencePathParams["id"] },

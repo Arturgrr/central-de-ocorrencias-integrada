@@ -26,7 +26,7 @@ export const getNeighborhoodQueryKey = ({
 	id,
 }: {
 	id: GetNeighborhoodPathParams["id"] | undefined;
-}) => [{ url: "/neighborhoods/:id", params: { id: id } }] as const;
+}) => [{ url: "/api/neighborhoods/:id", params: { id: id } }] as const;
 
 export type GetNeighborhoodQueryKey = ReturnType<
 	typeof getNeighborhoodQueryKey
@@ -56,7 +56,7 @@ export function getNeighborhoodQueryOptions(
 
 /**
  * @summary Get a neighborhood by id
- * {@link /neighborhoods/:id}
+ * {@link /api/neighborhoods/:id}
  */
 export function useGetNeighborhood<
 	TData = GetNeighborhoodQueryResponse,

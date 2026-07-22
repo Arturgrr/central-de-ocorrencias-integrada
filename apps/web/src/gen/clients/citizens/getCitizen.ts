@@ -17,13 +17,13 @@ import type {
 import { getCitizenQueryResponseSchema } from "../../schemas/citizens/getCitizenSchema";
 
 function getGetCitizenUrl({ id }: { id: GetCitizenPathParams["id"] }) {
-	const res = { method: "GET", url: `/citizens/${id}` as const };
+	const res = { method: "GET", url: `/api/citizens/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Get a citizen by id
- * {@link /citizens/:id}
+ * {@link /api/citizens/:id}
  */
 export async function getCitizen(
 	{ id }: { id: GetCitizenPathParams["id"] },

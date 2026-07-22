@@ -17,13 +17,13 @@ import type {
 import { deleteCitizenMutationResponseSchema } from "../../schemas/citizens/deleteCitizenSchema";
 
 function getDeleteCitizenUrl({ id }: { id: DeleteCitizenPathParams["id"] }) {
-	const res = { method: "DELETE", url: `/citizens/${id}` as const };
+	const res = { method: "DELETE", url: `/api/citizens/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Delete a citizen
- * {@link /citizens/:id}
+ * {@link /api/citizens/:id}
  */
 export async function deleteCitizen(
 	{ id }: { id: DeleteCitizenPathParams["id"] },

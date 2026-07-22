@@ -23,7 +23,7 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const listOccurrenceTypesQueryKey = (
 	params?: ListOccurrenceTypesQueryParams,
-) => [{ url: "/occurrence-types" }, ...(params ? [params] : [])] as const;
+) => [{ url: "/api/occurrence-types" }, ...(params ? [params] : [])] as const;
 
 export type ListOccurrenceTypesQueryKey = ReturnType<
 	typeof listOccurrenceTypesQueryKey
@@ -52,7 +52,7 @@ export function listOccurrenceTypesQueryOptions(
 
 /**
  * @summary List occurrence types
- * {@link /occurrence-types}
+ * {@link /api/occurrence-types}
  */
 export function useListOccurrenceTypes<
 	TData = ListOccurrenceTypesQueryResponse,

@@ -27,14 +27,14 @@ function getUpdateAssignmentStatusUrl({
 }) {
 	const res = {
 		method: "PATCH",
-		url: `/assignments/${assignmentId}/status` as const,
+		url: `/api/assignments/${assignmentId}/status` as const,
 	};
 	return res;
 }
 
 /**
  * @summary Update the status of an assignment
- * {@link /assignments/:assignmentId/status}
+ * {@link /api/assignments/:assignmentId/status}
  */
 export async function updateAssignmentStatus(
 	{

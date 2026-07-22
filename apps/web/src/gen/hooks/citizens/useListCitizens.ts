@@ -22,7 +22,7 @@ import { listCitizens } from "../../clients/citizens/listCitizens";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const listCitizensQueryKey = (params?: ListCitizensQueryParams) =>
-	[{ url: "/citizens" }, ...(params ? [params] : [])] as const;
+	[{ url: "/api/citizens" }, ...(params ? [params] : [])] as const;
 
 export type ListCitizensQueryKey = ReturnType<typeof listCitizensQueryKey>;
 
@@ -49,7 +49,7 @@ export function listCitizensQueryOptions(
 
 /**
  * @summary List citizens
- * {@link /citizens}
+ * {@link /api/citizens}
  */
 export function useListCitizens<
 	TData = ListCitizensQueryResponse,

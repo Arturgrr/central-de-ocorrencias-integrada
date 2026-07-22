@@ -19,61 +19,23 @@ services:
       timeout: 5s
       retries: 10
 
-  migrate:
+  app:
     build:
       context: .
-      target: migrate
-    image: coi-migrate
-    container_name: coi-migrate
-    restart: "no"
-    environment:
-      DATABASE_URL: ${DATABASE_URL}
-      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
-      BETTER_AUTH_URL: ${BETTER_AUTH_URL}
-      CORS_ORIGIN: ${CORS_ORIGIN}
-      NODE_ENV: ${NODE_ENV:-production}
-    depends_on:
-      postgres:
-        condition: service_healthy
-
-  api:
-    build:
-      context: .
-      target: server
-    image: coi-api
-    container_name: coi-api
+    image: coi-app
+    container_name: coi-app
     restart: unless-stopped
     environment:
       DATABASE_URL: ${DATABASE_URL}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
       BETTER_AUTH_URL: ${BETTER_AUTH_URL}
-      CORS_ORIGIN: ${CORS_ORIGIN}
-      PORT: ${API_PORT:-3000}
+      PORT: ${APP_PORT:-3000}
       NODE_ENV: ${NODE_ENV:-production}
     ports:
-      - "${API_PORT:-3000}:${API_PORT:-3000}"
+      - "${APP_PORT:-3000}:${APP_PORT:-3000}"
     depends_on:
       postgres:
         condition: service_healthy
-      migrate:
-        condition: service_completed_successfully
-
-  web:
-    build:
-      context: .
-      target: web
-      args:
-        VITE_SERVER_URL: ${VITE_SERVER_URL}
-    image: coi-web
-    container_name: coi-web
-    restart: unless-stopped
-    environment:
-      VITE_SERVER_URL: ${VITE_SERVER_URL}
-    ports:
-      - "${WEB_PORT:-3001}:80"
-    depends_on:
-      api:
-        condition: service_started
 
 volumes:
   coi_postgres_data:

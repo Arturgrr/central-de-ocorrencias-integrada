@@ -21,13 +21,13 @@ import {
 } from "../../schemas/citizens/updateCitizenSchema";
 
 function getUpdateCitizenUrl({ id }: { id: UpdateCitizenPathParams["id"] }) {
-	const res = { method: "PUT", url: `/citizens/${id}` as const };
+	const res = { method: "PUT", url: `/api/citizens/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Update a citizen
- * {@link /citizens/:id}
+ * {@link /api/citizens/:id}
  */
 export async function updateCitizen(
 	{

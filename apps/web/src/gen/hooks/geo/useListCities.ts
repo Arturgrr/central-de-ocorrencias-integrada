@@ -18,7 +18,7 @@ import type {
 import { listCities } from "../../clients/geo/listCities";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const listCitiesQueryKey = () => [{ url: "/cities" }] as const;
+export const listCitiesQueryKey = () => [{ url: "/api/cities" }] as const;
 
 export type ListCitiesQueryKey = ReturnType<typeof listCitiesQueryKey>;
 
@@ -41,7 +41,7 @@ export function listCitiesQueryOptions(
 
 /**
  * @summary List cities
- * {@link /cities}
+ * {@link /api/cities}
  */
 export function useListCities<
 	TData = ListCitiesQueryResponse,

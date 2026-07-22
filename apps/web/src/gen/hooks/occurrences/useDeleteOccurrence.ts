@@ -22,7 +22,7 @@ import { deleteOccurrence } from "../../clients/occurrences/deleteOccurrence";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const deleteOccurrenceMutationKey = () =>
-	[{ url: "/occurrences/:id" }] as const;
+	[{ url: "/api/occurrences/:id" }] as const;
 
 export type DeleteOccurrenceMutationKey = ReturnType<
 	typeof deleteOccurrenceMutationKey
@@ -47,7 +47,7 @@ export function deleteOccurrenceMutationOptions<TContext = unknown>(
 
 /**
  * @summary Delete an occurrence
- * {@link /occurrences/:id}
+ * {@link /api/occurrences/:id}
  */
 export function useDeleteOccurrence<TContext>(
 	options: {

@@ -22,7 +22,7 @@ import { listVehicles } from "../../clients/vehicles/listVehicles";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const listVehiclesQueryKey = (params?: ListVehiclesQueryParams) =>
-	[{ url: "/vehicles" }, ...(params ? [params] : [])] as const;
+	[{ url: "/api/vehicles" }, ...(params ? [params] : [])] as const;
 
 export type ListVehiclesQueryKey = ReturnType<typeof listVehiclesQueryKey>;
 
@@ -49,7 +49,7 @@ export function listVehiclesQueryOptions(
 
 /**
  * @summary List vehicles
- * {@link /vehicles}
+ * {@link /api/vehicles}
  */
 export function useListVehicles<
 	TData = ListVehiclesQueryResponse,

@@ -16,13 +16,13 @@ import type {
 import { listOccurrenceTypesQueryResponseSchema } from "../../schemas/occurrenceTypes/listOccurrenceTypesSchema";
 
 function getListOccurrenceTypesUrl() {
-	const res = { method: "GET", url: `/occurrence-types` as const };
+	const res = { method: "GET", url: `/api/occurrence-types` as const };
 	return res;
 }
 
 /**
  * @summary List occurrence types
- * {@link /occurrence-types}
+ * {@link /api/occurrence-types}
  */
 export async function listOccurrenceTypes(
 	{ params }: { params?: ListOccurrenceTypesQueryParams } = {},

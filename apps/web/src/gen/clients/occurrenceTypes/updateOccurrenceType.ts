@@ -25,13 +25,13 @@ function getUpdateOccurrenceTypeUrl({
 }: {
 	id: UpdateOccurrenceTypePathParams["id"];
 }) {
-	const res = { method: "PUT", url: `/occurrence-types/${id}` as const };
+	const res = { method: "PUT", url: `/api/occurrence-types/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Update an occurrence type
- * {@link /occurrence-types/:id}
+ * {@link /api/occurrence-types/:id}
  */
 export async function updateOccurrenceType(
 	{

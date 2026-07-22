@@ -24,13 +24,16 @@ function getCreateTimelineEventUrl({
 }: {
 	id: CreateTimelineEventPathParams["id"];
 }) {
-	const res = { method: "POST", url: `/occurrences/${id}/timeline` as const };
+	const res = {
+		method: "POST",
+		url: `/api/occurrences/${id}/timeline` as const,
+	};
 	return res;
 }
 
 /**
  * @summary Create a timeline event for an occurrence
- * {@link /occurrences/:id/timeline}
+ * {@link /api/occurrences/:id/timeline}
  */
 export async function createTimelineEvent(
 	{

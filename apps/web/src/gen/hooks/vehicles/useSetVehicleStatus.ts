@@ -23,7 +23,7 @@ import { setVehicleStatus } from "../../clients/vehicles/setVehicleStatus";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const setVehicleStatusMutationKey = () =>
-	[{ url: "/vehicles/:id/status" }] as const;
+	[{ url: "/api/vehicles/:id/status" }] as const;
 
 export type SetVehicleStatusMutationKey = ReturnType<
 	typeof setVehicleStatusMutationKey
@@ -53,7 +53,7 @@ export function setVehicleStatusMutationOptions<TContext = unknown>(
 
 /**
  * @summary Update a vehicle's status
- * {@link /vehicles/:id/status}
+ * {@link /api/vehicles/:id/status}
  */
 export function useSetVehicleStatus<TContext>(
 	options: {

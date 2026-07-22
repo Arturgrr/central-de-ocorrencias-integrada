@@ -21,13 +21,13 @@ import {
 } from "../../schemas/vehicles/updateVehicleSchema";
 
 function getUpdateVehicleUrl({ id }: { id: UpdateVehiclePathParams["id"] }) {
-	const res = { method: "PUT", url: `/vehicles/${id}` as const };
+	const res = { method: "PUT", url: `/api/vehicles/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Update a vehicle
- * {@link /vehicles/:id}
+ * {@link /api/vehicles/:id}
  */
 export async function updateVehicle(
 	{

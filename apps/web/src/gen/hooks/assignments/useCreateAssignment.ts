@@ -22,7 +22,7 @@ import { createAssignment } from "../../clients/assignments/createAssignment";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const createAssignmentMutationKey = () =>
-	[{ url: "/occurrences/:id/assignments" }] as const;
+	[{ url: "/api/occurrences/:id/assignments" }] as const;
 
 export type CreateAssignmentMutationKey = ReturnType<
 	typeof createAssignmentMutationKey
@@ -52,7 +52,7 @@ export function createAssignmentMutationOptions<TContext = unknown>(
 
 /**
  * @summary Create an assignment for an occurrence
- * {@link /occurrences/:id/assignments}
+ * {@link /api/occurrences/:id/assignments}
  */
 export function useCreateAssignment<TContext>(
 	options: {

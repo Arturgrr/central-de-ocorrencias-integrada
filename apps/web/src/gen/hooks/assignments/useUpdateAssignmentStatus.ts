@@ -23,7 +23,7 @@ import { updateAssignmentStatus } from "../../clients/assignments/updateAssignme
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const updateAssignmentStatusMutationKey = () =>
-	[{ url: "/assignments/:assignmentId/status" }] as const;
+	[{ url: "/api/assignments/:assignmentId/status" }] as const;
 
 export type UpdateAssignmentStatusMutationKey = ReturnType<
 	typeof updateAssignmentStatusMutationKey
@@ -53,7 +53,7 @@ export function updateAssignmentStatusMutationOptions<TContext = unknown>(
 
 /**
  * @summary Update the status of an assignment
- * {@link /assignments/:assignmentId/status}
+ * {@link /api/assignments/:assignmentId/status}
  */
 export function useUpdateAssignmentStatus<TContext>(
 	options: {

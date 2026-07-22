@@ -18,7 +18,7 @@ import type {
 import { listAgents } from "../../clients/users/listAgents";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const listAgentsQueryKey = () => [{ url: "/agents" }] as const;
+export const listAgentsQueryKey = () => [{ url: "/api/agents" }] as const;
 
 export type ListAgentsQueryKey = ReturnType<typeof listAgentsQueryKey>;
 
@@ -41,7 +41,7 @@ export function listAgentsQueryOptions(
 
 /**
  * @summary List agents
- * {@link /agents}
+ * {@link /api/agents}
  */
 export function useListAgents<
 	TData = ListAgentsQueryResponse,

@@ -26,7 +26,7 @@ export const getCitizenQueryKey = ({
 	id,
 }: {
 	id: GetCitizenPathParams["id"] | undefined;
-}) => [{ url: "/citizens/:id", params: { id: id } }] as const;
+}) => [{ url: "/api/citizens/:id", params: { id: id } }] as const;
 
 export type GetCitizenQueryKey = ReturnType<typeof getCitizenQueryKey>;
 
@@ -54,7 +54,7 @@ export function getCitizenQueryOptions(
 
 /**
  * @summary Get a citizen by id
- * {@link /citizens/:id}
+ * {@link /api/citizens/:id}
  */
 export function useGetCitizen<
 	TData = GetCitizenQueryResponse,

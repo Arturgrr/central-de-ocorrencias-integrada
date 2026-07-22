@@ -13,13 +13,13 @@ import type {
 import { getMeQueryResponseSchema } from "../../schemas/users/getMeSchema";
 
 function getGetMeUrl() {
-	const res = { method: "GET", url: `/me` as const };
+	const res = { method: "GET", url: `/api/me` as const };
 	return res;
 }
 
 /**
  * @summary Get the authenticated user profile
- * {@link /me}
+ * {@link /api/me}
  */
 export async function getMe(
 	config: Partial<RequestConfig> & { client?: Client } = {},

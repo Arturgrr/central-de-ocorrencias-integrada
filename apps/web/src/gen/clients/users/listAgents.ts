@@ -13,13 +13,13 @@ import type {
 import { listAgentsQueryResponseSchema } from "../../schemas/users/listAgentsSchema";
 
 function getListAgentsUrl() {
-	const res = { method: "GET", url: `/agents` as const };
+	const res = { method: "GET", url: `/api/agents` as const };
 	return res;
 }
 
 /**
  * @summary List agents
- * {@link /agents}
+ * {@link /api/agents}
  */
 export async function listAgents(
 	config: Partial<RequestConfig> & { client?: Client } = {},

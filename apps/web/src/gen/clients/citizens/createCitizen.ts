@@ -20,13 +20,13 @@ import {
 } from "../../schemas/citizens/createCitizenSchema";
 
 function getCreateCitizenUrl() {
-	const res = { method: "POST", url: `/citizens` as const };
+	const res = { method: "POST", url: `/api/citizens` as const };
 	return res;
 }
 
 /**
  * @summary Create a citizen
- * {@link /citizens}
+ * {@link /api/citizens}
  */
 export async function createCitizen(
 	{ data }: { data: CreateCitizenMutationRequest },

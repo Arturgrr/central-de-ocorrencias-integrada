@@ -25,13 +25,13 @@ function getSetVehicleStatusUrl({
 }: {
 	id: SetVehicleStatusPathParams["id"];
 }) {
-	const res = { method: "PATCH", url: `/vehicles/${id}/status` as const };
+	const res = { method: "PATCH", url: `/api/vehicles/${id}/status` as const };
 	return res;
 }
 
 /**
  * @summary Update a vehicle's status
- * {@link /vehicles/:id/status}
+ * {@link /api/vehicles/:id/status}
  */
 export async function setVehicleStatus(
 	{

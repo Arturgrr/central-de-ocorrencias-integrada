@@ -16,13 +16,13 @@ import type {
 import { listOccurrencesQueryResponseSchema } from "../../schemas/occurrences/listOccurrencesSchema";
 
 function getListOccurrencesUrl() {
-	const res = { method: "GET", url: `/occurrences` as const };
+	const res = { method: "GET", url: `/api/occurrences` as const };
 	return res;
 }
 
 /**
  * @summary List occurrences
- * {@link /occurrences}
+ * {@link /api/occurrences}
  */
 export async function listOccurrences(
 	{ params }: { params?: ListOccurrencesQueryParams } = {},

@@ -20,13 +20,13 @@ import {
 } from "../../schemas/occurrenceTypes/createOccurrenceTypeSchema";
 
 function getCreateOccurrenceTypeUrl() {
-	const res = { method: "POST", url: `/occurrence-types` as const };
+	const res = { method: "POST", url: `/api/occurrence-types` as const };
 	return res;
 }
 
 /**
  * @summary Create an occurrence type
- * {@link /occurrence-types}
+ * {@link /api/occurrence-types}
  */
 export async function createOccurrenceType(
 	{ data }: { data: CreateOccurrenceTypeMutationRequest },

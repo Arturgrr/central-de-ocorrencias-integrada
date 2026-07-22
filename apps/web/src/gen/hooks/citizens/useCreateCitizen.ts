@@ -21,7 +21,8 @@ import type {
 import { createCitizen } from "../../clients/citizens/createCitizen";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
-export const createCitizenMutationKey = () => [{ url: "/citizens" }] as const;
+export const createCitizenMutationKey = () =>
+	[{ url: "/api/citizens" }] as const;
 
 export type CreateCitizenMutationKey = ReturnType<
 	typeof createCitizenMutationKey
@@ -48,7 +49,7 @@ export function createCitizenMutationOptions<TContext = unknown>(
 
 /**
  * @summary Create a citizen
- * {@link /citizens}
+ * {@link /api/citizens}
  */
 export function useCreateCitizen<TContext>(
 	options: {

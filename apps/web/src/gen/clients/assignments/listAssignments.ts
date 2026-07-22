@@ -20,13 +20,16 @@ function getListAssignmentsUrl({
 }: {
 	id: ListAssignmentsPathParams["id"];
 }) {
-	const res = { method: "GET", url: `/occurrences/${id}/assignments` as const };
+	const res = {
+		method: "GET",
+		url: `/api/occurrences/${id}/assignments` as const,
+	};
 	return res;
 }
 
 /**
  * @summary List assignments for an occurrence
- * {@link /occurrences/:id/assignments}
+ * {@link /api/occurrences/:id/assignments}
  */
 export async function listAssignments(
 	{ id }: { id: ListAssignmentsPathParams["id"] },

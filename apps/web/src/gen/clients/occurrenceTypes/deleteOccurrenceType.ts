@@ -21,13 +21,13 @@ function getDeleteOccurrenceTypeUrl({
 }: {
 	id: DeleteOccurrenceTypePathParams["id"];
 }) {
-	const res = { method: "DELETE", url: `/occurrence-types/${id}` as const };
+	const res = { method: "DELETE", url: `/api/occurrence-types/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Delete an occurrence type
- * {@link /occurrence-types/:id}
+ * {@link /api/occurrence-types/:id}
  */
 export async function deleteOccurrenceType(
 	{ id }: { id: DeleteOccurrenceTypePathParams["id"] },

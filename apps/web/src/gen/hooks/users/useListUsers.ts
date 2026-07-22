@@ -22,7 +22,7 @@ import { listUsers } from "../../clients/users/listUsers";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const listUsersQueryKey = (params?: ListUsersQueryParams) =>
-	[{ url: "/users" }, ...(params ? [params] : [])] as const;
+	[{ url: "/api/users" }, ...(params ? [params] : [])] as const;
 
 export type ListUsersQueryKey = ReturnType<typeof listUsersQueryKey>;
 
@@ -49,7 +49,7 @@ export function listUsersQueryOptions(
 
 /**
  * @summary List users
- * {@link /users}
+ * {@link /api/users}
  */
 export function useListUsers<
 	TData = ListUsersQueryResponse,

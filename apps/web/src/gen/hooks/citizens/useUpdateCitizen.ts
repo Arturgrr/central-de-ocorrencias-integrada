@@ -23,7 +23,7 @@ import { updateCitizen } from "../../clients/citizens/updateCitizen";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const updateCitizenMutationKey = () =>
-	[{ url: "/citizens/:id" }] as const;
+	[{ url: "/api/citizens/:id" }] as const;
 
 export type UpdateCitizenMutationKey = ReturnType<
 	typeof updateCitizenMutationKey
@@ -50,7 +50,7 @@ export function updateCitizenMutationOptions<TContext = unknown>(
 
 /**
  * @summary Update a citizen
- * {@link /citizens/:id}
+ * {@link /api/citizens/:id}
  */
 export function useUpdateCitizen<TContext>(
 	options: {

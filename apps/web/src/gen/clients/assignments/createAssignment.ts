@@ -26,14 +26,14 @@ function getCreateAssignmentUrl({
 }) {
 	const res = {
 		method: "POST",
-		url: `/occurrences/${id}/assignments` as const,
+		url: `/api/occurrences/${id}/assignments` as const,
 	};
 	return res;
 }
 
 /**
  * @summary Create an assignment for an occurrence
- * {@link /occurrences/:id/assignments}
+ * {@link /api/occurrences/:id/assignments}
  */
 export async function createAssignment(
 	{

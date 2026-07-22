@@ -23,7 +23,7 @@ import { reportVehicleLocation } from "../../clients/vehicles/reportVehicleLocat
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const reportVehicleLocationMutationKey = () =>
-	[{ url: "/vehicles/:id/locations" }] as const;
+	[{ url: "/api/vehicles/:id/locations" }] as const;
 
 export type ReportVehicleLocationMutationKey = ReturnType<
 	typeof reportVehicleLocationMutationKey
@@ -53,7 +53,7 @@ export function reportVehicleLocationMutationOptions<TContext = unknown>(
 
 /**
  * @summary Report a vehicle's location
- * {@link /vehicles/:id/locations}
+ * {@link /api/vehicles/:id/locations}
  */
 export function useReportVehicleLocation<TContext>(
 	options: {

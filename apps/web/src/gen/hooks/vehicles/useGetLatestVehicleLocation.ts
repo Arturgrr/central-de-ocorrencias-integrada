@@ -26,7 +26,7 @@ export const getLatestVehicleLocationQueryKey = ({
 	id,
 }: {
 	id: GetLatestVehicleLocationPathParams["id"] | undefined;
-}) => [{ url: "/vehicles/:id/location", params: { id: id } }] as const;
+}) => [{ url: "/api/vehicles/:id/location", params: { id: id } }] as const;
 
 export type GetLatestVehicleLocationQueryKey = ReturnType<
 	typeof getLatestVehicleLocationQueryKey
@@ -56,7 +56,7 @@ export function getLatestVehicleLocationQueryOptions(
 
 /**
  * @summary Get a vehicle's latest location
- * {@link /vehicles/:id/location}
+ * {@link /api/vehicles/:id/location}
  */
 export function useGetLatestVehicleLocation<
 	TData = GetLatestVehicleLocationQueryResponse,

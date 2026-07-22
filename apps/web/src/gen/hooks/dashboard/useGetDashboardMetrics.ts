@@ -19,7 +19,7 @@ import { getDashboardMetrics } from "../../clients/dashboard/getDashboardMetrics
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getDashboardMetricsQueryKey = () =>
-	[{ url: "/dashboard/metrics" }] as const;
+	[{ url: "/api/dashboard/metrics" }] as const;
 
 export type GetDashboardMetricsQueryKey = ReturnType<
 	typeof getDashboardMetricsQueryKey
@@ -47,7 +47,7 @@ export function getDashboardMetricsQueryOptions(
 
 /**
  * @summary Get aggregate metrics for the operations panel
- * {@link /dashboard/metrics}
+ * {@link /api/dashboard/metrics}
  */
 export function useGetDashboardMetrics<
 	TData = GetDashboardMetricsQueryResponse,

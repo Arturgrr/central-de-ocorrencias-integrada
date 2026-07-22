@@ -12,7 +12,7 @@ export function createAuth() {
 			provider: "pg",
 			schema: schema,
 		}),
-		trustedOrigins: [env.CORS_ORIGIN],
+		trustedOrigins: [env.CORS_ORIGIN ?? env.BETTER_AUTH_URL],
 		emailAndPassword: {
 			enabled: true,
 		},
@@ -32,9 +32,11 @@ export function createAuth() {
 		secret: env.BETTER_AUTH_SECRET,
 		baseURL: env.BETTER_AUTH_URL,
 		advanced: {
-			defaultCookieAttributes: useSecureCookies
-				? { sameSite: "none", secure: true, httpOnly: true }
-				: { sameSite: "lax", secure: false, httpOnly: true },
+			defaultCookieAttributes: {
+				sameSite: "lax",
+				secure: useSecureCookies,
+				httpOnly: true,
+			},
 		},
 		plugins: [],
 	});

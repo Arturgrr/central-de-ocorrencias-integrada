@@ -13,13 +13,13 @@ import type {
 import { getDashboardMetricsQueryResponseSchema } from "../../schemas/dashboard/getDashboardMetricsSchema";
 
 function getGetDashboardMetricsUrl() {
-	const res = { method: "GET", url: `/dashboard/metrics` as const };
+	const res = { method: "GET", url: `/api/dashboard/metrics` as const };
 	return res;
 }
 
 /**
  * @summary Get aggregate metrics for the operations panel
- * {@link /dashboard/metrics}
+ * {@link /api/dashboard/metrics}
  */
 export async function getDashboardMetrics(
 	config: Partial<RequestConfig> & { client?: Client } = {},

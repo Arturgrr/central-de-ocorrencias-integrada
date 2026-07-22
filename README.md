@@ -62,8 +62,22 @@ packages/
   auth/     configuração do better-auth
   env/      validação das variáveis de ambiente (servidor e web)
   ui/       componentes compartilhados
-docker/     nginx + entrypoint de configuração em runtime do frontend
 ```
+
+### Uma única imagem serve tudo
+
+O sistema é distribuído como **uma imagem Docker só**. O Fastify serve a API sob
+`/api` e entrega o build do frontend como arquivos estáticos, com fallback para o
+`index.html` nas rotas do SPA.
+
+Isso traz três consequências práticas:
+
+- **Um domínio apenas.** Não há um endereço separado para a API.
+- **Sem CORS.** Frontend e API compartilham a origem, então o cookie de sessão é
+  same-origin (`SameSite=Lax`) e não depende de cookies de terceiros.
+- **Schema automático.** Ao subir, o container aplica as migrations pendentes
+  antes de aceitar tráfego — um banco vazio vira um sistema pronto sem passo
+  manual.
 
 ### O contrato de API é a fonte da verdade
 
@@ -87,7 +101,7 @@ ajustado. Não existe divergência silenciosa entre cliente e servidor.
 
 > ⚠️ Tudo em `apps/web/src/gen` é gerado. Não edite manualmente — rode `pnpm generate:api`.
 
-A documentação interativa da API fica em `http://localhost:3000/docs` (Scalar).
+A documentação interativa da API fica em `/docs` (Scalar).
 
 ---
 
@@ -98,19 +112,18 @@ A documentação interativa da API fica em `http://localhost:3000/docs` (Scalar)
 ```bash
 cp .env.example .env      # ajuste as URLs e o segredo, se necessário
 docker compose up -d --build
-
-# popula o banco com dados de demonstração
-docker compose run --rm migrate pnpm --filter server db:seed
 ```
 
-- Frontend: `http://localhost:3001`
-- API: `http://localhost:3000`
-- Documentação da API: `http://localhost:3000/docs`
+Sistema completo em `http://localhost:3000` — o frontend na raiz, a API em
+`/api` e a documentação em `/docs`. As migrations são aplicadas sozinhas no
+primeiro start.
 
-Todas as URLs e credenciais vêm de variáveis de ambiente (`.env`). A URL da API
-usada pelo navegador é injetada **em tempo de execução** no container do
-frontend, então apontar o sistema para outro domínio é só trocar
-`VITE_SERVER_URL` e reiniciar — sem rebuild da imagem.
+Para popular com dados de demonstração, rode o seed a partir do repositório
+apontando o `DATABASE_URL` para o mesmo banco:
+
+```bash
+pnpm --filter server db:seed
+```
 
 ### Opção 2 — Desenvolvimento local
 
@@ -124,10 +137,44 @@ pnpm db:seed      # dados de demonstração
 pnpm dev          # API em :3000 e web em :3001
 ```
 
+Em desenvolvimento os dois sobem separados, mas o Vite faz proxy de `/api` e
+`/docs` para a API — o frontend usa caminhos relativos exatamente como em
+produção.
+
 Depois de alterar qualquer rota ou schema do backend:
 
 ```bash
 pnpm generate:api   # regenera o openapi.json e o SDK do frontend
+```
+
+### Opção 3 — Deploy (Coolify, Dokploy, Render…)
+
+Crie **uma única aplicação** com build pack `Dockerfile`, apontando para o
+`Dockerfile` da raiz. Nenhum build target precisa ser informado: a imagem final
+é o último estágio do arquivo.
+
+| Configuração | Valor |
+|---|---|
+| Port | `3000` |
+| Domain | o domínio público do sistema |
+| Health check | `/health` |
+
+Variáveis de ambiente (todas **runtime only** — nada é necessário em build time):
+
+```
+DATABASE_URL=postgresql://usuario:senha@host-interno:5432/banco
+BETTER_AUTH_SECRET=<openssl rand -base64 32>
+BETTER_AUTH_URL=https://seu-dominio
+NODE_ENV=production
+```
+
+`BETTER_AUTH_URL` é a URL pública do sistema e precisa ser `https://` em
+produção — é dela que sai a decisão de marcar o cookie de sessão como `Secure`.
+
+O primeiro usuário se cadastra pela tela e é promovido no banco:
+
+```sql
+UPDATE "user" SET role = 'admin', email_verified = true WHERE email = 'voce@exemplo.com';
 ```
 
 ### Credenciais de demonstração (criadas pelo seed)

@@ -21,13 +21,13 @@ function getCloseOccurrenceUrl({
 }: {
 	id: CloseOccurrencePathParams["id"];
 }) {
-	const res = { method: "PATCH", url: `/occurrences/${id}/close` as const };
+	const res = { method: "PATCH", url: `/api/occurrences/${id}/close` as const };
 	return res;
 }
 
 /**
  * @summary Close an occurrence
- * {@link /occurrences/:id/close}
+ * {@link /api/occurrences/:id/close}
  */
 export async function closeOccurrence(
 	{ id }: { id: CloseOccurrencePathParams["id"] },

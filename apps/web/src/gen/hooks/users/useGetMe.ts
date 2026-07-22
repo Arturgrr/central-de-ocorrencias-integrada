@@ -18,7 +18,7 @@ import type {
 import { getMe } from "../../clients/users/getMe";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getMeQueryKey = () => [{ url: "/me" }] as const;
+export const getMeQueryKey = () => [{ url: "/api/me" }] as const;
 
 export type GetMeQueryKey = ReturnType<typeof getMeQueryKey>;
 
@@ -41,7 +41,7 @@ export function getMeQueryOptions(
 
 /**
  * @summary Get the authenticated user profile
- * {@link /me}
+ * {@link /api/me}
  */
 export function useGetMe<
 	TData = GetMeQueryResponse,

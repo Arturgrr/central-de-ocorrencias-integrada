@@ -17,13 +17,13 @@ import type {
 import { getCityQueryResponseSchema } from "../../schemas/geo/getCitySchema";
 
 function getGetCityUrl({ id }: { id: GetCityPathParams["id"] }) {
-	const res = { method: "GET", url: `/cities/${id}` as const };
+	const res = { method: "GET", url: `/api/cities/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Get a city by id
- * {@link /cities/:id}
+ * {@link /api/cities/:id}
  */
 export async function getCity(
 	{ id }: { id: GetCityPathParams["id"] },

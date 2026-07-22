@@ -26,7 +26,7 @@ export const getVehicleQueryKey = ({
 	id,
 }: {
 	id: GetVehiclePathParams["id"] | undefined;
-}) => [{ url: "/vehicles/:id", params: { id: id } }] as const;
+}) => [{ url: "/api/vehicles/:id", params: { id: id } }] as const;
 
 export type GetVehicleQueryKey = ReturnType<typeof getVehicleQueryKey>;
 
@@ -54,7 +54,7 @@ export function getVehicleQueryOptions(
 
 /**
  * @summary Get a vehicle by id
- * {@link /vehicles/:id}
+ * {@link /api/vehicles/:id}
  */
 export function useGetVehicle<
 	TData = GetVehicleQueryResponse,

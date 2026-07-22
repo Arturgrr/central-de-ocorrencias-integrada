@@ -6,7 +6,9 @@ import { createAuthClient } from "better-auth/react";
 import type { UserRole } from "./coi";
 
 export const authClient = createAuthClient({
-	baseURL: env.VITE_SERVER_URL,
+	baseURL:
+		env.VITE_SERVER_URL ||
+		(typeof window !== "undefined" ? window.location.origin : ""),
 	plugins: [
 		inferAdditionalFields({
 			user: {

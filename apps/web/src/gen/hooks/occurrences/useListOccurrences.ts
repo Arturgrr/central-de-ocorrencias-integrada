@@ -22,7 +22,7 @@ import { listOccurrences } from "../../clients/occurrences/listOccurrences";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const listOccurrencesQueryKey = (params?: ListOccurrencesQueryParams) =>
-	[{ url: "/occurrences" }, ...(params ? [params] : [])] as const;
+	[{ url: "/api/occurrences" }, ...(params ? [params] : [])] as const;
 
 export type ListOccurrencesQueryKey = ReturnType<
 	typeof listOccurrencesQueryKey
@@ -51,7 +51,7 @@ export function listOccurrencesQueryOptions(
 
 /**
  * @summary List occurrences
- * {@link /occurrences}
+ * {@link /api/occurrences}
  */
 export function useListOccurrences<
 	TData = ListOccurrencesQueryResponse,

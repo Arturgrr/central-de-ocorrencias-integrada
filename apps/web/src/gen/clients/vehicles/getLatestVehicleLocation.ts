@@ -21,13 +21,13 @@ function getGetLatestVehicleLocationUrl({
 }: {
 	id: GetLatestVehicleLocationPathParams["id"];
 }) {
-	const res = { method: "GET", url: `/vehicles/${id}/location` as const };
+	const res = { method: "GET", url: `/api/vehicles/${id}/location` as const };
 	return res;
 }
 
 /**
  * @summary Get a vehicle's latest location
- * {@link /vehicles/:id/location}
+ * {@link /api/vehicles/:id/location}
  */
 export async function getLatestVehicleLocation(
 	{ id }: { id: GetLatestVehicleLocationPathParams["id"] },

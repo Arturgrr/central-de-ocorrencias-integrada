@@ -17,13 +17,13 @@ import type {
 import { getVehicleQueryResponseSchema } from "../../schemas/vehicles/getVehicleSchema";
 
 function getGetVehicleUrl({ id }: { id: GetVehiclePathParams["id"] }) {
-	const res = { method: "GET", url: `/vehicles/${id}` as const };
+	const res = { method: "GET", url: `/api/vehicles/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Get a vehicle by id
- * {@link /vehicles/:id}
+ * {@link /api/vehicles/:id}
  */
 export async function getVehicle(
 	{ id }: { id: GetVehiclePathParams["id"] },

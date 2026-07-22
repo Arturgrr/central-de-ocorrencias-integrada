@@ -22,7 +22,7 @@ import { closeOccurrence } from "../../clients/occurrences/closeOccurrence";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const closeOccurrenceMutationKey = () =>
-	[{ url: "/occurrences/:id/close" }] as const;
+	[{ url: "/api/occurrences/:id/close" }] as const;
 
 export type CloseOccurrenceMutationKey = ReturnType<
 	typeof closeOccurrenceMutationKey
@@ -47,7 +47,7 @@ export function closeOccurrenceMutationOptions<TContext = unknown>(
 
 /**
  * @summary Close an occurrence
- * {@link /occurrences/:id/close}
+ * {@link /api/occurrences/:id/close}
  */
 export function useCloseOccurrence<TContext>(
 	options: {

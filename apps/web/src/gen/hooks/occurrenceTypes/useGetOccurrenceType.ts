@@ -26,7 +26,7 @@ export const getOccurrenceTypeQueryKey = ({
 	id,
 }: {
 	id: GetOccurrenceTypePathParams["id"] | undefined;
-}) => [{ url: "/occurrence-types/:id", params: { id: id } }] as const;
+}) => [{ url: "/api/occurrence-types/:id", params: { id: id } }] as const;
 
 export type GetOccurrenceTypeQueryKey = ReturnType<
 	typeof getOccurrenceTypeQueryKey
@@ -56,7 +56,7 @@ export function getOccurrenceTypeQueryOptions(
 
 /**
  * @summary Get an occurrence type by id
- * {@link /occurrence-types/:id}
+ * {@link /api/occurrence-types/:id}
  */
 export function useGetOccurrenceType<
 	TData = GetOccurrenceTypeQueryResponse,

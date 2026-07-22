@@ -2846,7 +2846,7 @@
     }
   },
   "paths": {
-    "/occurrence-types": {
+    "/api/occurrence-types": {
       "post": {
         "operationId": "createOccurrenceType",
         "summary": "Create an occurrence type",
@@ -2933,7 +2933,7 @@
         }
       }
     },
-    "/occurrence-types/{id}": {
+    "/api/occurrence-types/{id}": {
       "get": {
         "operationId": "getOccurrenceType",
         "summary": "Get an occurrence type by id",
@@ -3087,7 +3087,7 @@
         }
       }
     },
-    "/citizens": {
+    "/api/citizens": {
       "post": {
         "operationId": "createCitizen",
         "summary": "Create a citizen",
@@ -3239,7 +3239,7 @@
         }
       }
     },
-    "/citizens/{id}": {
+    "/api/citizens/{id}": {
       "get": {
         "operationId": "getCitizen",
         "summary": "Get a citizen by id",
@@ -3393,7 +3393,7 @@
         }
       }
     },
-    "/vehicles": {
+    "/api/vehicles": {
       "post": {
         "operationId": "createVehicle",
         "summary": "Create a vehicle",
@@ -3480,7 +3480,7 @@
         }
       }
     },
-    "/vehicles/{id}": {
+    "/api/vehicles/{id}": {
       "get": {
         "operationId": "getVehicle",
         "summary": "Get a vehicle by id",
@@ -3584,7 +3584,7 @@
         }
       }
     },
-    "/vehicles/{id}/status": {
+    "/api/vehicles/{id}/status": {
       "patch": {
         "operationId": "setVehicleStatus",
         "summary": "Update a vehicle's status",
@@ -3650,7 +3650,7 @@
         }
       }
     },
-    "/vehicles/{id}/locations": {
+    "/api/vehicles/{id}/locations": {
       "post": {
         "operationId": "reportVehicleLocation",
         "summary": "Report a vehicle's location",
@@ -3720,7 +3720,7 @@
         }
       }
     },
-    "/vehicles/{id}/location": {
+    "/api/vehicles/{id}/location": {
       "get": {
         "operationId": "getLatestVehicleLocation",
         "summary": "Get a vehicle's latest location",
@@ -3768,7 +3768,7 @@
         }
       }
     },
-    "/occurrences": {
+    "/api/occurrences": {
       "post": {
         "operationId": "createOccurrence",
         "summary": "Create an occurrence",
@@ -3957,7 +3957,7 @@
         }
       }
     },
-    "/occurrences/{id}": {
+    "/api/occurrences/{id}": {
       "get": {
         "operationId": "getOccurrence",
         "summary": "Get an occurrence by id",
@@ -4111,7 +4111,7 @@
         }
       }
     },
-    "/occurrences/{id}/close": {
+    "/api/occurrences/{id}/close": {
       "patch": {
         "operationId": "closeOccurrence",
         "summary": "Close an occurrence",
@@ -4159,7 +4159,7 @@
         }
       }
     },
-    "/occurrences/{id}/assignments": {
+    "/api/occurrences/{id}/assignments": {
       "post": {
         "operationId": "createAssignment",
         "summary": "Create an assignment for an occurrence",
@@ -4246,7 +4246,7 @@
         }
       }
     },
-    "/assignments/{assignmentId}/status": {
+    "/api/assignments/{assignmentId}/status": {
       "patch": {
         "operationId": "updateAssignmentStatus",
         "summary": "Update the status of an assignment",
@@ -4304,7 +4304,7 @@
         }
       }
     },
-    "/occurrences/{id}/timeline": {
+    "/api/occurrences/{id}/timeline": {
       "get": {
         "operationId": "listTimeline",
         "summary": "List timeline events for an occurrence",
@@ -4391,7 +4391,7 @@
         }
       }
     },
-    "/cities": {
+    "/api/cities": {
       "get": {
         "operationId": "listCities",
         "summary": "List cities",
@@ -4420,7 +4420,7 @@
         }
       }
     },
-    "/cities/{id}": {
+    "/api/cities/{id}": {
       "get": {
         "operationId": "getCity",
         "summary": "Get a city by id",
@@ -4468,7 +4468,7 @@
         }
       }
     },
-    "/neighborhoods": {
+    "/api/neighborhoods": {
       "get": {
         "operationId": "listNeighborhoods",
         "summary": "List neighborhoods",
@@ -4509,7 +4509,7 @@
         }
       }
     },
-    "/neighborhoods/{id}": {
+    "/api/neighborhoods/{id}": {
       "get": {
         "operationId": "getNeighborhood",
         "summary": "Get a neighborhood by id",
@@ -4557,7 +4557,7 @@
         }
       }
     },
-    "/me": {
+    "/api/me": {
       "get": {
         "operationId": "getMe",
         "summary": "Get the authenticated user profile",
@@ -4593,7 +4593,7 @@
         }
       }
     },
-    "/users": {
+    "/api/users": {
       "get": {
         "operationId": "listUsers",
         "summary": "List users",
@@ -4636,7 +4636,7 @@
         }
       }
     },
-    "/agents": {
+    "/api/agents": {
       "get": {
         "operationId": "listAgents",
         "summary": "List agents",
@@ -4665,7 +4665,7 @@
         }
       }
     },
-    "/dashboard/metrics": {
+    "/api/dashboard/metrics": {
       "get": {
         "operationId": "getDashboardMetrics",
         "summary": "Get aggregate metrics for the operations panel",

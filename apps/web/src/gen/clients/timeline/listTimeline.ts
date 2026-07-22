@@ -16,13 +16,16 @@ import type {
 import { listTimelineQueryResponseSchema } from "../../schemas/timeline/listTimelineSchema";
 
 function getListTimelineUrl({ id }: { id: ListTimelinePathParams["id"] }) {
-	const res = { method: "GET", url: `/occurrences/${id}/timeline` as const };
+	const res = {
+		method: "GET",
+		url: `/api/occurrences/${id}/timeline` as const,
+	};
 	return res;
 }
 
 /**
  * @summary List timeline events for an occurrence
- * {@link /occurrences/:id/timeline}
+ * {@link /api/occurrences/:id/timeline}
  */
 export async function listTimeline(
 	{ id }: { id: ListTimelinePathParams["id"] },

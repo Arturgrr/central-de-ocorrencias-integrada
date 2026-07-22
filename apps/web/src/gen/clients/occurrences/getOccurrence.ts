@@ -17,13 +17,13 @@ import type {
 import { getOccurrenceQueryResponseSchema } from "../../schemas/occurrences/getOccurrenceSchema";
 
 function getGetOccurrenceUrl({ id }: { id: GetOccurrencePathParams["id"] }) {
-	const res = { method: "GET", url: `/occurrences/${id}` as const };
+	const res = { method: "GET", url: `/api/occurrences/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Get an occurrence by id
- * {@link /occurrences/:id}
+ * {@link /api/occurrences/:id}
  */
 export async function getOccurrence(
 	{ id }: { id: GetOccurrencePathParams["id"] },

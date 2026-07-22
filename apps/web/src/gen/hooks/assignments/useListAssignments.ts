@@ -25,7 +25,8 @@ export const listAssignmentsQueryKey = ({
 	id,
 }: {
 	id: ListAssignmentsPathParams["id"] | undefined;
-}) => [{ url: "/occurrences/:id/assignments", params: { id: id } }] as const;
+}) =>
+	[{ url: "/api/occurrences/:id/assignments", params: { id: id } }] as const;
 
 export type ListAssignmentsQueryKey = ReturnType<
 	typeof listAssignmentsQueryKey
@@ -55,7 +56,7 @@ export function listAssignmentsQueryOptions(
 
 /**
  * @summary List assignments for an occurrence
- * {@link /occurrences/:id/assignments}
+ * {@link /api/occurrences/:id/assignments}
  */
 export function useListAssignments<
 	TData = ListAssignmentsQueryResponse,

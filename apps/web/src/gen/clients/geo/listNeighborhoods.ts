@@ -16,13 +16,13 @@ import type {
 import { listNeighborhoodsQueryResponseSchema } from "../../schemas/geo/listNeighborhoodsSchema";
 
 function getListNeighborhoodsUrl() {
-	const res = { method: "GET", url: `/neighborhoods` as const };
+	const res = { method: "GET", url: `/api/neighborhoods` as const };
 	return res;
 }
 
 /**
  * @summary List neighborhoods
- * {@link /neighborhoods}
+ * {@link /api/neighborhoods}
  */
 export async function listNeighborhoods(
 	{ params }: { params?: ListNeighborhoodsQueryParams } = {},

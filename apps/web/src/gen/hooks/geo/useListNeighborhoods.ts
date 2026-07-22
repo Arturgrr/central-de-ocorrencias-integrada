@@ -23,7 +23,7 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const listNeighborhoodsQueryKey = (
 	params?: ListNeighborhoodsQueryParams,
-) => [{ url: "/neighborhoods" }, ...(params ? [params] : [])] as const;
+) => [{ url: "/api/neighborhoods" }, ...(params ? [params] : [])] as const;
 
 export type ListNeighborhoodsQueryKey = ReturnType<
 	typeof listNeighborhoodsQueryKey
@@ -52,7 +52,7 @@ export function listNeighborhoodsQueryOptions(
 
 /**
  * @summary List neighborhoods
- * {@link /neighborhoods}
+ * {@link /api/neighborhoods}
  */
 export function useListNeighborhoods<
 	TData = ListNeighborhoodsQueryResponse,

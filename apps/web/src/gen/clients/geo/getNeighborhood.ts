@@ -21,13 +21,13 @@ function getGetNeighborhoodUrl({
 }: {
 	id: GetNeighborhoodPathParams["id"];
 }) {
-	const res = { method: "GET", url: `/neighborhoods/${id}` as const };
+	const res = { method: "GET", url: `/api/neighborhoods/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Get a neighborhood by id
- * {@link /neighborhoods/:id}
+ * {@link /api/neighborhoods/:id}
  */
 export async function getNeighborhood(
 	{ id }: { id: GetNeighborhoodPathParams["id"] },

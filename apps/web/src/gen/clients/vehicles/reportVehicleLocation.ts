@@ -25,13 +25,13 @@ function getReportVehicleLocationUrl({
 }: {
 	id: ReportVehicleLocationPathParams["id"];
 }) {
-	const res = { method: "POST", url: `/vehicles/${id}/locations` as const };
+	const res = { method: "POST", url: `/api/vehicles/${id}/locations` as const };
 	return res;
 }
 
 /**
  * @summary Report a vehicle's location
- * {@link /vehicles/:id/locations}
+ * {@link /api/vehicles/:id/locations}
  */
 export async function reportVehicleLocation(
 	{

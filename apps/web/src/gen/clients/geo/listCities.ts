@@ -13,13 +13,13 @@ import type {
 import { listCitiesQueryResponseSchema } from "../../schemas/geo/listCitiesSchema";
 
 function getListCitiesUrl() {
-	const res = { method: "GET", url: `/cities` as const };
+	const res = { method: "GET", url: `/api/cities` as const };
 	return res;
 }
 
 /**
  * @summary List cities
- * {@link /cities}
+ * {@link /api/cities}
  */
 export async function listCities(
 	config: Partial<RequestConfig> & { client?: Client } = {},

@@ -21,7 +21,8 @@ import type {
 import { createVehicle } from "../../clients/vehicles/createVehicle";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
-export const createVehicleMutationKey = () => [{ url: "/vehicles" }] as const;
+export const createVehicleMutationKey = () =>
+	[{ url: "/api/vehicles" }] as const;
 
 export type CreateVehicleMutationKey = ReturnType<
 	typeof createVehicleMutationKey
@@ -48,7 +49,7 @@ export function createVehicleMutationOptions<TContext = unknown>(
 
 /**
  * @summary Create a vehicle
- * {@link /vehicles}
+ * {@link /api/vehicles}
  */
 export function useCreateVehicle<TContext>(
 	options: {

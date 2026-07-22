@@ -21,13 +21,13 @@ function getGetOccurrenceTypeUrl({
 }: {
 	id: GetOccurrenceTypePathParams["id"];
 }) {
-	const res = { method: "GET", url: `/occurrence-types/${id}` as const };
+	const res = { method: "GET", url: `/api/occurrence-types/${id}` as const };
 	return res;
 }
 
 /**
  * @summary Get an occurrence type by id
- * {@link /occurrence-types/:id}
+ * {@link /api/occurrence-types/:id}
  */
 export async function getOccurrenceType(
 	{ id }: { id: GetOccurrenceTypePathParams["id"] },

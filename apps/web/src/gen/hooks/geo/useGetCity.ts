@@ -26,7 +26,7 @@ export const getCityQueryKey = ({
 	id,
 }: {
 	id: GetCityPathParams["id"] | undefined;
-}) => [{ url: "/cities/:id", params: { id: id } }] as const;
+}) => [{ url: "/api/cities/:id", params: { id: id } }] as const;
 
 export type GetCityQueryKey = ReturnType<typeof getCityQueryKey>;
 
@@ -54,7 +54,7 @@ export function getCityQueryOptions(
 
 /**
  * @summary Get a city by id
- * {@link /cities/:id}
+ * {@link /api/cities/:id}
  */
 export function useGetCity<
 	TData = GetCityQueryResponse,

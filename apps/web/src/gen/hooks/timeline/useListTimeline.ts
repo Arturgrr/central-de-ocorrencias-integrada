@@ -25,7 +25,7 @@ export const listTimelineQueryKey = ({
 	id,
 }: {
 	id: ListTimelinePathParams["id"] | undefined;
-}) => [{ url: "/occurrences/:id/timeline", params: { id: id } }] as const;
+}) => [{ url: "/api/occurrences/:id/timeline", params: { id: id } }] as const;
 
 export type ListTimelineQueryKey = ReturnType<typeof listTimelineQueryKey>;
 
@@ -53,7 +53,7 @@ export function listTimelineQueryOptions(
 
 /**
  * @summary List timeline events for an occurrence
- * {@link /occurrences/:id/timeline}
+ * {@link /api/occurrences/:id/timeline}
  */
 export function useListTimeline<
 	TData = ListTimelineQueryResponse,

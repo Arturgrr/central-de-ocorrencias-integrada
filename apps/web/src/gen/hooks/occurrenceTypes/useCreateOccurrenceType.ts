@@ -22,7 +22,7 @@ import { createOccurrenceType } from "../../clients/occurrenceTypes/createOccurr
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const createOccurrenceTypeMutationKey = () =>
-	[{ url: "/occurrence-types" }] as const;
+	[{ url: "/api/occurrence-types" }] as const;
 
 export type CreateOccurrenceTypeMutationKey = ReturnType<
 	typeof createOccurrenceTypeMutationKey
@@ -49,7 +49,7 @@ export function createOccurrenceTypeMutationOptions<TContext = unknown>(
 
 /**
  * @summary Create an occurrence type
- * {@link /occurrence-types}
+ * {@link /api/occurrence-types}
  */
 export function useCreateOccurrenceType<TContext>(
 	options: {

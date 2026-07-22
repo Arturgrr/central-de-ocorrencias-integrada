@@ -22,7 +22,7 @@ import { createTimelineEvent } from "../../clients/timeline/createTimelineEvent"
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const createTimelineEventMutationKey = () =>
-	[{ url: "/occurrences/:id/timeline" }] as const;
+	[{ url: "/api/occurrences/:id/timeline" }] as const;
 
 export type CreateTimelineEventMutationKey = ReturnType<
 	typeof createTimelineEventMutationKey
@@ -52,7 +52,7 @@ export function createTimelineEventMutationOptions<TContext = unknown>(
 
 /**
  * @summary Create a timeline event for an occurrence
- * {@link /occurrences/:id/timeline}
+ * {@link /api/occurrences/:id/timeline}
  */
 export function useCreateTimelineEvent<TContext>(
 	options: {
