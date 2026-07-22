@@ -1,13 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import {
-	Activity,
-	Car,
-	FileText,
-	HardDrive,
-	LogOut,
-	Search,
-	Shield,
-} from "lucide-react";
+import { Activity, Car, FileText, LogOut, Search, Shield } from "lucide-react";
 import type { ReactNode } from "react";
 import { toast } from "sonner";
 
@@ -18,7 +10,6 @@ import { USER_ROLE } from "@/lib/coi";
 const NAV_ITEMS = [
 	{ to: "/dashboard", label: "Painel de Controle", icon: Activity },
 	{ to: "/historico-bos", label: "Arquivo Geral", icon: Search },
-	{ to: "/central-midia", label: "Central de Mídia", icon: HardDrive },
 	{ to: "/novo-bo", label: "Novo Boletim (B.O.)", icon: FileText },
 	{ to: "/equipes", label: "Viaturas & Agentes", icon: Car },
 ] as const;

@@ -30,7 +30,6 @@ type TimelineEventRow = {
 		| "status_changed"
 		| "vehicle_dispatched"
 		| "agent_update"
-		| "photo_uploaded"
 		| "closed";
 	description: string;
 	metadata: string | null;

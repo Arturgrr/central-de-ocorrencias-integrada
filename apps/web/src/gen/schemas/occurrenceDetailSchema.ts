@@ -5,7 +5,6 @@
 
 import * as z from "zod";
 import { assignmentWithResourcesSchema } from "./assignmentWithResourcesSchema";
-import { attachmentSchema } from "./attachmentSchema";
 import { citizenSchema } from "./citizenSchema";
 import { citySchema } from "./citySchema";
 import { neighborhoodSchema } from "./neighborhoodSchema";
@@ -43,5 +42,4 @@ export const occurrenceDetailSchema = z.object({
 	closedBy: z.union([z.lazy(() => userRefSchema), z.null()]),
 	assignments: z.array(z.lazy(() => assignmentWithResourcesSchema)),
 	timelineEvents: z.array(z.lazy(() => timelineEventSchema)),
-	attachments: z.array(z.lazy(() => attachmentSchema)),
 });

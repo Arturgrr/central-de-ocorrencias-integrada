@@ -1,10 +1,6 @@
 export type { CreateAssignmentMutationKey } from "./hooks/assignments/useCreateAssignment";
 export type { ListAssignmentsQueryKey } from "./hooks/assignments/useListAssignments";
 export type { UpdateAssignmentStatusMutationKey } from "./hooks/assignments/useUpdateAssignmentStatus";
-export type { CreateAttachmentMutationKey } from "./hooks/attachments/useCreateAttachment";
-export type { GetMediaSummaryQueryKey } from "./hooks/attachments/useGetMediaSummary";
-export type { ListAttachmentsQueryKey } from "./hooks/attachments/useListAttachments";
-export type { ListMediaQueryKey } from "./hooks/attachments/useListMedia";
 export type { CreateCitizenMutationKey } from "./hooks/citizens/useCreateCitizen";
 export type { DeleteCitizenMutationKey } from "./hooks/citizens/useDeleteCitizen";
 export type { GetCitizenQueryKey } from "./hooks/citizens/useGetCitizen";
@@ -50,24 +46,12 @@ export type {
 } from "./types/AssignmentStatusInput";
 export type { AssignmentWithResources } from "./types/AssignmentWithResources";
 export type { AssignmentWithResourcesInput } from "./types/AssignmentWithResourcesInput";
-export type { Attachment } from "./types/Attachment";
-export type { AttachmentInput } from "./types/AttachmentInput";
-export type {
-	AttachmentKind,
-	AttachmentKindEnumKey,
-} from "./types/AttachmentKind";
-export type {
-	AttachmentKindInput,
-	AttachmentKindInputEnumKey,
-} from "./types/AttachmentKindInput";
 export type { Citizen } from "./types/Citizen";
 export type { CitizenInput } from "./types/CitizenInput";
 export type { City } from "./types/City";
 export type { CityInput } from "./types/CityInput";
 export type { CreateAssignment } from "./types/CreateAssignment";
 export type { CreateAssignmentInput } from "./types/CreateAssignmentInput";
-export type { CreateAttachment } from "./types/CreateAttachment";
-export type { CreateAttachmentInput } from "./types/CreateAttachmentInput";
 export type { CreateCitizen } from "./types/CreateCitizen";
 export type { CreateCitizenInput } from "./types/CreateCitizenInput";
 export type { CreateOccurrence } from "./types/CreateOccurrence";
@@ -80,10 +64,6 @@ export type { CreateVehicle } from "./types/CreateVehicle";
 export type { CreateVehicleInput } from "./types/CreateVehicleInput";
 export type { ErrorResponse } from "./types/ErrorResponse";
 export type { ErrorResponseInput } from "./types/ErrorResponseInput";
-export type { MediaAttachment } from "./types/MediaAttachment";
-export type { MediaAttachmentInput } from "./types/MediaAttachmentInput";
-export type { MediaSummary } from "./types/MediaSummary";
-export type { MediaSummaryInput } from "./types/MediaSummaryInput";
 export type { Neighborhood } from "./types/Neighborhood";
 export type { NeighborhoodInput } from "./types/NeighborhoodInput";
 export type { OccurrenceDetail } from "./types/OccurrenceDetail";
@@ -167,30 +147,6 @@ export type {
 	UpdateAssignmentStatusMutationResponse,
 	UpdateAssignmentStatusPathParams,
 } from "./types/assignments/UpdateAssignmentStatus";
-export type {
-	CreateAttachment201,
-	CreateAttachmentMutation,
-	CreateAttachmentMutationRequest,
-	CreateAttachmentMutationResponse,
-	CreateAttachmentPathParams,
-} from "./types/attachments/CreateAttachment";
-export type {
-	GetMediaSummary200,
-	GetMediaSummaryQuery,
-	GetMediaSummaryQueryResponse,
-} from "./types/attachments/GetMediaSummary";
-export type {
-	ListAttachments200,
-	ListAttachmentsPathParams,
-	ListAttachmentsQuery,
-	ListAttachmentsQueryResponse,
-} from "./types/attachments/ListAttachments";
-export type {
-	ListMedia200,
-	ListMediaQuery,
-	ListMediaQueryParams,
-	ListMediaQueryResponse,
-} from "./types/attachments/ListMedia";
 export type {
 	CreateCitizen201,
 	CreateCitizen409,
@@ -424,11 +380,6 @@ export { assignments } from "./clients/assignments/assignments";
 export { createAssignment } from "./clients/assignments/createAssignment";
 export { listAssignments } from "./clients/assignments/listAssignments";
 export { updateAssignmentStatus } from "./clients/assignments/updateAssignmentStatus";
-export { attachments } from "./clients/attachments/attachments";
-export { createAttachment } from "./clients/attachments/createAttachment";
-export { getMediaSummary } from "./clients/attachments/getMediaSummary";
-export { listAttachments } from "./clients/attachments/listAttachments";
-export { listMedia } from "./clients/attachments/listMedia";
 export { citizens } from "./clients/citizens/citizens";
 export { createCitizen } from "./clients/citizens/createCitizen";
 export { deleteCitizen } from "./clients/citizens/deleteCitizen";
@@ -479,18 +430,6 @@ export { useListAssignments } from "./hooks/assignments/useListAssignments";
 export { updateAssignmentStatusMutationKey } from "./hooks/assignments/useUpdateAssignmentStatus";
 export { updateAssignmentStatusMutationOptions } from "./hooks/assignments/useUpdateAssignmentStatus";
 export { useUpdateAssignmentStatus } from "./hooks/assignments/useUpdateAssignmentStatus";
-export { createAttachmentMutationKey } from "./hooks/attachments/useCreateAttachment";
-export { createAttachmentMutationOptions } from "./hooks/attachments/useCreateAttachment";
-export { useCreateAttachment } from "./hooks/attachments/useCreateAttachment";
-export { getMediaSummaryQueryKey } from "./hooks/attachments/useGetMediaSummary";
-export { getMediaSummaryQueryOptions } from "./hooks/attachments/useGetMediaSummary";
-export { useGetMediaSummary } from "./hooks/attachments/useGetMediaSummary";
-export { listAttachmentsQueryKey } from "./hooks/attachments/useListAttachments";
-export { listAttachmentsQueryOptions } from "./hooks/attachments/useListAttachments";
-export { useListAttachments } from "./hooks/attachments/useListAttachments";
-export { listMediaQueryKey } from "./hooks/attachments/useListMedia";
-export { listMediaQueryOptions } from "./hooks/attachments/useListMedia";
-export { useListMedia } from "./hooks/attachments/useListMedia";
 export { createCitizenMutationKey } from "./hooks/citizens/useCreateCitizen";
 export { createCitizenMutationOptions } from "./hooks/citizens/useCreateCitizen";
 export { useCreateCitizen } from "./hooks/citizens/useCreateCitizen";
@@ -614,30 +553,6 @@ export {
 	updateAssignmentStatusMutationResponseSchema,
 	updateAssignmentStatusPathParamsSchema,
 } from "./schemas/assignments/updateAssignmentStatusSchema";
-export { attachmentInputSchema } from "./schemas/attachmentInputSchema";
-export { attachmentKindInputSchema } from "./schemas/attachmentKindInputSchema";
-export { attachmentKindSchema } from "./schemas/attachmentKindSchema";
-export { attachmentSchema } from "./schemas/attachmentSchema";
-export {
-	createAttachment201Schema,
-	createAttachmentMutationRequestSchema,
-	createAttachmentMutationResponseSchema,
-	createAttachmentPathParamsSchema,
-} from "./schemas/attachments/createAttachmentSchema";
-export {
-	getMediaSummary200Schema,
-	getMediaSummaryQueryResponseSchema,
-} from "./schemas/attachments/getMediaSummarySchema";
-export {
-	listAttachments200Schema,
-	listAttachmentsPathParamsSchema,
-	listAttachmentsQueryResponseSchema,
-} from "./schemas/attachments/listAttachmentsSchema";
-export {
-	listMedia200Schema,
-	listMediaQueryParamsSchema,
-	listMediaQueryResponseSchema,
-} from "./schemas/attachments/listMediaSchema";
 export { citizenInputSchema } from "./schemas/citizenInputSchema";
 export { citizenSchema } from "./schemas/citizenSchema";
 export {
@@ -674,8 +589,6 @@ export { cityInputSchema } from "./schemas/cityInputSchema";
 export { citySchema } from "./schemas/citySchema";
 export { createAssignmentInputSchema } from "./schemas/createAssignmentInputSchema";
 export { createAssignmentSchema } from "./schemas/createAssignmentSchema";
-export { createAttachmentInputSchema } from "./schemas/createAttachmentInputSchema";
-export { createAttachmentSchema } from "./schemas/createAttachmentSchema";
 export { createCitizenInputSchema } from "./schemas/createCitizenInputSchema";
 export { createCitizenSchema } from "./schemas/createCitizenSchema";
 export { createOccurrenceInputSchema } from "./schemas/createOccurrenceInputSchema";
@@ -713,10 +626,6 @@ export {
 	listNeighborhoodsQueryParamsSchema,
 	listNeighborhoodsQueryResponseSchema,
 } from "./schemas/geo/listNeighborhoodsSchema";
-export { mediaAttachmentInputSchema } from "./schemas/mediaAttachmentInputSchema";
-export { mediaAttachmentSchema } from "./schemas/mediaAttachmentSchema";
-export { mediaSummaryInputSchema } from "./schemas/mediaSummaryInputSchema";
-export { mediaSummarySchema } from "./schemas/mediaSummarySchema";
 export { neighborhoodInputSchema } from "./schemas/neighborhoodInputSchema";
 export { neighborhoodSchema } from "./schemas/neighborhoodSchema";
 export { occurrenceDetailInputSchema } from "./schemas/occurrenceDetailInputSchema";
@@ -892,8 +801,6 @@ export {
 } from "./schemas/vehicles/updateVehicleSchema";
 export { assignmentStatusEnum } from "./types/AssignmentStatus";
 export { assignmentStatusInputEnum } from "./types/AssignmentStatusInput";
-export { attachmentKindEnum } from "./types/AttachmentKind";
-export { attachmentKindInputEnum } from "./types/AttachmentKindInput";
 export { occurrencePriorityEnum } from "./types/OccurrencePriority";
 export { occurrencePriorityInputEnum } from "./types/OccurrencePriorityInput";
 export { occurrenceStatusEnum } from "./types/OccurrenceStatus";

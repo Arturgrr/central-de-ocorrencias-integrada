@@ -3,26 +3,21 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
 	AlertTriangle,
 	ArrowLeft,
-	Camera,
 	Car,
 	CheckCircle,
 	Clock,
-	FileText,
-	Image as ImageIcon,
 	MapPin,
 	Phone,
 	Radio,
 	Send,
 	ShieldAlert,
 	User,
-	Video,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 import { StatusBadge } from "@/components/status-badge";
 import { useCreateAssignment } from "@/gen/hooks/assignments/useCreateAssignment";
-import { useCreateAttachment } from "@/gen/hooks/attachments/useCreateAttachment";
 import { useCloseOccurrence } from "@/gen/hooks/occurrences/useCloseOccurrence";
 import {
 	getOccurrenceQueryKey,
@@ -36,8 +31,6 @@ import { useListVehicles } from "@/gen/hooks/vehicles/useListVehicles";
 import { requireRole } from "@/lib/auth-client";
 import {
 	ASSIGNMENT_STATUS,
-	attachmentKind,
-	fileExtension,
 	formatDateTime,
 	formatTime,
 	OCCURRENCE_PRIORITY,
@@ -62,11 +55,6 @@ function DetalhesOcorrenciaScreen() {
 	const [note, setNote] = useState("");
 	const [vehicleId, setVehicleId] = useState("");
 	const [agentUserId, setAgentUserId] = useState("");
-	const [media, setMedia] = useState({
-		fileName: "",
-		fileUrl: "",
-		mimeType: "image/jpeg",
-	});
 
 	function refresh() {
 		queryClient.invalidateQueries({
@@ -109,16 +97,6 @@ function DetalhesOcorrenciaScreen() {
 		mutation: {
 			onSuccess: () => {
 				toast.success("Ocorrência finalizada");
-				refresh();
-			},
-		},
-	});
-
-	const createAttachment = useCreateAttachment({
-		mutation: {
-			onSuccess: () => {
-				setMedia({ fileName: "", fileUrl: "", mimeType: "image/jpeg" });
-				toast.success("Evidência anexada");
 				refresh();
 			},
 		},
@@ -428,107 +406,6 @@ function DetalhesOcorrenciaScreen() {
 					</div>
 
 					<div className="space-y-6">
-						<section className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-							<h3 className="mb-4 flex items-center gap-2 font-bold text-white">
-								<Camera className="h-4 w-4 text-emerald-500" />
-								Evidências Anexadas
-							</h3>
-
-							<div className="grid grid-cols-2 gap-3">
-								{data.attachments.length === 0 && (
-									<p className="col-span-2 text-slate-500 text-sm">
-										Nenhuma evidência anexada.
-									</p>
-								)}
-								{data.attachments.map((attachment) => {
-									const kind = attachmentKind(attachment.mimeType);
-									const Icon =
-										kind === "video"
-											? Video
-											: kind === "document"
-												? FileText
-												: ImageIcon;
-									return (
-										<a
-											key={attachment.id}
-											href={attachment.fileUrl}
-											target="_blank"
-											rel="noreferrer"
-											className="group flex aspect-square flex-col items-center justify-center rounded-lg border border-slate-800 bg-slate-950 p-2 text-center text-slate-600 transition-colors hover:border-slate-600"
-											title={attachment.fileName}
-										>
-											<Icon className="mb-2 h-8 w-8 opacity-50 transition-transform group-hover:scale-110" />
-											<span className="w-full truncate font-bold text-[10px] uppercase tracking-wider">
-												{attachment.fileName}
-											</span>
-											<span className="text-[9px] text-slate-700">
-												{fileExtension(attachment.fileName)}
-											</span>
-										</a>
-									);
-								})}
-							</div>
-
-							{!isClosed && (
-								<form
-									className="mt-4 space-y-2 border-slate-800 border-t pt-4"
-									onSubmit={(event) => {
-										event.preventDefault();
-										createAttachment.mutate({
-											id: occurrenceId,
-											data: {
-												fileName: media.fileName,
-												fileUrl: media.fileUrl,
-												mimeType: media.mimeType,
-											},
-										});
-									}}
-								>
-									<input
-										type="text"
-										required
-										value={media.fileName}
-										onChange={(event) =>
-											setMedia((m) => ({ ...m, fileName: event.target.value }))
-										}
-										placeholder="Nome do arquivo (ex: encosta_01.jpg)"
-										className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-slate-200 text-xs outline-none focus:border-emerald-500"
-									/>
-									<input
-										type="url"
-										required
-										value={media.fileUrl}
-										onChange={(event) =>
-											setMedia((m) => ({ ...m, fileUrl: event.target.value }))
-										}
-										placeholder="URL do arquivo no repositório"
-										className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-slate-200 text-xs outline-none focus:border-emerald-500"
-									/>
-									<select
-										value={media.mimeType}
-										onChange={(event) =>
-											setMedia((m) => ({ ...m, mimeType: event.target.value }))
-										}
-										className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-slate-300 text-xs outline-none focus:border-emerald-500"
-									>
-										<option value="image/jpeg">Fotografia (JPEG)</option>
-										<option value="image/png">Fotografia (PNG)</option>
-										<option value="video/mp4">Vídeo (MP4)</option>
-										<option value="application/pdf">
-											Documento / Laudo (PDF)
-										</option>
-									</select>
-									<button
-										type="submit"
-										disabled={createAttachment.isPending}
-										className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-800 bg-slate-950 py-2.5 font-bold text-slate-300 text-xs uppercase tracking-wider transition-colors hover:bg-slate-800 disabled:opacity-60"
-									>
-										<Camera className="h-4 w-4" /> Adicionar Mídia
-									</button>
-								</form>
-							)}
-						</section>
-
 						<section className="rounded-xl border border-slate-800 bg-slate-900 p-5">
 							<h3 className="mb-4 font-bold text-sm text-white">
 								Atualizar Status Tático

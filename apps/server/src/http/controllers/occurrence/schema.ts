@@ -4,7 +4,6 @@ import {
 	occurrenceStatusSchema,
 } from "../../schemas/common";
 import { assignmentSchema } from "../assignment/schema";
-import { attachmentSchema } from "../attachment/schema";
 import { citizenSchema } from "../citizen/schema";
 import { citySchema, neighborhoodSchema } from "../geo/schema";
 import { occurrenceTypeSchema } from "../occurrence-type/schema";
@@ -53,7 +52,6 @@ export const occurrenceDetailSchema = occurrenceSummarySchema
 		closedBy: userRefSchema.nullable(),
 		assignments: z.array(assignmentWithResourcesSchema),
 		timelineEvents: z.array(timelineEventSchema),
-		attachments: z.array(attachmentSchema),
 	})
 	.meta({ id: "OccurrenceDetail" });
 
@@ -193,21 +191,9 @@ type TimelineEventRow = {
 		| "status_changed"
 		| "vehicle_dispatched"
 		| "agent_update"
-		| "photo_uploaded"
 		| "closed";
 	description: string;
 	metadata: string | null;
-	createdAt: Date;
-};
-
-type AttachmentRow = {
-	id: string;
-	occurrenceId: string;
-	uploadedByUserId: string | null;
-	fileName: string;
-	fileUrl: string;
-	mimeType: string;
-	description: string | null;
 	createdAt: Date;
 };
 
@@ -220,7 +206,6 @@ type OccurrenceDetailRow = OccurrenceRow & {
 	closedBy: UserRow | null;
 	assignments: AssignmentRow[];
 	timelineEvents: TimelineEventRow[];
-	attachments: AttachmentRow[];
 };
 
 export function serializeOccurrenceSummary(row: OccurrenceRow) {
@@ -320,13 +305,6 @@ function serializeTimelineEvent(row: TimelineEventRow) {
 	};
 }
 
-function serializeAttachment(row: AttachmentRow) {
-	return {
-		...row,
-		createdAt: row.createdAt.toISOString(),
-	};
-}
-
 export function serializeOccurrenceDetail(row: OccurrenceDetailRow) {
 	return {
 		...serializeOccurrenceSummary(row),
@@ -340,6 +318,5 @@ export function serializeOccurrenceDetail(row: OccurrenceDetailRow) {
 		closedBy: row.closedBy ? serializeUser(row.closedBy) : null,
 		assignments: row.assignments.map(serializeAssignment),
 		timelineEvents: row.timelineEvents.map(serializeTimelineEvent),
-		attachments: row.attachments.map(serializeAttachment),
 	};
 }

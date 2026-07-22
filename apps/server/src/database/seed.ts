@@ -6,7 +6,6 @@ import {
 	neighborhood,
 	occurrence,
 	occurrenceAssignment,
-	occurrenceAttachment,
 	occurrenceTimelineEvent,
 	occurrenceType,
 	user,
@@ -59,7 +58,6 @@ async function upsertUser(input: {
 
 async function main() {
 	console.log("→ Limpando dados operacionais...");
-	await db.delete(occurrenceAttachment);
 	await db.delete(occurrenceTimelineEvent);
 	await db.delete(occurrenceAssignment);
 	await db.delete(occurrence);
@@ -306,7 +304,7 @@ async function main() {
 		throw new Error("Failed to seed occurrences");
 	}
 
-	console.log("→ Criando despachos, timeline e evidências...");
+	console.log("→ Criando despachos e timeline...");
 	await db.insert(occurrenceAssignment).values([
 		{
 			occurrenceId: deslizamento.id,
@@ -356,33 +354,6 @@ async function main() {
 			createdByUserId: agentOliveiraId,
 			type: "closed",
 			description: "Desobstrução concluída, via liberada.",
-		},
-	]);
-
-	await db.insert(occurrenceAttachment).values([
-		{
-			occurrenceId: deslizamento.id,
-			uploadedByUserId: agentOliveiraId,
-			fileName: "deslizamento_encosta_vtr42.jpg",
-			fileUrl: "https://storage.coi.gov.br/evidencias/deslizamento_encosta.jpg",
-			mimeType: "image/jpeg",
-			description: "Vista frontal do talude que cedeu.",
-		},
-		{
-			occurrenceId: deslizamento.id,
-			uploadedByUserId: agentOliveiraId,
-			fileName: "laudo_pericial_preliminar.pdf",
-			fileUrl: "https://storage.coi.gov.br/laudos/laudo_preliminar.pdf",
-			mimeType: "application/pdf",
-			description: "Laudo estrutural preliminar.",
-		},
-		{
-			occurrenceId: alagamento.id,
-			uploadedByUserId: agentOliveiraId,
-			fileName: "drone_sobrevoo_alagamento.mp4",
-			fileUrl: "https://storage.coi.gov.br/videos/sobrevoo_alagamento.mp4",
-			mimeType: "video/mp4",
-			description: "Sobrevoo de drone sobre a via alagada.",
 		},
 	]);
 

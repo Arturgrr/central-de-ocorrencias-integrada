@@ -10,6 +10,5 @@ export const timelineEventTypeSchema = z.enum([
 	"status_changed",
 	"vehicle_dispatched",
 	"agent_update",
-	"photo_uploaded",
 	"closed",
 ]);

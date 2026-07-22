@@ -4,7 +4,6 @@
  */
 
 import type { AssignmentWithResourcesInput } from "./AssignmentWithResourcesInput";
-import type { AttachmentInput } from "./AttachmentInput";
 import type { CitizenInput } from "./CitizenInput";
 import type { CityInput } from "./CityInput";
 import type { NeighborhoodInput } from "./NeighborhoodInput";
@@ -87,8 +86,4 @@ export type OccurrenceDetailInput = {
 	 * @type array
 	 */
 	timelineEvents: TimelineEventInput[];
-	/**
-	 * @type array
-	 */
-	attachments: AttachmentInput[];
 };

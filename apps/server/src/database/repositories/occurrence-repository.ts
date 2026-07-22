@@ -87,7 +87,6 @@ export class OccurrenceRepository {
 					},
 				},
 				timelineEvents: true,
-				attachments: true,
 			},
 		});
 	}

@@ -315,17 +315,6 @@ function NovaOcorrenciaScreen() {
 							</p>
 						</div>
 
-						<div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
-							<h3 className="mb-3 font-bold text-white">
-								Evidências Multimídia
-							</h3>
-							<p className="text-slate-500 text-sm leading-relaxed">
-								As fotos, vídeos e laudos são anexados na tela de detalhes do
-								B.O., já vinculados ao protocolo gerado — inclusive pelo agente
-								em campo.
-							</p>
-						</div>
-
 						<button
 							type="submit"
 							disabled={isSubmitting}

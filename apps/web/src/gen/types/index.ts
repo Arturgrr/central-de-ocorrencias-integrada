@@ -10,21 +10,12 @@ export type {
 } from "./AssignmentStatusInput";
 export type { AssignmentWithResources } from "./AssignmentWithResources";
 export type { AssignmentWithResourcesInput } from "./AssignmentWithResourcesInput";
-export type { Attachment } from "./Attachment";
-export type { AttachmentInput } from "./AttachmentInput";
-export type { AttachmentKind, AttachmentKindEnumKey } from "./AttachmentKind";
-export type {
-	AttachmentKindInput,
-	AttachmentKindInputEnumKey,
-} from "./AttachmentKindInput";
 export type { Citizen } from "./Citizen";
 export type { CitizenInput } from "./CitizenInput";
 export type { City } from "./City";
 export type { CityInput } from "./CityInput";
 export type { CreateAssignment } from "./CreateAssignment";
 export type { CreateAssignmentInput } from "./CreateAssignmentInput";
-export type { CreateAttachment } from "./CreateAttachment";
-export type { CreateAttachmentInput } from "./CreateAttachmentInput";
 export type { CreateCitizen } from "./CreateCitizen";
 export type { CreateCitizenInput } from "./CreateCitizenInput";
 export type { CreateOccurrence } from "./CreateOccurrence";
@@ -37,10 +28,6 @@ export type { CreateVehicle } from "./CreateVehicle";
 export type { CreateVehicleInput } from "./CreateVehicleInput";
 export type { ErrorResponse } from "./ErrorResponse";
 export type { ErrorResponseInput } from "./ErrorResponseInput";
-export type { MediaAttachment } from "./MediaAttachment";
-export type { MediaAttachmentInput } from "./MediaAttachmentInput";
-export type { MediaSummary } from "./MediaSummary";
-export type { MediaSummaryInput } from "./MediaSummaryInput";
 export type { Neighborhood } from "./Neighborhood";
 export type { NeighborhoodInput } from "./NeighborhoodInput";
 export type { OccurrenceDetail } from "./OccurrenceDetail";
@@ -121,30 +108,6 @@ export type {
 	UpdateAssignmentStatusMutationResponse,
 	UpdateAssignmentStatusPathParams,
 } from "./assignments/UpdateAssignmentStatus";
-export type {
-	CreateAttachment201,
-	CreateAttachmentMutation,
-	CreateAttachmentMutationRequest,
-	CreateAttachmentMutationResponse,
-	CreateAttachmentPathParams,
-} from "./attachments/CreateAttachment";
-export type {
-	GetMediaSummary200,
-	GetMediaSummaryQuery,
-	GetMediaSummaryQueryResponse,
-} from "./attachments/GetMediaSummary";
-export type {
-	ListAttachments200,
-	ListAttachmentsPathParams,
-	ListAttachmentsQuery,
-	ListAttachmentsQueryResponse,
-} from "./attachments/ListAttachments";
-export type {
-	ListMedia200,
-	ListMediaQuery,
-	ListMediaQueryParams,
-	ListMediaQueryResponse,
-} from "./attachments/ListMedia";
 export type {
 	CreateCitizen201,
 	CreateCitizen409,
@@ -376,8 +339,6 @@ export type {
 } from "./vehicles/UpdateVehicle";
 export { assignmentStatusEnum } from "./AssignmentStatus";
 export { assignmentStatusInputEnum } from "./AssignmentStatusInput";
-export { attachmentKindEnum } from "./AttachmentKind";
-export { attachmentKindInputEnum } from "./AttachmentKindInput";
 export { occurrencePriorityEnum } from "./OccurrencePriority";
 export { occurrencePriorityInputEnum } from "./OccurrencePriorityInput";
 export { occurrenceStatusEnum } from "./OccurrenceStatus";

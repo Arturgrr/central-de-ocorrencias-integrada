@@ -14,7 +14,6 @@ import { Route as NovoBoRouteImport } from './routes/novo-bo'
 import { Route as HistoricoBosRouteImport } from './routes/historico-bos'
 import { Route as EquipesRouteImport } from './routes/equipes'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as CentralMidiaRouteImport } from './routes/central-midia'
 import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DetalhesBoOccurrenceIdRouteImport } from './routes/detalhes-bo.$occurrenceId'
@@ -44,11 +43,6 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CentralMidiaRoute = CentralMidiaRouteImport.update({
-  id: '/central-midia',
-  path: '/central-midia',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CadastroRoute = CadastroRouteImport.update({
   id: '/cadastro',
   path: '/cadastro',
@@ -68,7 +62,6 @@ const DetalhesBoOccurrenceIdRoute = DetalhesBoOccurrenceIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
-  '/central-midia': typeof CentralMidiaRoute
   '/dashboard': typeof DashboardRoute
   '/equipes': typeof EquipesRoute
   '/historico-bos': typeof HistoricoBosRoute
@@ -79,7 +72,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
-  '/central-midia': typeof CentralMidiaRoute
   '/dashboard': typeof DashboardRoute
   '/equipes': typeof EquipesRoute
   '/historico-bos': typeof HistoricoBosRoute
@@ -91,7 +83,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
-  '/central-midia': typeof CentralMidiaRoute
   '/dashboard': typeof DashboardRoute
   '/equipes': typeof EquipesRoute
   '/historico-bos': typeof HistoricoBosRoute
@@ -104,7 +95,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cadastro'
-    | '/central-midia'
     | '/dashboard'
     | '/equipes'
     | '/historico-bos'
@@ -115,7 +105,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/cadastro'
-    | '/central-midia'
     | '/dashboard'
     | '/equipes'
     | '/historico-bos'
@@ -126,7 +115,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/cadastro'
-    | '/central-midia'
     | '/dashboard'
     | '/equipes'
     | '/historico-bos'
@@ -138,7 +126,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastroRoute: typeof CadastroRoute
-  CentralMidiaRoute: typeof CentralMidiaRoute
   DashboardRoute: typeof DashboardRoute
   EquipesRoute: typeof EquipesRoute
   HistoricoBosRoute: typeof HistoricoBosRoute
@@ -184,13 +171,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/central-midia': {
-      id: '/central-midia'
-      path: '/central-midia'
-      fullPath: '/central-midia'
-      preLoaderRoute: typeof CentralMidiaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/cadastro': {
       id: '/cadastro'
       path: '/cadastro'
@@ -218,7 +198,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastroRoute: CadastroRoute,
-  CentralMidiaRoute: CentralMidiaRoute,
   DashboardRoute: DashboardRoute,
   EquipesRoute: EquipesRoute,
   HistoricoBosRoute: HistoricoBosRoute,

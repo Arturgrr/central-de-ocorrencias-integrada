@@ -18,7 +18,6 @@ export const timelineEventTypeSchema = z
 		"status_changed",
 		"vehicle_dispatched",
 		"agent_update",
-		"photo_uploaded",
 		"closed",
 	])
 	.meta({ id: "TimelineEventType" });

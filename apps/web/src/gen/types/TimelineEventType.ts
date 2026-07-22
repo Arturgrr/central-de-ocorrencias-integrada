@@ -8,7 +8,6 @@ export const timelineEventTypeEnum = {
 	status_changed: "status_changed",
 	vehicle_dispatched: "vehicle_dispatched",
 	agent_update: "agent_update",
-	photo_uploaded: "photo_uploaded",
 	closed: "closed",
 } as const;
 

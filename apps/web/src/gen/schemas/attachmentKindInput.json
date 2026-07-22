@@ -1,5 +1,0 @@
-{
-	"type": "string",
-	"enum": ["image", "video", "document"],
-	"x-readme-ref-name": "AttachmentKindInput"
-}

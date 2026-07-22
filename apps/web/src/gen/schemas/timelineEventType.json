@@ -5,7 +5,6 @@
 		"status_changed",
 		"vehicle_dispatched",
 		"agent_update",
-		"photo_uploaded",
 		"closed"
 	],
 	"x-readme-ref-name": "TimelineEventType"

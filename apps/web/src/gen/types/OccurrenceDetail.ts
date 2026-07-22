@@ -4,7 +4,6 @@
  */
 
 import type { AssignmentWithResources } from "./AssignmentWithResources";
-import type { Attachment } from "./Attachment";
 import type { Citizen } from "./Citizen";
 import type { City } from "./City";
 import type { Neighborhood } from "./Neighborhood";
@@ -87,8 +86,4 @@ export type OccurrenceDetail = {
 	 * @type array
 	 */
 	timelineEvents: TimelineEvent[];
-	/**
-	 * @type array
-	 */
-	attachments: Attachment[];
 };

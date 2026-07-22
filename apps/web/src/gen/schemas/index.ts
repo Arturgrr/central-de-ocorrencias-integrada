@@ -22,30 +22,6 @@ export {
 	updateAssignmentStatusMutationResponseSchema,
 	updateAssignmentStatusPathParamsSchema,
 } from "./assignments/updateAssignmentStatusSchema";
-export { attachmentInputSchema } from "./attachmentInputSchema";
-export { attachmentKindInputSchema } from "./attachmentKindInputSchema";
-export { attachmentKindSchema } from "./attachmentKindSchema";
-export { attachmentSchema } from "./attachmentSchema";
-export {
-	createAttachment201Schema,
-	createAttachmentMutationRequestSchema,
-	createAttachmentMutationResponseSchema,
-	createAttachmentPathParamsSchema,
-} from "./attachments/createAttachmentSchema";
-export {
-	getMediaSummary200Schema,
-	getMediaSummaryQueryResponseSchema,
-} from "./attachments/getMediaSummarySchema";
-export {
-	listAttachments200Schema,
-	listAttachmentsPathParamsSchema,
-	listAttachmentsQueryResponseSchema,
-} from "./attachments/listAttachmentsSchema";
-export {
-	listMedia200Schema,
-	listMediaQueryParamsSchema,
-	listMediaQueryResponseSchema,
-} from "./attachments/listMediaSchema";
 export { citizenInputSchema } from "./citizenInputSchema";
 export { citizenSchema } from "./citizenSchema";
 export {
@@ -82,8 +58,6 @@ export { cityInputSchema } from "./cityInputSchema";
 export { citySchema } from "./citySchema";
 export { createAssignmentInputSchema } from "./createAssignmentInputSchema";
 export { createAssignmentSchema } from "./createAssignmentSchema";
-export { createAttachmentInputSchema } from "./createAttachmentInputSchema";
-export { createAttachmentSchema } from "./createAttachmentSchema";
 export { createCitizenInputSchema } from "./createCitizenInputSchema";
 export { createCitizenSchema } from "./createCitizenSchema";
 export { createOccurrenceInputSchema } from "./createOccurrenceInputSchema";
@@ -121,10 +95,6 @@ export {
 	listNeighborhoodsQueryParamsSchema,
 	listNeighborhoodsQueryResponseSchema,
 } from "./geo/listNeighborhoodsSchema";
-export { mediaAttachmentInputSchema } from "./mediaAttachmentInputSchema";
-export { mediaAttachmentSchema } from "./mediaAttachmentSchema";
-export { mediaSummaryInputSchema } from "./mediaSummaryInputSchema";
-export { mediaSummarySchema } from "./mediaSummarySchema";
 export { neighborhoodInputSchema } from "./neighborhoodInputSchema";
 export { neighborhoodSchema } from "./neighborhoodSchema";
 export { occurrenceDetailInputSchema } from "./occurrenceDetailInputSchema";

@@ -104,7 +104,6 @@ export const TIMELINE_EVENT: Record<TimelineEventType, string> = {
 	status_changed: "Status Atualizado",
 	vehicle_dispatched: "Viatura Acionada",
 	agent_update: "Atualização do Agente",
-	photo_uploaded: "Evidência Anexada",
 	closed: "Ocorrência Encerrada",
 };
 
@@ -170,22 +169,4 @@ export function formatDuration(minutes: number) {
 	const m = Math.floor((totalSeconds % 3600) / 60);
 	const s = totalSeconds % 60;
 	return h > 0 ? `${h}h ${m}m` : `${m}m ${s}s`;
-}
-
-export function formatFileSize(bytes: number) {
-	if (bytes < 1024) return `${bytes} B`;
-	if (bytes < 1024 ** 2) return `${(bytes / 1024).toFixed(1)} KB`;
-	if (bytes < 1024 ** 3) return `${(bytes / 1024 ** 2).toFixed(1)} MB`;
-	return `${(bytes / 1024 ** 3).toFixed(1)} GB`;
-}
-
-export function attachmentKind(mimeType: string) {
-	if (mimeType.startsWith("image/")) return "image" as const;
-	if (mimeType.startsWith("video/")) return "video" as const;
-	return "document" as const;
-}
-
-export function fileExtension(fileName: string) {
-	const parts = fileName.split(".");
-	return parts.length > 1 ? `.${parts[parts.length - 1]?.toUpperCase()}` : "";
 }

@@ -46,7 +46,6 @@ export const timelineEventType = pgEnum("timeline_event_type", [
 	"status_changed",
 	"vehicle_dispatched",
 	"agent_update",
-	"photo_uploaded",
 	"closed",
 ]);
 
@@ -134,25 +133,6 @@ export const occurrenceTimelineEvent = pgTable(
 	(table) => [index("timeline_occurrence_idx").on(table.occurrenceId)],
 );
 
-export const occurrenceAttachment = pgTable(
-	"occurrence_attachment",
-	{
-		id: uuid("id").defaultRandom().primaryKey(),
-		occurrenceId: uuid("occurrence_id")
-			.notNull()
-			.references(() => occurrence.id, { onDelete: "cascade" }),
-		uploadedByUserId: text("uploaded_by_user_id").references(() => user.id, {
-			onDelete: "set null",
-		}),
-		fileName: text("file_name").notNull(),
-		fileUrl: text("file_url").notNull(),
-		mimeType: text("mime_type").notNull(),
-		description: text("description"),
-		createdAt: timestamp("created_at").defaultNow().notNull(),
-	},
-	(table) => [index("attachment_occurrence_idx").on(table.occurrenceId)],
-);
-
 export const occurrenceRelations = relations(occurrence, ({ one, many }) => ({
 	citizen: one(citizen, {
 		fields: [occurrence.citizenId],
@@ -182,7 +162,6 @@ export const occurrenceRelations = relations(occurrence, ({ one, many }) => ({
 	}),
 	assignments: many(occurrenceAssignment),
 	timelineEvents: many(occurrenceTimelineEvent),
-	attachments: many(occurrenceAttachment),
 }));
 
 export const occurrenceAssignmentRelations = relations(
@@ -218,20 +197,6 @@ export const occurrenceTimelineEventRelations = relations(
 		}),
 		createdBy: one(user, {
 			fields: [occurrenceTimelineEvent.createdByUserId],
-			references: [user.id],
-		}),
-	}),
-);
-
-export const occurrenceAttachmentRelations = relations(
-	occurrenceAttachment,
-	({ one }) => ({
-		occurrence: one(occurrence, {
-			fields: [occurrenceAttachment.occurrenceId],
-			references: [occurrence.id],
-		}),
-		uploadedBy: one(user, {
-			fields: [occurrenceAttachment.uploadedByUserId],
 			references: [user.id],
 		}),
 	}),

@@ -1,6 +1,5 @@
 import type { FastifyInstance } from "fastify";
 import { assignmentRoutes } from "./assignment-routes";
-import { attachmentRoutes } from "./attachment-routes";
 import { citizenRoutes } from "./citizen-routes";
 import { dashboardRoutes } from "./dashboard-routes";
 import { geoRoutes } from "./geo-routes";
@@ -17,7 +16,6 @@ export async function appRoutes(app: FastifyInstance) {
 	await app.register(occurrenceRoutes);
 	await app.register(assignmentRoutes);
 	await app.register(timelineRoutes);
-	await app.register(attachmentRoutes);
 	await app.register(geoRoutes);
 	await app.register(userRoutes);
 	await app.register(dashboardRoutes);
