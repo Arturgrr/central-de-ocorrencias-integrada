@@ -177,6 +177,32 @@ O primeiro usuário se cadastra pela tela e é promovido no banco:
 UPDATE "user" SET role = 'admin', email_verified = true WHERE email = 'voce@exemplo.com';
 ```
 
+#### Banco criado antes por `drizzle-kit push`
+
+Se o schema já existia antes das migrations, o container aborta no start com
+`type "role" already exists`: os objetos estão lá, mas falta o registro do
+Drizzle dizendo o que já foi aplicado.
+
+Com o banco ainda **sem dados**, o caminho curto é apagar e recriar o database —
+o container monta tudo no próximo start.
+
+Para **preservar os dados**, registre a migration como já aplicada. O `hash` é o
+SHA-256 do arquivo `.sql` e o `created_at` é o campo `when` do
+`packages/db/src/migrations/meta/_journal.json`:
+
+```sql
+CREATE SCHEMA IF NOT EXISTS "drizzle";
+
+CREATE TABLE IF NOT EXISTS "drizzle"."__drizzle_migrations" (
+  id SERIAL PRIMARY KEY,
+  hash text NOT NULL,
+  created_at bigint
+);
+
+INSERT INTO "drizzle"."__drizzle_migrations" (hash, created_at)
+VALUES ('a0c5cadee150c11c894923b36bcab5a463557c9534a03a9097ab158d5e1b9443', 1784741852542);
+```
+
 ### Credenciais de demonstração (criadas pelo seed)
 
 | E-mail | Senha | Perfil |

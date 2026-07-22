@@ -6,7 +6,9 @@ async function main() {
 	try {
 		await runMigrations();
 	} catch (err) {
-		console.error("[db] falha ao aplicar as migrations", err);
+		console.error(
+			`[db] falha ao aplicar as migrations\n\n${err instanceof Error ? err.message : String(err)}\n`,
+		);
 		process.exit(1);
 	}
 

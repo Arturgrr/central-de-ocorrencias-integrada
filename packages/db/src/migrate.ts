@@ -7,6 +7,14 @@ import { db } from "./index";
 
 const DEFAULT_FOLDER = join(process.cwd(), "migrations");
 
+const ALREADY_EXISTS = new Set(["42710", "42P07", "42P06", "42701"]);
+
+function isAlreadyExists(error: unknown): boolean {
+	const code = (error as { cause?: { code?: string }; code?: string })?.cause
+		?.code;
+	return typeof code === "string" && ALREADY_EXISTS.has(code);
+}
+
 export async function runMigrations() {
 	if (env.RUN_MIGRATIONS === false) return;
 
@@ -19,5 +27,23 @@ export async function runMigrations() {
 		return;
 	}
 
-	await migrate(db, { migrationsFolder });
+	try {
+		await migrate(db, { migrationsFolder });
+	} catch (error) {
+		if (isAlreadyExists(error)) {
+			throw new Error(
+				[
+					"O banco já contém objetos do schema, mas não tem o registro de migrations do Drizzle.",
+					"Isso acontece quando o schema foi criado antes por `drizzle-kit push`.",
+					"",
+					"Resolva de uma destas formas:",
+					"  1. Banco sem dados: apague e recrie o database — o container cria tudo no próximo start.",
+					"  2. Banco com dados: marque a migration como aplicada (baseline). Veja o README, seção Deploy.",
+				].join("\n"),
+				{ cause: error },
+			);
+		}
+
+		throw error;
+	}
 }
