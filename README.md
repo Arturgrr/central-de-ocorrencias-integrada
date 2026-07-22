@@ -171,10 +171,19 @@ NODE_ENV=production
 `BETTER_AUTH_URL` é a URL pública do sistema e precisa ser `https://` em
 produção — é dela que sai a decisão de marcar o cookie de sessão como `Secure`.
 
-O primeiro usuário se cadastra pela tela e é promovido no banco:
+As migrations já criam um administrador e os catálogos necessários para operar
+(tipos de ocorrência, município, bairros e frota), então o sistema sobe pronto
+para uso — não há passo manual de bootstrap.
+
+> ⚠️ O administrador inicial existe para a apresentação e sua senha está no
+> repositório. Troque-a no primeiro acesso a um ambiente que não seja de
+> demonstração.
+
+Para promover outras contas, depois que elas se cadastrarem pela tela:
 
 ```sql
-UPDATE "user" SET role = 'admin', email_verified = true WHERE email = 'voce@exemplo.com';
+UPDATE "user" SET role = 'attendant' WHERE email = 'colega@exemplo.com';
+UPDATE "user" SET role = 'agent', registration_number = '14253-A' WHERE email = 'agente@exemplo.com';
 ```
 
 #### Banco criado antes por `drizzle-kit push`
