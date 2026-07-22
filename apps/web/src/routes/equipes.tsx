@@ -1,199 +1,316 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { 
-  ArrowLeft, 
-  Car, 
-  Shield, 
-  User, 
-  Plus, 
-  Search, 
-  MoreVertical,
-  Radio
-} from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { Car, Plus, Search, Shield, User } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+
+import AppShell from "@/components/app-shell";
+import { StatusBadge } from "@/components/status-badge";
+import { useListAgents } from "@/gen/hooks/users/useListAgents";
+import { useCreateVehicle } from "@/gen/hooks/vehicles/useCreateVehicle";
+import {
+	listVehiclesQueryKey,
+	useListVehicles,
+} from "@/gen/hooks/vehicles/useListVehicles";
+import { useSetVehicleStatus } from "@/gen/hooks/vehicles/useSetVehicleStatus";
+import { requireRole } from "@/lib/auth-client";
+import { VEHICLE_STATUS, type VehicleStatus } from "@/lib/coi";
 
 export const Route = createFileRoute("/equipes")({
-  component: EquipesScreen,
+	beforeLoad: () => requireRole("admin", "attendant"),
+	component: EquipesScreen,
 });
 
 function EquipesScreen() {
-  const navigate = useNavigate();
+	const queryClient = useQueryClient();
+	const [plateFilter, setPlateFilter] = useState("");
+	const [isCreating, setIsCreating] = useState(false);
+	const [newVehicle, setNewVehicle] = useState({
+		code: "",
+		plate: "",
+		model: "",
+	});
 
-  return (
-    <div className="min-h-screen bg-slate-950 p-4 sm:p-8 text-slate-200 font-sans">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* CABEÇALHO */}
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => navigate({ to: '/dashboard' })}
-              className="bg-slate-900 border border-slate-800 p-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <div>
-              <h1 className="text-2xl font-bold text-white tracking-wide flex items-center gap-3">
-                <Shield className="w-7 h-7 text-emerald-500" />
-                Viaturas & Agentes
-              </h1>
-              <p className="text-slate-500 text-sm mt-1 uppercase tracking-wider font-semibold">
-                Gerenciamento de frota e efetivo operacional
-              </p>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <button className="bg-slate-900 border border-slate-800 text-slate-300 hover:text-white px-4 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors">
-              <User className="w-4 h-4" /> Novo Agente
-            </button>
-            <button className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-lg shadow-emerald-900/20">
-              <Car className="w-4 h-4" /> Nova Viatura
-            </button>
-          </div>
-        </div>
+	const vehicles = useListVehicles({ params: {} });
+	const agents = useListAgents();
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* COLUNA ESQUERDA: LISTA DE VIATURAS (VEÍCULOS) */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="font-bold text-white text-lg">Viaturas Ativas</h3>
-              <div className="relative">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
-                <input 
-                  type="text" 
-                  placeholder="Buscar por placa..." 
-                  className="bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-4 py-1.5 text-sm focus:outline-none focus:border-emerald-500 w-56 text-slate-200 placeholder:text-slate-600"
-                />
-              </div>
-            </div>
+	function invalidateVehicles() {
+		queryClient.invalidateQueries({ queryKey: listVehiclesQueryKey() });
+	}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              {/* CARD DE VIATURA 1 (Com base nos atributos do ER) */}
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-emerald-500/50 transition-colors group">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
-                      <Car className="w-5 h-5 text-emerald-500" />
-                    </div>
-                    <div>
-                      <p className="text-white font-bold tracking-wider">VTR-42</p>
-                      <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
-                        <Radio className="w-3 h-3" /> Em Patrulha
-                      </p>
-                    </div>
-                  </div>
-                  <button className="text-slate-500 hover:text-white"><MoreVertical className="w-5 h-5" /></button>
-                </div>
-                
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-500 font-semibold text-[11px] uppercase">Placa</span>
-                    <span className="text-slate-300 font-mono font-bold">RMT-9G34</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-500 font-semibold text-[11px] uppercase">Veículo</span>
-                    <span className="text-slate-300">Mitsubishi L200 (Branca)</span>
-                  </div>
-                </div>
+	const createVehicle = useCreateVehicle({
+		mutation: {
+			onSuccess: () => {
+				setNewVehicle({ code: "", plate: "", model: "" });
+				setIsCreating(false);
+				toast.success("Viatura cadastrada");
+				invalidateVehicles();
+			},
+		},
+	});
 
-                <div className="pt-4 border-t border-slate-800 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
-                    <Shield className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Policial Responsável</p>
-                    <p className="text-sm font-bold text-white">Sgt. Oliveira</p>
-                  </div>
-                </div>
-              </div>
+	const setVehicleStatus = useSetVehicleStatus({
+		mutation: {
+			onSuccess: () => {
+				toast.success("Status da viatura atualizado");
+				invalidateVehicles();
+			},
+		},
+	});
 
-              {/* CARD DE VIATURA 2 */}
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-emerald-500/50 transition-colors group">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center border border-slate-700">
-                      <Car className="w-5 h-5 text-slate-500" />
-                    </div>
-                    <div>
-                      <p className="text-white font-bold tracking-wider">VTR-15</p>
-                      <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Na Base</p>
-                    </div>
-                  </div>
-                  <button className="text-slate-500 hover:text-white"><MoreVertical className="w-5 h-5" /></button>
-                </div>
-                
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-500 font-semibold text-[11px] uppercase">Placa</span>
-                    <span className="text-slate-300 font-mono font-bold">QWY-2B11</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-500 font-semibold text-[11px] uppercase">Veículo</span>
-                    <span className="text-slate-300">Renault Duster (Preta)</span>
-                  </div>
-                </div>
+	const filtered = (vehicles.data ?? []).filter((vehicle) => {
+		const term = plateFilter.trim().toLowerCase();
+		if (!term) return true;
+		return (
+			vehicle.plate.toLowerCase().includes(term) ||
+			vehicle.code.toLowerCase().includes(term)
+		);
+	});
 
-                <div className="pt-4 border-t border-slate-800 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 border border-slate-700 border-dashed">
-                    <User className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Policial Responsável</p>
-                    <p className="text-sm font-bold text-amber-500">Sem atribuição</p>
-                  </div>
-                </div>
-              </div>
+	return (
+		<AppShell
+			title="Viaturas & Agentes"
+			actions={
+				<button
+					type="button"
+					onClick={() => setIsCreating((value) => !value)}
+					className="flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 font-bold text-sm text-white shadow-emerald-900/20 shadow-lg transition-colors hover:bg-emerald-500"
+				>
+					<Plus className="h-4 w-4" /> Nova Viatura
+				</button>
+			}
+		>
+			<div className="p-4 sm:p-8">
+				{isCreating && (
+					<form
+						className="mb-6 grid grid-cols-1 gap-4 rounded-xl border border-emerald-500/20 bg-slate-900 p-5 sm:grid-cols-4"
+						onSubmit={(event) => {
+							event.preventDefault();
+							createVehicle.mutate({
+								data: {
+									code: newVehicle.code.trim(),
+									plate: newVehicle.plate.trim().toUpperCase(),
+									model: newVehicle.model.trim() || undefined,
+								},
+							});
+						}}
+					>
+						<input
+							required
+							value={newVehicle.code}
+							onChange={(event) =>
+								setNewVehicle((v) => ({ ...v, code: event.target.value }))
+							}
+							placeholder="Prefixo (ex: VTR-42)"
+							className={inputClass}
+						/>
+						<input
+							required
+							value={newVehicle.plate}
+							onChange={(event) =>
+								setNewVehicle((v) => ({ ...v, plate: event.target.value }))
+							}
+							placeholder="Placa"
+							className={inputClass}
+						/>
+						<input
+							value={newVehicle.model}
+							onChange={(event) =>
+								setNewVehicle((v) => ({ ...v, model: event.target.value }))
+							}
+							placeholder="Modelo / cor"
+							className={inputClass}
+						/>
+						<button
+							type="submit"
+							disabled={createVehicle.isPending}
+							className="rounded-lg bg-emerald-600 px-4 py-2.5 font-bold text-sm text-white transition-colors hover:bg-emerald-500 disabled:opacity-60"
+						>
+							{createVehicle.isPending ? "Salvando..." : "Cadastrar"}
+						</button>
+					</form>
+				)}
 
-            </div>
-          </div>
+				<div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+					<div className="space-y-6 lg:col-span-2">
+						<div className="flex items-center justify-between">
+							<h3 className="font-bold text-lg text-white">
+								Frota ({filtered.length})
+							</h3>
+							<div className="relative">
+								<Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-500" />
+								<input
+									type="text"
+									value={plateFilter}
+									onChange={(event) => setPlateFilter(event.target.value)}
+									placeholder="Buscar por placa ou prefixo..."
+									className="w-56 rounded-lg border border-slate-800 bg-slate-900 py-1.5 pr-4 pl-9 text-slate-200 text-sm placeholder:text-slate-600 focus:border-emerald-500 focus:outline-none"
+								/>
+							</div>
+						</div>
 
-          {/* COLUNA DIREITA: EFETIVO (POLICIAIS/AGENTES) */}
-          <div className="space-y-6">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="font-bold text-white text-lg">Efetivo Disponível</h3>
-            </div>
+						<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+							{vehicles.isLoading && (
+								<p className="text-slate-500 text-sm">Carregando frota...</p>
+							)}
+							{!vehicles.isLoading && filtered.length === 0 && (
+								<p className="text-slate-500 text-sm">
+									Nenhuma viatura encontrada.
+								</p>
+							)}
 
-            <div className="bg-slate-900 border border-slate-800 rounded-xl flex flex-col overflow-hidden">
-              <div className="p-3 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Agente</span>
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Matrícula</span>
-              </div>
-              
-              <div className="flex-1 overflow-y-auto p-2 space-y-2">
-                
-                <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-between hover:border-slate-700 transition-colors cursor-pointer">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
-                      <Shield className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-white">Sgt. Oliveira</p>
-                      <p className="text-[10px] text-emerald-500 uppercase tracking-wider font-bold">Em Serviço</p>
-                    </div>
-                  </div>
-                  <span className="text-xs font-mono text-slate-400">14253-A</span>
-                </div>
+							{filtered.map((vehicle) => {
+								const status = VEHICLE_STATUS[vehicle.status];
+								return (
+									<div
+										key={vehicle.id}
+										className="rounded-xl border border-slate-800 bg-slate-900 p-5 transition-colors hover:border-emerald-500/50"
+									>
+										<div className="mb-4 flex items-start justify-between">
+											<div className="flex items-center gap-3">
+												<div
+													className={`flex h-10 w-10 items-center justify-center rounded-lg border ${
+														vehicle.status === "dispatched"
+															? "border-blue-500/20 bg-blue-500/10"
+															: "border-slate-700 bg-slate-800"
+													}`}
+												>
+													<Car
+														className={`h-5 w-5 ${
+															vehicle.status === "dispatched"
+																? "text-blue-400"
+																: "text-slate-500"
+														}`}
+													/>
+												</div>
+												<div>
+													<p className="font-bold text-white tracking-wider">
+														{vehicle.code}
+													</p>
+													<StatusBadge
+														label={status.label}
+														className={status.className}
+													/>
+												</div>
+											</div>
+										</div>
 
-                <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-between hover:border-slate-700 transition-colors cursor-pointer opacity-70">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-500">
-                      <User className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-slate-300">Ag. Silva</p>
-                      <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Folga</p>
-                    </div>
-                  </div>
-                  <span className="text-xs font-mono text-slate-500">88912-B</span>
-                </div>
+										<div className="mb-4 space-y-2">
+											<div className="flex justify-between text-sm">
+												<span className="font-semibold text-[11px] text-slate-500 uppercase">
+													Placa
+												</span>
+												<span className="font-bold font-mono text-slate-300">
+													{vehicle.plate}
+												</span>
+											</div>
+											<div className="flex justify-between text-sm">
+												<span className="font-semibold text-[11px] text-slate-500 uppercase">
+													Veículo
+												</span>
+												<span className="text-slate-300">
+													{vehicle.model ?? "—"}
+												</span>
+											</div>
+										</div>
 
-              </div>
-            </div>
-          </div>
+										<div className="border-slate-800 border-t pt-4">
+											<span className="mb-2 block font-bold text-[10px] text-slate-500 uppercase tracking-wider">
+												Alterar Status
+											</span>
+											<select
+												value={vehicle.status}
+												disabled={setVehicleStatus.isPending}
+												onChange={(event) =>
+													setVehicleStatus.mutate({
+														id: vehicle.id,
+														data: {
+															status: event.target.value as VehicleStatus,
+														},
+													})
+												}
+												className={inputClass}
+											>
+												{Object.entries(VEHICLE_STATUS).map(
+													([value, badge]) => (
+														<option key={value} value={value}>
+															{badge.label}
+														</option>
+													),
+												)}
+											</select>
+										</div>
+									</div>
+								);
+							})}
+						</div>
+					</div>
 
-        </div>
-      </div>
-    </div>
-  );
+					<div className="space-y-6">
+						<h3 className="font-bold text-lg text-white">
+							Efetivo ({agents.data?.length ?? 0})
+						</h3>
+
+						<div className="flex flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
+							<div className="flex items-center justify-between border-slate-800 border-b bg-slate-900/50 p-3">
+								<span className="font-bold text-slate-500 text-xs uppercase tracking-wider">
+									Agente
+								</span>
+								<span className="font-bold text-slate-500 text-xs uppercase tracking-wider">
+									Matrícula
+								</span>
+							</div>
+
+							<div className="flex-1 space-y-2 overflow-y-auto p-2">
+								{agents.data?.length === 0 && (
+									<p className="p-4 text-center text-slate-500 text-sm">
+										Nenhum agente cadastrado.
+									</p>
+								)}
+								{agents.data?.map((agent) => (
+									<div
+										key={agent.id}
+										className="flex items-center justify-between rounded-lg border border-slate-800 bg-slate-950 p-3 transition-colors hover:border-slate-700"
+									>
+										<div className="flex items-center gap-3">
+											<div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-slate-400">
+												<Shield className="h-4 w-4" />
+											</div>
+											<div>
+												<p className="font-bold text-sm text-white">
+													{agent.name}
+												</p>
+												<p className="text-[11px] text-slate-500">
+													{agent.email}
+												</p>
+											</div>
+										</div>
+										<span className="font-mono text-slate-400 text-xs">
+											{agent.registrationNumber ?? "—"}
+										</span>
+									</div>
+								))}
+							</div>
+						</div>
+
+						<div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+							<div className="mb-2 flex items-center gap-2">
+								<User className="h-4 w-4 text-slate-500" />
+								<p className="font-bold text-[10px] text-slate-500 uppercase tracking-wider">
+									Novos agentes
+								</p>
+							</div>
+							<p className="text-slate-500 text-xs leading-relaxed">
+								Agentes se cadastram pelo portal público e são promovidos por um
+								administrador após a validação da matrícula funcional.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</AppShell>
+	);
 }
+
+const inputClass =
+	"w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-slate-200 text-sm outline-none transition-colors focus:border-emerald-500";
