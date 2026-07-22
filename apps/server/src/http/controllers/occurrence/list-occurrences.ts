@@ -4,6 +4,7 @@ import { z } from "zod";
 import { OccurrenceRepository } from "../../../database/repositories/occurrence-repository";
 import { authenticate } from "../../../providers/auth";
 import {
+	booleanQueryParam,
 	occurrencePrioritySchema,
 	occurrenceStatusSchema,
 	paginatedResponse,
@@ -17,6 +18,7 @@ export async function listOccurrences(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Occurrences"],
+				operationId: "listOccurrences",
 				summary: "List occurrences",
 				security: [{ cookieAuth: [] }],
 				querystring: paginationQuerySchema.merge(
@@ -24,6 +26,9 @@ export async function listOccurrences(app: FastifyInstance) {
 						status: occurrenceStatusSchema.optional(),
 						typeId: z.string().uuid().optional(),
 						priority: occurrencePrioritySchema.optional(),
+						citizenId: z.string().uuid().optional(),
+						search: z.string().min(1).optional(),
+						mine: booleanQueryParam.optional(),
 					}),
 				),
 				response: {
@@ -34,11 +39,23 @@ export async function listOccurrences(app: FastifyInstance) {
 		},
 		async (request) => {
 			const repo = new OccurrenceRepository();
-			const { status, typeId, priority, page, pageSize } = request.query;
+			const {
+				status,
+				typeId,
+				priority,
+				citizenId,
+				search,
+				mine,
+				page,
+				pageSize,
+			} = request.query;
 			const { items, total } = await repo.list({
 				status,
 				typeId,
 				priority,
+				citizenId,
+				search,
+				openedByUserId: mine ? request.user?.id : undefined,
 				page,
 				pageSize,
 			});
