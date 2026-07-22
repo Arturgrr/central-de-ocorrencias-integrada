@@ -1,0 +1,12 @@
+**/node_modules
+**/dist
+**/.turbo
+**/.tanstack
+.git
+.gitignore
+.claude
+**/.env
+**/.env.*
+!**/.env.example
+docs
+*.log
