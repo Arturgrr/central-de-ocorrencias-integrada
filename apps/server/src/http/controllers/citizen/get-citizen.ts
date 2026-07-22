@@ -12,6 +12,7 @@ export async function getCitizen(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Citizens"],
+				operationId: "getCitizen",
 				summary: "Get a citizen by id",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

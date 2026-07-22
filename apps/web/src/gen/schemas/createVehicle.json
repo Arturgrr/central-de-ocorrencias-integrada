@@ -1,0 +1,16 @@
+{
+	"type": "object",
+	"properties": {
+		"code": { "type": "string", "minLength": 1 },
+		"plate": { "type": "string", "minLength": 1 },
+		"model": { "type": "string" },
+		"status": {
+			"type": "string",
+			"enum": ["available", "dispatched", "maintenance", "inactive"],
+			"x-readme-ref-name": "VehicleStatus"
+		}
+	},
+	"required": ["code", "plate"],
+	"additionalProperties": false,
+	"x-readme-ref-name": "CreateVehicle"
+}

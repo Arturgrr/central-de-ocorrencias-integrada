@@ -12,6 +12,7 @@ export async function listUsers(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Users"],
+				operationId: "listUsers",
 				summary: "List users",
 				security: [{ cookieAuth: [] }],
 				querystring: z.object({

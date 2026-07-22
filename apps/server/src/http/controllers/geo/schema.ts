@@ -1,20 +1,24 @@
 import { z } from "zod";
 
-export const citySchema = z.object({
-	id: z.string().uuid(),
-	name: z.string(),
-	state: z.string(),
-	createdAt: z.string(),
-	updatedAt: z.string(),
-});
+export const citySchema = z
+	.object({
+		id: z.string().uuid(),
+		name: z.string(),
+		state: z.string(),
+		createdAt: z.string(),
+		updatedAt: z.string(),
+	})
+	.meta({ id: "City" });
 
-export const neighborhoodSchema = z.object({
-	id: z.string().uuid(),
-	cityId: z.string().uuid(),
-	name: z.string(),
-	createdAt: z.string(),
-	updatedAt: z.string(),
-});
+export const neighborhoodSchema = z
+	.object({
+		id: z.string().uuid(),
+		cityId: z.string().uuid(),
+		name: z.string(),
+		createdAt: z.string(),
+		updatedAt: z.string(),
+	})
+	.meta({ id: "Neighborhood" });
 
 type CityRow = {
 	id: string;

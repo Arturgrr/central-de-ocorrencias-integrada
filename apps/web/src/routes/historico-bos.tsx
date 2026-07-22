@@ -1,212 +1,235 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { 
-  ArrowLeft, 
-  Search, 
-  Filter, 
-  Download, 
-  Eye, 
-  FileText, 
-  Calendar,
-  ChevronLeft,
-  ChevronRight,
-  MapPin
-} from "lucide-react";
+import { Calendar, Eye, FileText, MapPin, Search } from "lucide-react";
+import { useEffect, useState } from "react";
+import { z } from "zod";
+
+import AppShell from "@/components/app-shell";
+import Pagination from "@/components/pagination";
+import { StatusBadge } from "@/components/status-badge";
+import { useListOccurrences } from "@/gen/hooks/occurrences/useListOccurrences";
+import { useListOccurrenceTypes } from "@/gen/hooks/occurrenceTypes/useListOccurrenceTypes";
+import { requireRole } from "@/lib/auth-client";
+import {
+	formatDateTime,
+	OCCURRENCE_PRIORITY,
+	OCCURRENCE_STATUS,
+	type OccurrenceStatus,
+} from "@/lib/coi";
+
+const PAGE_SIZE = 10;
+
+const searchSchema = z.object({
+	page: z.coerce.number().int().min(1).optional(),
+	status: z
+		.enum(["open", "dispatched", "in_progress", "resolved", "cancelled"])
+		.optional(),
+	typeId: z.string().uuid().optional(),
+	search: z.string().optional(),
+});
 
 export const Route = createFileRoute("/historico-bos")({
-  component: HistoricoBosScreen,
+	beforeLoad: () => requireRole("admin", "attendant", "agent"),
+	validateSearch: searchSchema,
+	component: HistoricoBosScreen,
 });
 
 function HistoricoBosScreen() {
-  const navigate = useNavigate();
+	const navigate = useNavigate({ from: "/historico-bos" });
+	const { page = 1, status, typeId, search } = Route.useSearch();
 
-  return (
-    <div className="min-h-screen bg-slate-950 p-4 sm:p-8 text-slate-200 font-sans">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* CABEÇALHO */}
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => navigate({ to: '/dashboard' })}
-              className="bg-slate-900 border border-slate-800 p-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <div>
-              <h1 className="text-2xl font-bold text-white tracking-wide flex items-center gap-3">
-                <FileText className="w-7 h-7 text-blue-500" />
-                Arquivo de Ocorrências
-              </h1>
-              <p className="text-slate-500 text-sm mt-1 uppercase tracking-wider font-semibold">
-                Gestão e auditoria de todos os B.O.s registrados
-              </p>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <button className="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 px-4 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors">
-              <Download className="w-4 h-4" /> Exportar Relatório
-            </button>
-          </div>
-        </div>
+	const [searchInput, setSearchInput] = useState(search ?? "");
 
-        {/* BARRA DE FILTROS (Baseada no ER) */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-6 flex flex-col lg:flex-row gap-4">
-          <div className="relative flex-1">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
-            <input 
-              type="text" 
-              placeholder="Buscar por ID, Solicitante ou Endereço..." 
-              className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 p-2.5 text-sm focus:border-blue-500 outline-none text-slate-200 transition-colors" 
-            />
-          </div>
-          
-          <div className="flex gap-4">
-            <select className="bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm focus:border-blue-500 outline-none text-slate-400 w-40">
-              <option>Todos os Status</option>
-              <option>Pendente</option>
-              <option>Em Andamento</option>
-              <option>Finalizado</option>
-            </select>
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			if ((search ?? "") === searchInput) return;
+			navigate({
+				search: (prev) => ({
+					...prev,
+					search: searchInput || undefined,
+					page: undefined,
+				}),
+			});
+		}, 400);
 
-            <select className="bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm focus:border-blue-500 outline-none text-slate-400 w-48">
-              <option>Todas as Categorias</option>
-              <option>Deslizamento</option>
-              <option>Alagamento</option>
-              <option>Acidente de Trânsito</option>
-            </select>
+		return () => clearTimeout(timeout);
+	}, [searchInput, search, navigate]);
 
-            <button className="bg-slate-950 border border-slate-800 text-slate-400 hover:text-white px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 transition-colors">
-              <Filter className="w-4 h-4" /> Filtros Avançados
-            </button>
-          </div>
-        </div>
+	const types = useListOccurrenceTypes({ params: {} });
+	const occurrences = useListOccurrences({
+		params: { page, pageSize: PAGE_SIZE, status, typeId, search },
+	});
 
-        {/* DATA GRID (TABELA) */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden flex flex-col">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-slate-950/50 border-b border-slate-800 text-[10px] uppercase tracking-wider text-slate-500 font-bold">
-                  <th className="p-4">ID / Protocolo</th>
-                  <th className="p-4">Data e Hora</th>
-                  <th className="p-4">Tipo de Ocorrência</th>
-                  <th className="p-4">Localização (Bairro)</th>
-                  <th className="p-4">Status</th>
-                  <th className="p-4 text-center">Ações</th>
-                </tr>
-              </thead>
-              <tbody className="text-sm divide-y divide-slate-800/50">
-                
-                {/* Linha 1 */}
-                <tr className="hover:bg-slate-800/20 transition-colors group">
-                  <td className="p-4 font-mono font-bold text-slate-300">#4092-A</td>
-                  <td className="p-4">
-                    <div className="flex items-center gap-2 text-slate-400">
-                      <Calendar className="w-3.5 h-3.5" /> 01 Jul, 14:00
-                    </div>
-                  </td>
-                  <td className="p-4 font-semibold text-white">Deslizamento de Terra</td>
-                  <td className="p-4">
-                    <div className="flex items-center gap-2 text-slate-400">
-                      <MapPin className="w-3.5 h-3.5" /> República, João Monlevade
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-500 border border-amber-500/20">
-                      Em Andamento
-                    </span>
-                  </td>
-                  <td className="p-4 text-center">
-                    <button 
-                      onClick={() => navigate({ to: '/detalhes-bo' })}
-                      className="text-slate-500 hover:text-blue-500 transition-colors p-1"
-                      title="Ver Detalhes"
-                    >
-                      <Eye className="w-5 h-5" />
-                    </button>
-                  </td>
-                </tr>
+	function setFilter(patch: Record<string, string | undefined>) {
+		navigate({ search: (prev) => ({ ...prev, ...patch, page: undefined }) });
+	}
 
-                {/* Linha 2 */}
-                <tr className="hover:bg-slate-800/20 transition-colors group">
-                  <td className="p-4 font-mono font-bold text-slate-300">#3811-C</td>
-                  <td className="p-4">
-                    <div className="flex items-center gap-2 text-slate-400">
-                      <Calendar className="w-3.5 h-3.5" /> 12 Jun, 09:30
-                    </div>
-                  </td>
-                  <td className="p-4 font-semibold text-white">Alagamento de Via Pública</td>
-                  <td className="p-4">
-                    <div className="flex items-center gap-2 text-slate-400">
-                      <MapPin className="w-3.5 h-3.5" /> Cruzeiro Celeste, João Monlevade
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-                      Finalizado
-                    </span>
-                  </td>
-                  <td className="p-4 text-center">
-                    <button 
-                      onClick={() => navigate({ to: '/detalhes-bo' })}
-                      className="text-slate-500 hover:text-blue-500 transition-colors p-1"
-                    >
-                      <Eye className="w-5 h-5" />
-                    </button>
-                  </td>
-                </tr>
+	return (
+		<AppShell title="Arquivo de Ocorrências">
+			<div className="p-4 sm:p-8">
+				<div className="mb-6 flex items-center gap-4 border-slate-800 border-b pb-6">
+					<FileText className="h-7 w-7 text-blue-500" />
+					<div>
+						<h1 className="font-bold text-white text-xl tracking-wide">
+							Gestão e Auditoria de B.O.s
+						</h1>
+						<p className="mt-1 font-semibold text-slate-500 text-sm uppercase tracking-wider">
+							{occurrences.data?.total ?? 0} registro(s) encontrado(s)
+						</p>
+					</div>
+				</div>
 
-                {/* Linha 3 */}
-                <tr className="hover:bg-slate-800/20 transition-colors group">
-                  <td className="p-4 font-mono font-bold text-slate-300">#3810-A</td>
-                  <td className="p-4">
-                    <div className="flex items-center gap-2 text-slate-400">
-                      <Calendar className="w-3.5 h-3.5" /> 11 Jun, 21:15
-                    </div>
-                  </td>
-                  <td className="p-4 font-semibold text-white">Acidente de Trânsito</td>
-                  <td className="p-4">
-                    <div className="flex items-center gap-2 text-slate-400">
-                      <MapPin className="w-3.5 h-3.5" /> Centro, João Monlevade
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-                      Finalizado
-                    </span>
-                  </td>
-                  <td className="p-4 text-center">
-                    <button 
-                      onClick={() => navigate({ to: '/detalhes-bo' })}
-                      className="text-slate-500 hover:text-blue-500 transition-colors p-1"
-                    >
-                      <Eye className="w-5 h-5" />
-                    </button>
-                  </td>
-                </tr>
+				<div className="mb-6 flex flex-col gap-4 rounded-xl border border-slate-800 bg-slate-900 p-4 lg:flex-row">
+					<div className="relative flex-1">
+						<Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-500" />
+						<input
+							type="text"
+							value={searchInput}
+							onChange={(event) => setSearchInput(event.target.value)}
+							placeholder="Buscar por protocolo, título ou endereço..."
+							className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 pl-9 text-slate-200 text-sm outline-none transition-colors focus:border-blue-500"
+						/>
+					</div>
 
-              </tbody>
-            </table>
-          </div>
+					<div className="flex gap-4">
+						<select
+							value={status ?? ""}
+							onChange={(event) =>
+								setFilter({ status: event.target.value || undefined })
+							}
+							className="w-44 rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-slate-300 text-sm outline-none focus:border-blue-500"
+						>
+							<option value="">Todos os Status</option>
+							{Object.entries(OCCURRENCE_STATUS).map(([value, badge]) => (
+								<option key={value} value={value}>
+									{badge.label}
+								</option>
+							))}
+						</select>
 
-          {/* PAGINAÇÃO */}
-          <div className="p-4 border-t border-slate-800 bg-slate-900/50 flex items-center justify-between text-sm text-slate-400">
-            <div>
-              Mostrando <span className="text-white font-bold">1</span> a <span className="text-white font-bold">3</span> de <span className="text-white font-bold">124</span> registros
-            </div>
-            <div className="flex gap-2">
-              <button className="p-1.5 rounded bg-slate-950 border border-slate-800 hover:text-white transition-colors disabled:opacity-50" disabled>
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button className="p-1.5 rounded bg-slate-950 border border-slate-800 hover:text-white transition-colors">
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
+						<select
+							value={typeId ?? ""}
+							onChange={(event) =>
+								setFilter({ typeId: event.target.value || undefined })
+							}
+							className="w-52 rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-slate-300 text-sm outline-none focus:border-blue-500"
+						>
+							<option value="">Todas as Categorias</option>
+							{types.data?.map((type) => (
+								<option key={type.id} value={type.id}>
+									{type.name}
+								</option>
+							))}
+						</select>
+					</div>
+				</div>
 
-      </div>
-    </div>
-  );
+				<div className="flex flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
+					<div className="overflow-x-auto">
+						<table className="w-full border-collapse text-left">
+							<thead>
+								<tr className="border-slate-800 border-b bg-slate-950/50 font-bold text-[10px] text-slate-500 uppercase tracking-wider">
+									<th className="p-4">Protocolo</th>
+									<th className="p-4">Data e Hora</th>
+									<th className="p-4">Ocorrência</th>
+									<th className="p-4">Endereço</th>
+									<th className="p-4">Prioridade</th>
+									<th className="p-4">Status</th>
+									<th className="p-4 text-center">Ações</th>
+								</tr>
+							</thead>
+							<tbody className="divide-y divide-slate-800/50 text-sm">
+								{occurrences.isLoading && (
+									<tr>
+										<td colSpan={7} className="p-8 text-center text-slate-500">
+											Carregando registros...
+										</td>
+									</tr>
+								)}
+
+								{occurrences.data?.items.length === 0 && (
+									<tr>
+										<td colSpan={7} className="p-8 text-center text-slate-500">
+											Nenhuma ocorrência encontrada com os filtros atuais.
+										</td>
+									</tr>
+								)}
+
+								{occurrences.data?.items.map((occurrence) => (
+									<OccurrenceRow key={occurrence.id} occurrence={occurrence} />
+								))}
+							</tbody>
+						</table>
+					</div>
+
+					<Pagination
+						page={page}
+						pageSize={PAGE_SIZE}
+						total={occurrences.data?.total ?? 0}
+						onPageChange={(next) =>
+							navigate({ search: (prev) => ({ ...prev, page: next }) })
+						}
+					/>
+				</div>
+			</div>
+		</AppShell>
+	);
+}
+
+function OccurrenceRow({
+	occurrence,
+}: {
+	occurrence: {
+		id: string;
+		protocol: string;
+		openedAt: string;
+		title: string;
+		addressLine: string;
+		priority: keyof typeof OCCURRENCE_PRIORITY;
+		status: OccurrenceStatus;
+	};
+}) {
+	const navigate = useNavigate();
+	const status = OCCURRENCE_STATUS[occurrence.status];
+	const priority = OCCURRENCE_PRIORITY[occurrence.priority];
+
+	return (
+		<tr className="group transition-colors hover:bg-slate-800/20">
+			<td className="p-4 font-bold font-mono text-slate-300">
+				{occurrence.protocol}
+			</td>
+			<td className="p-4">
+				<div className="flex items-center gap-2 text-slate-400">
+					<Calendar className="h-3.5 w-3.5" />{" "}
+					{formatDateTime(occurrence.openedAt)}
+				</div>
+			</td>
+			<td className="p-4 font-semibold text-white">{occurrence.title}</td>
+			<td className="p-4">
+				<div className="flex items-center gap-2 text-slate-400">
+					<MapPin className="h-3.5 w-3.5" /> {occurrence.addressLine}
+				</div>
+			</td>
+			<td className="p-4">
+				<StatusBadge label={priority.label} className={priority.className} />
+			</td>
+			<td className="p-4">
+				<StatusBadge label={status.label} className={status.className} />
+			</td>
+			<td className="p-4 text-center">
+				<button
+					type="button"
+					onClick={() =>
+						navigate({
+							to: "/detalhes-bo/$occurrenceId",
+							params: { occurrenceId: occurrence.id },
+						})
+					}
+					className="p-1 text-slate-500 transition-colors hover:text-blue-500"
+					title="Ver detalhes"
+				>
+					<Eye className="h-5 w-5" />
+				</button>
+			</td>
+		</tr>
+	);
 }

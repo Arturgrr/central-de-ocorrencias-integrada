@@ -1,0 +1,16 @@
+{
+	"type": "object",
+	"properties": {
+		"id": { "type": "string" },
+		"name": { "type": "string" },
+		"email": { "type": "string" },
+		"role": {
+			"type": "string",
+			"enum": ["admin", "attendant", "agent", "citizen"],
+			"x-readme-ref-name": "Role"
+		}
+	},
+	"required": ["id", "name", "email", "role"],
+	"additionalProperties": false,
+	"x-readme-ref-name": "UserRef"
+}

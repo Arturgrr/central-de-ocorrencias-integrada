@@ -21,21 +21,123 @@ A **Central de Ocorrência Integrada (COI)** é um sistema web full-stack desenv
 ## 🚀 Tecnologias Utilizadas
 
 ### Frontend
-- React
-- Vite
+- React 19 + Vite
+- TanStack Router (roteamento com guardas por perfil) e TanStack Query (cache de dados)
+- Tailwind CSS
 
 ### Backend
-- Node.js
-- TypeScript
+- Node.js + TypeScript
+- Fastify com validação Zod ponta a ponta (`fastify-type-provider-zod`)
+- better-auth (sessão por cookie httpOnly, senha com hash e controle de perfis)
+- Drizzle ORM
+
+### Contrato de API
+- **OpenAPI 3.0** gerado a partir dos schemas Zod das rotas
+- **Kubb** gerando o SDK do frontend: tipos TypeScript, validadores Zod e hooks do TanStack Query
 
 ### Banco de Dados
 - PostgreSQL
+
+### Infraestrutura
+- Docker multi-stage + docker compose (Postgres, migrações, API e frontend)
 
 ---
 
 ## 📖 Objetivo
 
 O objetivo deste projeto é desenvolver uma aplicação web completa, integrando frontend e backend, com foco em boas práticas de desenvolvimento, organização de código e escalabilidade.
+
+---
+
+## 🧱 Arquitetura
+
+O repositório é um monorepo pnpm + Turborepo:
+
+```
+apps/
+  server/   API Fastify (rotas, controllers e repositórios)
+  web/      SPA React (telas + SDK gerado em src/gen)
+packages/
+  db/       schema Drizzle e conexão com o Postgres
+  auth/     configuração do better-auth
+  env/      validação das variáveis de ambiente (servidor e web)
+  ui/       componentes compartilhados
+docker/     nginx + entrypoint de configuração em runtime do frontend
+```
+
+### O contrato de API é a fonte da verdade
+
+O frontend não escreve chamadas HTTP à mão. O fluxo é:
+
+```
+schemas Zod das rotas  →  apps/server/openapi.json  →  Kubb  →  apps/web/src/gen
+   (fastify)                (OpenAPI 3.0)                       (tipos + zod + hooks)
+```
+
+1. Cada rota do Fastify declara `body`, `querystring`, `params` e `response` com Zod.
+2. Os schemas de entidade são registrados com `.meta({ id })`, o que os publica em
+   `components/schemas` do OpenAPI — assim `Occurrence`, `Vehicle`, `Citizen` etc.
+   viram um único tipo reutilizável em vez de estruturas duplicadas.
+3. `pnpm generate:api` serializa o documento e roda o Kubb.
+4. As telas consomem hooks tipados (`useListOccurrences`, `useCreateOccurrence`, …)
+   que validam a resposta com Zod em tempo de execução.
+
+Consequência prática: **mudou o backend, o frontend para de compilar** até ser
+ajustado. Não existe divergência silenciosa entre cliente e servidor.
+
+> ⚠️ Tudo em `apps/web/src/gen` é gerado. Não edite manualmente — rode `pnpm generate:api`.
+
+A documentação interativa da API fica em `http://localhost:3000/docs` (Scalar).
+
+---
+
+## ▶️ Como Executar
+
+### Opção 1 — Docker (recomendado para a apresentação)
+
+```bash
+cp .env.example .env      # ajuste as URLs e o segredo, se necessário
+docker compose up -d --build
+
+# popula o banco com dados de demonstração
+docker compose run --rm migrate pnpm --filter server db:seed
+```
+
+- Frontend: `http://localhost:3001`
+- API: `http://localhost:3000`
+- Documentação da API: `http://localhost:3000/docs`
+
+Todas as URLs e credenciais vêm de variáveis de ambiente (`.env`). A URL da API
+usada pelo navegador é injetada **em tempo de execução** no container do
+frontend, então apontar o sistema para outro domínio é só trocar
+`VITE_SERVER_URL` e reiniciar — sem rebuild da imagem.
+
+### Opção 2 — Desenvolvimento local
+
+```bash
+pnpm install
+cp .env.example apps/server/.env   # ajuste DATABASE_URL para localhost
+
+pnpm db:start     # sobe o Postgres via docker
+pnpm db:push      # aplica o schema
+pnpm db:seed      # dados de demonstração
+pnpm dev          # API em :3000 e web em :3001
+```
+
+Depois de alterar qualquer rota ou schema do backend:
+
+```bash
+pnpm generate:api   # regenera o openapi.json e o SDK do frontend
+```
+
+### Credenciais de demonstração (criadas pelo seed)
+
+| E-mail | Senha | Perfil |
+|---|---|---|
+| `admin@coi.gov.br` | `admin12345` | Administrador |
+| `atendente@coi.gov.br` | `atendente123` | Atendente |
+| `oliveira@coi.gov.br` | `agente12345` | Agente |
+| `cidadao@exemplo.com` | `cidadao12345` | Cidadão |
 
 ---
 ## 🧑‍💻 Atores e Autenticação
@@ -98,7 +200,7 @@ Abaixo estão listadas as telas desenvolvidas para a validação do escopo do si
 ## 🔒 Requisitos Não Funcionais & Segurança
 * **Responsividade (Mobile-First):** Interface do Agente otimizada para uso em smartphones no campo, enquanto o painel do Atendente é focado em navigation desktop.
 * **Segurança e LGPD:** Criptografia de senhas (Bcrypt) e proteção de rotas (JWT), garantindo a privacidade dos dados pessoais dos munícipes cadastrados.
-* **Resiliência a Falhas (Offline-First para Agentes):** Capacidade de salvar laudos e fotos localmente no dispositivo do agente caso haja queda de internet em áreas de desastre, sincronizando automaticamente com o PostgreSQL quando a conexão for reestabelecida.
+* **Contrato de API Tipado:** A API expõe um documento OpenAPI 3.1 gerado a partir dos schemas Zod do backend, e o frontend consome esse contrato através de código gerado pelo **Kubb** (tipos TypeScript, validadores Zod e hooks TanStack Query), eliminando divergência entre cliente e servidor.
 
 ## 📱 Notificações e Mensageria
 * **Alertas de Status:** Atualizações no painel para que os Atendentes saibam instantaneamente quando um Agente chega ao local ou finaliza uma ocorrência.

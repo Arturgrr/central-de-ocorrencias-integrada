@@ -11,6 +11,7 @@ export async function listCities(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Geo"],
+				operationId: "listCities",
 				summary: "List cities",
 				security: [{ cookieAuth: [] }],
 				response: {

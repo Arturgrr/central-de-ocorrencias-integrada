@@ -12,6 +12,7 @@ export async function getLatestVehicleLocation(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Vehicles"],
+				operationId: "getLatestVehicleLocation",
 				summary: "Get a vehicle's latest location",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

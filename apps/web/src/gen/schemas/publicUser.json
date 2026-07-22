@@ -1,0 +1,31 @@
+{
+	"type": "object",
+	"properties": {
+		"id": { "type": "string" },
+		"name": { "type": "string" },
+		"email": { "type": "string" },
+		"role": {
+			"type": "string",
+			"enum": ["admin", "attendant", "agent", "citizen"],
+			"x-readme-ref-name": "Role"
+		},
+		"phone": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"registrationNumber": {
+			"anyOf": [{ "type": "string" }, { "type": "null" }]
+		},
+		"image": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+		"createdAt": { "type": "string" }
+	},
+	"required": [
+		"id",
+		"name",
+		"email",
+		"role",
+		"phone",
+		"registrationNumber",
+		"image",
+		"createdAt"
+	],
+	"additionalProperties": false,
+	"x-readme-ref-name": "PublicUser"
+}

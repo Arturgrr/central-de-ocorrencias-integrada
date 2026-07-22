@@ -8,7 +8,8 @@
     "build": "vite build",
     "serve": "vite preview",
     "start": "vite",
-    "check-types": "vite build && tsc --noEmit"
+    "check-types": "vite build && tsc --noEmit",
+    "generate:api": "kubb generate"
   },
   "dependencies": {
     "@eng-soft1/env": "workspace:*",
@@ -16,6 +17,8 @@
     "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/vite": "^4.2.2",
     "@tanstack/react-form": "^1.28.0",
+    "@tanstack/react-query": "^5.101.4",
+    "@tanstack/react-query-devtools": "^5.101.4",
     "@tanstack/react-router": "^1.168.22",
     "better-auth": "catalog:",
     "dotenv": "catalog:",
@@ -28,6 +31,13 @@
   },
   "devDependencies": {
     "@eng-soft1/config": "workspace:*",
+    "@kubb/cli": "^4.39.2",
+    "@kubb/core": "^4.39.2",
+    "@kubb/plugin-client": "^4.39.2",
+    "@kubb/plugin-oas": "^4.39.2",
+    "@kubb/plugin-react-query": "^4.39.2",
+    "@kubb/plugin-ts": "^4.39.2",
+    "@kubb/plugin-zod": "^4.39.2",
     "@tanstack/react-router-devtools": "^1.166.13",
     "@tanstack/router-plugin": "^1.167.22",
     "@types/node": "catalog:",

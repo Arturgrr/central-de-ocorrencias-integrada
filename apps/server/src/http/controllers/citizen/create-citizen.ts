@@ -11,6 +11,7 @@ export async function createCitizen(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Citizens"],
+				operationId: "createCitizen",
 				summary: "Create a citizen",
 				security: [{ cookieAuth: [] }],
 				body: createCitizenBody,

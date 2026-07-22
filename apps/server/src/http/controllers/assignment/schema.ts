@@ -1,27 +1,33 @@
 import { z } from "zod";
 import { assignmentStatusSchema } from "../../schemas/common";
 
-export const assignmentSchema = z.object({
-	id: z.string().uuid(),
-	occurrenceId: z.string().uuid(),
-	vehicleId: z.string().uuid().nullable(),
-	agentUserId: z.string().nullable(),
-	assignedByUserId: z.string(),
-	status: assignmentStatusSchema,
-	assignedAt: z.string(),
-	acceptedAt: z.string().nullable(),
-	arrivedAt: z.string().nullable(),
-	completedAt: z.string().nullable(),
-});
+export const assignmentSchema = z
+	.object({
+		id: z.string().uuid(),
+		occurrenceId: z.string().uuid(),
+		vehicleId: z.string().uuid().nullable(),
+		agentUserId: z.string().nullable(),
+		assignedByUserId: z.string(),
+		status: assignmentStatusSchema,
+		assignedAt: z.string(),
+		acceptedAt: z.string().nullable(),
+		arrivedAt: z.string().nullable(),
+		completedAt: z.string().nullable(),
+	})
+	.meta({ id: "Assignment" });
 
-export const createAssignmentBody = z.object({
-	vehicleId: z.string().uuid().optional(),
-	agentUserId: z.string().optional(),
-});
+export const createAssignmentBody = z
+	.object({
+		vehicleId: z.string().uuid().optional(),
+		agentUserId: z.string().optional(),
+	})
+	.meta({ id: "CreateAssignment" });
 
-export const updateAssignmentStatusBody = z.object({
-	status: assignmentStatusSchema,
-});
+export const updateAssignmentStatusBody = z
+	.object({
+		status: assignmentStatusSchema,
+	})
+	.meta({ id: "UpdateAssignmentStatus" });
 
 export const assignmentIdParamSchema = z.object({
 	assignmentId: z.string().uuid(),

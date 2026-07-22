@@ -12,6 +12,7 @@ export async function deleteOccurrence(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Occurrences"],
+				operationId: "deleteOccurrence",
 				summary: "Delete an occurrence",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

@@ -13,6 +13,17 @@
     "check-types": {
       "dependsOn": ["^check-types"]
     },
+    "generate:openapi": {
+      "cache": false,
+      "outputs": ["openapi.json"]
+    },
+    "generate:api": {
+      "cache": false,
+      "outputs": ["src/gen/**"]
+    },
+    "db:seed": {
+      "cache": false
+    },
     "dev": {
       "cache": false,
       "persistent": true

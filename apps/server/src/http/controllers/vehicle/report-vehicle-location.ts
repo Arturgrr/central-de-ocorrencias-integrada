@@ -17,6 +17,7 @@ export async function reportVehicleLocation(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Vehicles"],
+				operationId: "reportVehicleLocation",
 				summary: "Report a vehicle's location",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

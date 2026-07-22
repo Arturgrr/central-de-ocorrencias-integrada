@@ -1,4 +1,4 @@
-import { and, count, desc, eq, sql } from "@eng-soft1/db";
+import { and, count, desc, eq, ilike, or, sql } from "@eng-soft1/db";
 import { occurrence } from "@eng-soft1/db/schema";
 import db from "../database-service";
 
@@ -43,6 +43,9 @@ export type ListOccurrencesOptions = {
 	status?: OccurrenceStatus;
 	typeId?: string;
 	priority?: OccurrencePriority;
+	citizenId?: string;
+	openedByUserId?: string;
+	search?: string;
 	page: number;
 	pageSize: number;
 };
@@ -99,6 +102,21 @@ export class OccurrenceRepository {
 		}
 		if (opts.priority) {
 			filters.push(eq(occurrence.priority, opts.priority));
+		}
+		if (opts.citizenId) {
+			filters.push(eq(occurrence.citizenId, opts.citizenId));
+		}
+		if (opts.openedByUserId) {
+			filters.push(eq(occurrence.openedByUserId, opts.openedByUserId));
+		}
+		if (opts.search) {
+			const term = `%${opts.search}%`;
+			const match = or(
+				ilike(occurrence.protocol, term),
+				ilike(occurrence.title, term),
+				ilike(occurrence.addressLine, term),
+			);
+			if (match) filters.push(match);
 		}
 		const where = filters.length > 0 ? and(...filters) : undefined;
 

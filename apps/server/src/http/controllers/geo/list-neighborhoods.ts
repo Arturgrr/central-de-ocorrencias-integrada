@@ -11,6 +11,7 @@ export async function listNeighborhoods(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Geo"],
+				operationId: "listNeighborhoods",
 				summary: "List neighborhoods",
 				security: [{ cookieAuth: [] }],
 				querystring: z.object({

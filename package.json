@@ -20,6 +20,9 @@
     "db:watch": "turbo -F @eng-soft1/db db:watch",
     "db:stop": "turbo -F @eng-soft1/db db:stop",
     "db:down": "turbo -F @eng-soft1/db db:down",
+    "db:seed": "turbo -F server db:seed",
+    "generate:openapi": "turbo -F server generate:openapi",
+    "generate:api": "pnpm generate:openapi && pnpm --filter web generate:api",
     "check": "biome check --write ."
   },
   "dependencies": {

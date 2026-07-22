@@ -16,6 +16,7 @@ export async function setVehicleStatus(app: FastifyInstance) {
 		{
 			schema: {
 				tags: ["Vehicles"],
+				operationId: "setVehicleStatus",
 				summary: "Update a vehicle's status",
 				security: [{ cookieAuth: [] }],
 				params: idParamSchema,

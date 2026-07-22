@@ -1,0 +1,5 @@
+{
+	"type": "string",
+	"enum": ["assigned", "accepted", "arrived", "completed", "cancelled"],
+	"x-readme-ref-name": "AssignmentStatus"
+}

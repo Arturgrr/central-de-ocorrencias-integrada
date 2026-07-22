@@ -1,153 +1,76 @@
 import { z } from "zod";
 import {
-	assignmentStatusSchema,
 	occurrencePrioritySchema,
 	occurrenceStatusSchema,
-	roleSchema,
-	timelineEventTypeSchema,
-	vehicleStatusSchema,
 } from "../../schemas/common";
+import { assignmentSchema } from "../assignment/schema";
+import { attachmentSchema } from "../attachment/schema";
+import { citizenSchema } from "../citizen/schema";
+import { citySchema, neighborhoodSchema } from "../geo/schema";
+import { occurrenceTypeSchema } from "../occurrence-type/schema";
+import { timelineEventSchema } from "../timeline/schema";
+import { userRefSchema } from "../user/schema";
+import { vehicleSchema } from "../vehicle/schema";
 
-export const occurrenceSummarySchema = z.object({
-	id: z.string().uuid(),
-	protocol: z.string(),
-	citizenId: z.string().uuid().nullable(),
-	typeId: z.string().uuid(),
-	openedByUserId: z.string(),
-	closedByUserId: z.string().nullable(),
-	status: occurrenceStatusSchema,
-	priority: occurrencePrioritySchema,
-	title: z.string(),
-	description: z.string().nullable(),
-	addressLine: z.string(),
-	cityId: z.string().uuid().nullable(),
-	neighborhoodId: z.string().uuid().nullable(),
-	latitude: z.string().nullable(),
-	longitude: z.string().nullable(),
-	openedAt: z.string(),
-	closedAt: z.string().nullable(),
-	createdAt: z.string(),
-	updatedAt: z.string(),
-});
+export const occurrenceSummarySchema = z
+	.object({
+		id: z.string().uuid(),
+		protocol: z.string(),
+		citizenId: z.string().uuid().nullable(),
+		typeId: z.string().uuid(),
+		openedByUserId: z.string(),
+		closedByUserId: z.string().nullable(),
+		status: occurrenceStatusSchema,
+		priority: occurrencePrioritySchema,
+		title: z.string(),
+		description: z.string().nullable(),
+		addressLine: z.string(),
+		cityId: z.string().uuid().nullable(),
+		neighborhoodId: z.string().uuid().nullable(),
+		latitude: z.string().nullable(),
+		longitude: z.string().nullable(),
+		openedAt: z.string(),
+		closedAt: z.string().nullable(),
+		createdAt: z.string(),
+		updatedAt: z.string(),
+	})
+	.meta({ id: "OccurrenceSummary" });
 
-const userRefSchema = z.object({
-	id: z.string(),
-	name: z.string(),
-	email: z.string(),
-	role: roleSchema,
-});
+const assignmentWithResourcesSchema = assignmentSchema
+	.extend({
+		vehicle: vehicleSchema.nullable(),
+		agent: userRefSchema.nullable(),
+	})
+	.meta({ id: "AssignmentWithResources" });
 
-const citizenRefSchema = z.object({
-	id: z.string().uuid(),
-	name: z.string(),
-	phone: z.string(),
-	document: z.string().nullable(),
-	addressLine: z.string().nullable(),
-	neighborhood: z.string().nullable(),
-	city: z.string().nullable(),
-	state: z.string().nullable(),
-	postalCode: z.string().nullable(),
-	isActive: z.boolean(),
-	createdAt: z.string(),
-	updatedAt: z.string(),
-});
+export const occurrenceDetailSchema = occurrenceSummarySchema
+	.extend({
+		citizen: citizenSchema.nullable(),
+		type: occurrenceTypeSchema,
+		city: citySchema.nullable(),
+		neighborhood: neighborhoodSchema.nullable(),
+		openedBy: userRefSchema,
+		closedBy: userRefSchema.nullable(),
+		assignments: z.array(assignmentWithResourcesSchema),
+		timelineEvents: z.array(timelineEventSchema),
+		attachments: z.array(attachmentSchema),
+	})
+	.meta({ id: "OccurrenceDetail" });
 
-const typeRefSchema = z.object({
-	id: z.string().uuid(),
-	name: z.string(),
-	description: z.string().nullable(),
-	priority: z.number().int(),
-	isActive: z.boolean(),
-	createdAt: z.string(),
-	updatedAt: z.string(),
-});
-
-const cityRefSchema = z.object({
-	id: z.string().uuid(),
-	name: z.string(),
-	state: z.string(),
-	createdAt: z.string(),
-	updatedAt: z.string(),
-});
-
-const neighborhoodRefSchema = z.object({
-	id: z.string().uuid(),
-	cityId: z.string().uuid(),
-	name: z.string(),
-	createdAt: z.string(),
-	updatedAt: z.string(),
-});
-
-const vehicleRefSchema = z.object({
-	id: z.string().uuid(),
-	code: z.string(),
-	plate: z.string(),
-	model: z.string().nullable(),
-	status: vehicleStatusSchema,
-	createdAt: z.string(),
-	updatedAt: z.string(),
-});
-
-const assignmentRefSchema = z.object({
-	id: z.string().uuid(),
-	occurrenceId: z.string().uuid(),
-	vehicleId: z.string().uuid().nullable(),
-	agentUserId: z.string().nullable(),
-	assignedByUserId: z.string(),
-	status: assignmentStatusSchema,
-	assignedAt: z.string(),
-	acceptedAt: z.string().nullable(),
-	arrivedAt: z.string().nullable(),
-	completedAt: z.string().nullable(),
-	vehicle: vehicleRefSchema.nullable(),
-	agent: userRefSchema.nullable(),
-});
-
-const timelineEventRefSchema = z.object({
-	id: z.string().uuid(),
-	occurrenceId: z.string().uuid(),
-	createdByUserId: z.string().nullable(),
-	type: timelineEventTypeSchema,
-	description: z.string(),
-	metadata: z.string().nullable(),
-	createdAt: z.string(),
-});
-
-const attachmentRefSchema = z.object({
-	id: z.string().uuid(),
-	occurrenceId: z.string().uuid(),
-	uploadedByUserId: z.string().nullable(),
-	fileName: z.string(),
-	fileUrl: z.string(),
-	mimeType: z.string(),
-	description: z.string().nullable(),
-	createdAt: z.string(),
-});
-
-export const occurrenceDetailSchema = occurrenceSummarySchema.extend({
-	citizen: citizenRefSchema.nullable(),
-	type: typeRefSchema,
-	city: cityRefSchema.nullable(),
-	neighborhood: neighborhoodRefSchema.nullable(),
-	openedBy: userRefSchema,
-	closedBy: userRefSchema.nullable(),
-	assignments: z.array(assignmentRefSchema),
-	timelineEvents: z.array(timelineEventRefSchema),
-	attachments: z.array(attachmentRefSchema),
-});
-
-export const createOccurrenceBody = z.object({
-	typeId: z.string().uuid(),
-	title: z.string().min(1),
-	addressLine: z.string().min(1),
-	citizenId: z.string().uuid().optional(),
-	description: z.string().optional(),
-	priority: occurrencePrioritySchema.optional(),
-	cityId: z.string().uuid().optional(),
-	neighborhoodId: z.string().uuid().optional(),
-	latitude: z.number().optional(),
-	longitude: z.number().optional(),
-});
+export const createOccurrenceBody = z
+	.object({
+		typeId: z.string().uuid(),
+		title: z.string().min(1),
+		addressLine: z.string().min(1),
+		citizenId: z.string().uuid().optional(),
+		description: z.string().optional(),
+		priority: occurrencePrioritySchema.optional(),
+		cityId: z.string().uuid().optional(),
+		neighborhoodId: z.string().uuid().optional(),
+		latitude: z.number().optional(),
+		longitude: z.number().optional(),
+	})
+	.meta({ id: "CreateOccurrence" });
 
 export const updateOccurrenceBody = z
 	.object({
@@ -163,7 +86,8 @@ export const updateOccurrenceBody = z
 		citizenId: z.string().uuid().nullable(),
 		typeId: z.string().uuid(),
 	})
-	.partial();
+	.partial()
+	.meta({ id: "UpdateOccurrence" });
 
 type OccurrenceRow = {
 	id: string;

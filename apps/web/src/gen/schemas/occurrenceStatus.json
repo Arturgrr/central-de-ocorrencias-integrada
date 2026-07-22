@@ -1,0 +1,5 @@
+{
+	"type": "string",
+	"enum": ["open", "dispatched", "in_progress", "resolved", "cancelled"],
+	"x-readme-ref-name": "OccurrenceStatus"
+}

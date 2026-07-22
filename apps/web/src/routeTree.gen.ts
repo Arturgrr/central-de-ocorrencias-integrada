@@ -11,14 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PortalCidadaoRouteImport } from './routes/portal-cidadao'
 import { Route as NovoBoRouteImport } from './routes/novo-bo'
-import { Route as LoginRouteImport } from './routes/login'
 import { Route as HistoricoBosRouteImport } from './routes/historico-bos'
 import { Route as EquipesRouteImport } from './routes/equipes'
-import { Route as DetalhesBoRouteImport } from './routes/detalhes-bo'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CentralMidiaRouteImport } from './routes/central-midia'
 import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DetalhesBoOccurrenceIdRouteImport } from './routes/detalhes-bo.$occurrenceId'
 
 const PortalCidadaoRoute = PortalCidadaoRouteImport.update({
   id: '/portal-cidadao',
@@ -30,11 +29,6 @@ const NovoBoRoute = NovoBoRouteImport.update({
   path: '/novo-bo',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const HistoricoBosRoute = HistoricoBosRouteImport.update({
   id: '/historico-bos',
   path: '/historico-bos',
@@ -43,11 +37,6 @@ const HistoricoBosRoute = HistoricoBosRouteImport.update({
 const EquipesRoute = EquipesRouteImport.update({
   id: '/equipes',
   path: '/equipes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DetalhesBoRoute = DetalhesBoRouteImport.update({
-  id: '/detalhes-bo',
-  path: '/detalhes-bo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -70,30 +59,33 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DetalhesBoOccurrenceIdRoute = DetalhesBoOccurrenceIdRouteImport.update({
+  id: '/detalhes-bo/$occurrenceId',
+  path: '/detalhes-bo/$occurrenceId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
   '/central-midia': typeof CentralMidiaRoute
   '/dashboard': typeof DashboardRoute
-  '/detalhes-bo': typeof DetalhesBoRoute
   '/equipes': typeof EquipesRoute
   '/historico-bos': typeof HistoricoBosRoute
-  '/login': typeof LoginRoute
   '/novo-bo': typeof NovoBoRoute
   '/portal-cidadao': typeof PortalCidadaoRoute
+  '/detalhes-bo/$occurrenceId': typeof DetalhesBoOccurrenceIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
   '/central-midia': typeof CentralMidiaRoute
   '/dashboard': typeof DashboardRoute
-  '/detalhes-bo': typeof DetalhesBoRoute
   '/equipes': typeof EquipesRoute
   '/historico-bos': typeof HistoricoBosRoute
-  '/login': typeof LoginRoute
   '/novo-bo': typeof NovoBoRoute
   '/portal-cidadao': typeof PortalCidadaoRoute
+  '/detalhes-bo/$occurrenceId': typeof DetalhesBoOccurrenceIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -101,12 +93,11 @@ export interface FileRoutesById {
   '/cadastro': typeof CadastroRoute
   '/central-midia': typeof CentralMidiaRoute
   '/dashboard': typeof DashboardRoute
-  '/detalhes-bo': typeof DetalhesBoRoute
   '/equipes': typeof EquipesRoute
   '/historico-bos': typeof HistoricoBosRoute
-  '/login': typeof LoginRoute
   '/novo-bo': typeof NovoBoRoute
   '/portal-cidadao': typeof PortalCidadaoRoute
+  '/detalhes-bo/$occurrenceId': typeof DetalhesBoOccurrenceIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -115,36 +106,33 @@ export interface FileRouteTypes {
     | '/cadastro'
     | '/central-midia'
     | '/dashboard'
-    | '/detalhes-bo'
     | '/equipes'
     | '/historico-bos'
-    | '/login'
     | '/novo-bo'
     | '/portal-cidadao'
+    | '/detalhes-bo/$occurrenceId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/cadastro'
     | '/central-midia'
     | '/dashboard'
-    | '/detalhes-bo'
     | '/equipes'
     | '/historico-bos'
-    | '/login'
     | '/novo-bo'
     | '/portal-cidadao'
+    | '/detalhes-bo/$occurrenceId'
   id:
     | '__root__'
     | '/'
     | '/cadastro'
     | '/central-midia'
     | '/dashboard'
-    | '/detalhes-bo'
     | '/equipes'
     | '/historico-bos'
-    | '/login'
     | '/novo-bo'
     | '/portal-cidadao'
+    | '/detalhes-bo/$occurrenceId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -152,12 +140,11 @@ export interface RootRouteChildren {
   CadastroRoute: typeof CadastroRoute
   CentralMidiaRoute: typeof CentralMidiaRoute
   DashboardRoute: typeof DashboardRoute
-  DetalhesBoRoute: typeof DetalhesBoRoute
   EquipesRoute: typeof EquipesRoute
   HistoricoBosRoute: typeof HistoricoBosRoute
-  LoginRoute: typeof LoginRoute
   NovoBoRoute: typeof NovoBoRoute
   PortalCidadaoRoute: typeof PortalCidadaoRoute
+  DetalhesBoOccurrenceIdRoute: typeof DetalhesBoOccurrenceIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -176,13 +163,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NovoBoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/historico-bos': {
       id: '/historico-bos'
       path: '/historico-bos'
@@ -195,13 +175,6 @@ declare module '@tanstack/react-router' {
       path: '/equipes'
       fullPath: '/equipes'
       preLoaderRoute: typeof EquipesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/detalhes-bo': {
-      id: '/detalhes-bo'
-      path: '/detalhes-bo'
-      fullPath: '/detalhes-bo'
-      preLoaderRoute: typeof DetalhesBoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -232,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/detalhes-bo/$occurrenceId': {
+      id: '/detalhes-bo/$occurrenceId'
+      path: '/detalhes-bo/$occurrenceId'
+      fullPath: '/detalhes-bo/$occurrenceId'
+      preLoaderRoute: typeof DetalhesBoOccurrenceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -240,12 +220,11 @@ const rootRouteChildren: RootRouteChildren = {
   CadastroRoute: CadastroRoute,
   CentralMidiaRoute: CentralMidiaRoute,
   DashboardRoute: DashboardRoute,
-  DetalhesBoRoute: DetalhesBoRoute,
   EquipesRoute: EquipesRoute,
   HistoricoBosRoute: HistoricoBosRoute,
-  LoginRoute: LoginRoute,
   NovoBoRoute: NovoBoRoute,
   PortalCidadaoRoute: PortalCidadaoRoute,
+  DetalhesBoOccurrenceIdRoute: DetalhesBoOccurrenceIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
