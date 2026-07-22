@@ -162,38 +162,37 @@ O sistema conta com um módulo de Autenticação e Controle de Acesso (Login), g
 
 Abaixo estão listadas as telas desenvolvidas para a validação do escopo do sistema. Para renderizar os prints no GitHub, salve as imagens na pasta correspondente dentro do seu projeto (ex: `apps/web/public/assets/screenshots/` ou na raiz em `assets/screenshots/`) com os mesmos nomes indicados nos campos abaixo.
 
+https://www.figma.com/design/upMswzOSzyzCrZGXgbhubx/COI---Central-de-Ocorrencias-Integrada---Eng.-Software-1?node-id=4-10&p=f&t=dU7tr8aIsryo2BFo-0
+
 ### 🚪 Módulo de Autenticação e Acesso
 * **Tela de Login Institucional**
-<img width="1363" height="689" alt="Captura de tela de 2026-07-01 22-42-45" src="https://github.com/user-attachments/assets/6f2eb337-b928-44a2-829f-243857bf1b5a" />
+<img width="903" height="580" alt="Captura de Tela 2026-07-22 às 13 53 01" src="https://github.com/user-attachments/assets/90003ae8-e0be-4e17-8549-64f26dedd9c4" />
 
 * **Tela de Cadastro (Perfis Dinâmicos de Cidadão / Agente)**
- <img width="1363" height="689" alt="Captura de tela de 2026-07-01 22-55-34" src="https://github.com/user-attachments/assets/c933406c-f426-468b-a5d5-072908af67ea" />
+<img width="900" height="582" alt="Captura de Tela 2026-07-22 às 13 53 17" src="https://github.com/user-attachments/assets/0c19dcba-b7a9-4605-bac0-96a0129051e3" />
 
 
 ### 🚨 Visão Pública (Munícipe)
 * **Portal de Proteção e Atendimento ao Cidadão**
-<img width="1363" height="689" alt="Captura de tela de 2026-07-01 22-56-12" src="https://github.com/user-attachments/assets/b90fee12-766b-4d81-83ee-31750bda458a" />
+<img width="840" height="550" alt="Captura de Tela 2026-07-22 às 13 53 37" src="https://github.com/user-attachments/assets/279ff3ac-c3aa-4de1-aa9c-ea5b36baf32e" />
 
 
 ### 🛡️ Operação e Despacho Tático (Central COI)
 * **Dashboard Principal (Painel de Controle & Monitoramento)**
-<img width="1363" height="689" alt="Captura de tela de 2026-07-01 22-56-52" src="https://github.com/user-attachments/assets/f6d2cde2-6550-428b-a8c0-e2340a452bc7" />
+<img width="736" height="480" alt="Captura de Tela 2026-07-22 às 13 54 20" src="https://github.com/user-attachments/assets/db0bbbcc-18a5-4e1c-9509-0f90e903e8dd" />
 
 * **Novo Registro de Ocorrência (Formulário do Atendente)**
- <img width="1363" height="689" alt="Captura de tela de 2026-07-01 22-57-21" src="https://github.com/user-attachments/assets/745e8da3-c9ac-4a49-bbb8-395c116b7f42" />
+<img width="744" height="485" alt="Captura de Tela 2026-07-22 às 13 54 33" src="https://github.com/user-attachments/assets/b1a35c77-86c6-4996-babd-ed30d3f72b6c" />
 
 * **Painel de Detalhes da Ocorrência (Linha do Tempo e Ações)**
-<img width="1363" height="689" alt="Captura de tela de 2026-07-01 22-57-58" src="https://github.com/user-attachments/assets/271d2469-fdf9-4d6f-ac06-93ad625a72d7" />
+<img width="727" height="475" alt="Captura de Tela 2026-07-22 às 13 54 46" src="https://github.com/user-attachments/assets/4c26c200-175b-4f84-8566-a201abcf0e9a" />
 
 ### 🚓 Gestão de Recursos, Auditoria e Evidências
 * **Controle de Viaturas & Agentes (Efetivo Operacional)**
-<img width="1363" height="689" alt="Captura de tela de 2026-07-01 22-58-30" src="https://github.com/user-attachments/assets/3e03bd25-050f-4016-b940-de906b563542" />
+<img width="771" height="506" alt="Captura de Tela 2026-07-22 às 13 55 01" src="https://github.com/user-attachments/assets/5f5ae5f6-a16d-4147-8f86-7a9d134df142" />
 
 * **Arquivo Geral de Ocorrências (Data Grid Administrativo com Filtros)**
-<img width="1363" height="689" alt="Captura de tela de 2026-07-01 22-58-55" src="https://github.com/user-attachments/assets/77dc27f9-d27c-4e20-af33-482dc8373e8e" />
-
-* **Central de Mídia e Evidências (Repositório de Arquivos Vinculados)**
- <img width="1363" height="689" alt="Captura de tela de 2026-07-01 22-59-26" src="https://github.com/user-attachments/assets/8b6dff98-a9fc-45fb-aee4-5bf5e2bd6411" />
+<img width="765" height="509" alt="Captura de Tela 2026-07-22 às 13 55 14" src="https://github.com/user-attachments/assets/c7607260-a34f-42c6-aa9a-3a8beedd85e8" />
 
 ---
 
