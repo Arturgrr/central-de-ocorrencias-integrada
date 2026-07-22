@@ -7,8 +7,14 @@ export const env = createEnv({
 		DATABASE_URL: z.string().min(1),
 		BETTER_AUTH_SECRET: z.string().min(32),
 		BETTER_AUTH_URL: z.url(),
-		CORS_ORIGIN: z.url(),
+		CORS_ORIGIN: z.url().optional(),
 		PORT: z.coerce.number().default(3000),
+		WEB_ROOT: z.string().optional(),
+		MIGRATIONS_PATH: z.string().optional(),
+		RUN_MIGRATIONS: z
+			.enum(["true", "false"])
+			.transform((value) => value === "true")
+			.optional(),
 		NODE_ENV: z
 			.enum(["development", "production", "test"])
 			.default("development"),

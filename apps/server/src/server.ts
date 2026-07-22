@@ -1,7 +1,15 @@
+import { runMigrations } from "@eng-soft1/db/migrate";
 import { env } from "@eng-soft1/env/server";
 import { createApp } from "./http/app";
 
 async function main() {
+	try {
+		await runMigrations();
+	} catch (err) {
+		console.error("[db] falha ao aplicar as migrations", err);
+		process.exit(1);
+	}
+
 	const app = await createApp();
 
 	try {
